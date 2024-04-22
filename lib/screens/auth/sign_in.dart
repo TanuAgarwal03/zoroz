@@ -1,0 +1,145 @@
+import 'package:country_code_picker/country_code_picker.dart';
+import 'package:flutter/material.dart';
+import 'package:clickcart/utils/constants/colors.dart';
+
+
+class SignIn extends StatelessWidget {
+
+  const SignIn({ super.key });
+  
+  @override
+  Widget build(BuildContext context){
+    
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Login"),
+        actions: [
+          TextButton(
+            onPressed: () { 
+              Navigator.pushNamed(context, '/main_home');
+            },
+            child: Text('Skip',
+                    style: Theme.of(context).textTheme.bodyLarge?.merge(const TextStyle(
+                        color: Colors.white,
+                        decoration: TextDecoration.underline,
+                        decorationColor: Colors.white,
+                      )
+                    )),
+          )
+        ],
+      ),
+      body: Container(
+        color: IKColors.primary,
+        width: double.infinity,
+        height: double.infinity,
+        child : Card(
+          margin: EdgeInsets.zero,
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(topLeft: Radius.circular(10.0),topRight: Radius.circular(10.0)), // Adjust the radius as needed
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                flex: 1,
+                child : Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 30),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Text('Unlock personalized content \ntailored just for you',
+                        style : Theme.of(context).textTheme.headlineMedium,
+                      ),
+                      const SizedBox(height: 12),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text('Enter Mobile number',
+                            style: Theme.of(context).textTheme.labelMedium,
+                          ),
+                          Text('Use Email Id',
+                            style: Theme.of(context).textTheme.labelSmall?.merge(const TextStyle(color: IKColors.primary)),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 12),
+                      TextField(
+                        decoration: InputDecoration(
+                          hintText: 'Phone number',
+                          contentPadding: const EdgeInsets.all(18),
+                          prefixIcon: const SizedBox(
+                            height: 50,
+                            width: 125,
+                            child: CountryCodePicker(
+                              onChanged: print,
+                              showFlagMain: true,
+                              initialSelection: 'IN',
+                              alignLeft: true,
+                              padding: EdgeInsets.all(0),
+                            ),
+                          ),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Theme.of(context).dividerColor,width: 2.0),
+                          ),
+                          focusedBorder: const UnderlineInputBorder(
+                            borderSide: BorderSide(color: IKColors.primary,width: 2.0)
+                          )
+                        ),
+                        keyboardType: TextInputType.phone,
+                        style: Theme.of(context).textTheme.headlineMedium?.merge(const TextStyle(fontWeight: FontWeight.w400)),
+                      ),
+                      const SizedBox(height: 12),
+                      RichText(
+                        text: TextSpan(
+                          text: "By continuing, you agree to ClickCart's",
+                          style: Theme.of(context).textTheme.titleMedium?.merge(const TextStyle(fontWeight: FontWeight.w400)),
+                          children: const <TextSpan>[
+                            TextSpan(text: ' Terms of Use',style: TextStyle(color: IKColors.primary,fontWeight: FontWeight.w600)),
+                            TextSpan(text: ' and'),
+                            TextSpan(text: ' Privacy Policy.',style: TextStyle(color: IKColors.primary,fontWeight: FontWeight.w600)),
+                          ],
+                        ),
+                      )
+                    ]
+                  ),
+                )
+              ),
+              Padding(
+                padding: const EdgeInsets.all(15),
+                child:  Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    RichText(
+                      textAlign: TextAlign.center,
+                      text: TextSpan(
+                        text: "Not a member?",
+                        style: Theme.of(context).textTheme.titleMedium?.merge(const TextStyle(fontWeight: FontWeight.w400)),
+                        children: const <TextSpan>[
+                          TextSpan(text: ' Create an account',style: TextStyle(color: IKColors.primary,fontWeight: FontWeight.w600)),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 12,
+                    ),
+                    ElevatedButton(
+                      onPressed: () { 
+                        Navigator.pushNamed(context, '/otp');
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: IKColors.secondary,
+                        side: const BorderSide(color: IKColors.secondary),
+                        foregroundColor: IKColors.title
+                      ),
+                      child: const Text('Continue'),
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
