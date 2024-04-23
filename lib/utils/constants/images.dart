@@ -11,6 +11,8 @@ class IKImages {
 
   //banner
   static const String banner1  = "assets/images/banner/banner1.png";
+  static const String offerShoes  = "assets/images/banner/shoes.png";
+  static const String offerBag  = "assets/images/banner/bag.png";
   
   //category
   static const String cat1  = "assets/images/category/cat1.jpg";

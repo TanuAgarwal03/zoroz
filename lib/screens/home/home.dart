@@ -1,7 +1,9 @@
 import 'package:clickcart/components/category/category_item.dart';
 import 'package:clickcart/components/home/category_list.dart';
+import 'package:clickcart/components/home/offer_card.dart';
 import 'package:clickcart/components/product/product_card.dart';
 import 'package:clickcart/components/home/service_list.dart';
+import 'package:clickcart/utils/constants/colors.dart';
 import 'package:clickcart/utils/constants/images.dart';
 import 'package:flutter/material.dart';
 
@@ -188,8 +190,33 @@ class Home extends StatelessWidget {
                 ),
               ),
             ),
-            Padding(
+            const Padding(
               padding: EdgeInsets.symmetric(vertical: 15),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: OfferCard(
+                      image: IKImages.offerBag,
+                      title: 'Best Deal For Ladies Purse',
+                      offerTxt : 'null',
+                      subtitleColor : Color(0xFF8F5C44),
+                      background : Color(0xFFFFEEE1),
+                      subtitle: 'Starting form 299',
+                    ),
+                  ),
+                  SizedBox(width: 5),
+                  Expanded(
+                    child: OfferCard(
+                      image: IKImages.offerShoes,
+                      title: 'Sports Shoes',
+                      offerTxt : 'Up to 25% OFF',
+                      subtitleColor : IKColors.primary,
+                      background : Color(0xFFffffff),
+                      subtitle: 'New Arrivals',
+                    ),
+                  ),
+                ],
+              ),
             ),
           ],
         ),
