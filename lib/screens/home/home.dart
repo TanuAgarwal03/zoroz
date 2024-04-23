@@ -204,7 +204,8 @@ class Home extends StatelessWidget {
                       subtitle: 'Starting form 299',
                     ),
                   ),
-                   SizedBox(width: 5),
+                  // SizedBox(width: 5),
+                  SizedBox(width: 5),
                   Expanded(
                     child: OfferCard(
                       image: IKImages.offerShoes,
