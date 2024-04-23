@@ -218,6 +218,31 @@ class Home extends StatelessWidget {
                 ],
               ),
             ),
+            Container(
+              color: Theme.of(context).cardColor,
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Text('Blockbuster deals',style: Theme.of(context).textTheme.headlineMedium)
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Text('Offer Ends in',style: Theme.of(context).textTheme.bodySmall),
+                            Text('09 : 32 : 45',style: Theme.of(context).textTheme.titleLarge?.merge(const TextStyle(color: IKColors.primary))),
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                  
+                ],
+              ),
+            ),
           ],
         ),
       ),
