@@ -66,6 +66,7 @@ flutter:
     - assets/images/flags/
     - assets/images/category/
     - assets/images/product/
+    - assets/images/product/detail/
     - assets/images/banner/
 
   # An image asset can refer to one or more resolution-specific "variants", see

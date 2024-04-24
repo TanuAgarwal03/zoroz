@@ -1,6 +1,5 @@
 import 'package:clickcart/components/category/category_item.dart';
 import 'package:clickcart/components/home/category_list.dart';
-import 'package:clickcart/components/home/offer_card.dart';
 import 'package:clickcart/components/product/product_card.dart';
 import 'package:clickcart/components/home/service_list.dart';
 import 'package:clickcart/utils/constants/colors.dart';
@@ -194,27 +193,9 @@ class Home extends StatelessWidget {
               padding: EdgeInsets.symmetric(vertical: 15),
               child: Row(
                 children: [
-                  Expanded(
-                    child: OfferCard(
-                      image: IKImages.offerBag,
-                      title: 'Best Deal For Ladies Purse',
-                      offerTxt : 'null',
-                      subtitleColor : Color(0xFF8F5C44),
-                      background : Color(0xFFFFEEE1),
-                      subtitle: 'Starting form 299',
-                    ),
-                  ),
+                  // Expanded(),
                   SizedBox(width: 5),
-                  Expanded(
-                    child: OfferCard(
-                      image: IKImages.offerShoes,
-                      title: 'Sports Shoes',
-                      offerTxt : 'Up to 25% OFF',
-                      subtitleColor : IKColors.primary,
-                      background : Color(0xFFffffff),
-                      subtitle: 'New Arrivals',
-                    ),
-                  ),
+                  // Expanded(),
                 ],
               ),
             ),
@@ -222,7 +203,10 @@ class Home extends StatelessWidget {
               color: Theme.of(context).cardColor,
               child: Column(
                 children: [
-                  Padding(
+                  Container(
+                    decoration: BoxDecoration(
+                      border: Border(bottom: BorderSide(width: 1,color: Theme.of(context).dividerColor))
+                    ),
                     padding: const EdgeInsets.all(15.0),
                     child: Row(
                       children: [
@@ -239,7 +223,107 @@ class Home extends StatelessWidget {
                       ],
                     ),
                   ),
-                  
+                  Row(
+                    children: [
+                      Expanded(
+                        flex: 8,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            border: Border(right: BorderSide(width: 1,color: Theme.of(context).dividerColor))
+                          ),
+                          padding: const EdgeInsets.all(15.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('Headphone',style: Theme.of(context).textTheme.titleSmall?.merge(const TextStyle(color: IKColors.primary))),
+                              const SizedBox(height: 3),
+                              Text('OnePlus Bullets Wireless Z2 Headphone',maxLines: 1,overflow: TextOverflow.ellipsis,style: Theme.of(context).textTheme.titleMedium),
+                              const SizedBox(height: 4),
+                              Row(
+                                children: [
+                                  Text('105',style: Theme.of(context).textTheme.headlineMedium),
+                                  const SizedBox(width: 6),
+                                  Text('112',style: Theme.of(context).textTheme.bodySmall?.merge(const TextStyle(decoration: TextDecoration.lineThrough))),
+                                ],
+                              ),
+                              AspectRatio(
+                                aspectRatio: 1.5/1,
+                                child:Image.asset(IKImages.productDetail1,fit: BoxFit.contain),
+                              ),
+                              const SizedBox(height: 10),
+                              Row(
+                                children: [
+                                  const Spacer(flex: 1),
+                                  Expanded(
+                                    child:Container(
+                                      padding: const EdgeInsets.all(4),
+                                      decoration: BoxDecoration(
+                                        border: Border.all(width: 1,color: Theme.of(context).dividerColor),
+                                        borderRadius: BorderRadius.circular(4),
+                                      ),
+                                      child: AspectRatio(
+                                        aspectRatio: 1/1,
+                                        child: Image.asset(IKImages.productDetail1,fit: BoxFit.contain),
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(width: 5),
+                                  Expanded(
+                                    child:Container(
+                                      padding: const EdgeInsets.all(4),
+                                      decoration: BoxDecoration(
+                                        border: Border.all(width: 1,color: Theme.of(context).dividerColor),
+                                        borderRadius: BorderRadius.circular(4),
+                                      ),
+                                      child: AspectRatio(
+                                        aspectRatio: 1/1,
+                                        child: Image.asset(IKImages.productDetail2,fit: BoxFit.contain),
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(width: 5),
+                                  Expanded(
+                                    child:Container(
+                                      padding: const EdgeInsets.all(4),
+                                      decoration: BoxDecoration(
+                                        border: Border.all(width: 1,color: Theme.of(context).dividerColor),
+                                        borderRadius: BorderRadius.circular(4),
+                                      ),
+                                      child: AspectRatio(
+                                        aspectRatio: 1/1,
+                                        child: Image.asset(IKImages.productDetail3,fit: BoxFit.contain),
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(width: 5),
+                                  Expanded(
+                                    child:Container(
+                                      padding: const EdgeInsets.all(4),
+                                      decoration: BoxDecoration(
+                                        border: Border.all(width: 1,color: Theme.of(context).dividerColor),
+                                        borderRadius: BorderRadius.circular(4),
+                                      ),
+                                      child: AspectRatio(
+                                        aspectRatio: 1/1,
+                                        child: Image.asset(IKImages.productDetail4,fit: BoxFit.contain),
+                                      ),
+                                    ),
+                                  ),
+                                  const Spacer(flex: 1),
+                                ],
+                              )
+                            ],
+                          ),
+                        )
+                      ),
+                      Expanded(
+                        flex: 4,
+                        child: Container(
+                          color: IKColors.primary,
+                        )
+                      ),
+                    ],
+                  )
                 ],
               ),
             ),

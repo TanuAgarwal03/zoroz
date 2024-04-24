@@ -22,6 +22,12 @@ class IKImages {
   //product
   static const String product1  = "assets/images/product/pic1.jpg";
 
+  //product detail
+  static const String productDetail1  = "assets/images/product/detail/pic1.png";
+  static const String productDetail2  = "assets/images/product/detail/pic2.png";
+  static const String productDetail3  = "assets/images/product/detail/pic3.png";
+  static const String productDetail4  = "assets/images/product/detail/pic4.png";
+
   //flags
   static const String americaFlag  = "assets/images/flags/america.png";
   static const String indiaFlag  = "assets/images/flags/india.png";
