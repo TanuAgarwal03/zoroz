@@ -9,6 +9,9 @@ class IKImages {
   static const String dailyOffer  = "assets/images/daily-offer.png";
   static const String ktEssential  = "assets/images/kitchen-essential.png";
 
+  //background
+  static const String bannerBg  = "assets/images/background/bg1.png";
+
   //banner
   static const String banner1  = "assets/images/banner/banner1.png";
   static const String banner2  = "assets/images/banner/banner2.png";
@@ -18,6 +21,7 @@ class IKImages {
   static const String banner6  = "assets/images/banner/banner6.png";
   static const String offerShoes  = "assets/images/banner/shoes.png";
   static const String offerBag  = "assets/images/banner/bag.png";
+  static const String offerEarbuds  = "assets/images/banner/earbuds.png";
   
   //category
   static const String cat1  = "assets/images/category/cat1.jpg";

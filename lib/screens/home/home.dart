@@ -1,4 +1,5 @@
 import 'package:clickcart/components/category/category_item.dart';
+import 'package:clickcart/components/home/banner_swiper.dart';
 import 'package:clickcart/components/home/blockbuster_deals.dart';
 import 'package:clickcart/components/home/category_list.dart';
 import 'package:clickcart/components/home/home_decor.dart';
@@ -86,6 +87,7 @@ final List<String> items = List.generate(20, (index) => 'Item $index');
         child : Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            BannerSwiper(),
             const SizedBox(height: 10.0),
             Container(
               color: Theme.of(context).cardColor,
@@ -100,7 +102,7 @@ final List<String> items = List.generate(20, (index) => 'Item $index');
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 15),
+              padding: const EdgeInsets.symmetric(vertical: 10),
               child: Row(
                 children: [
                   Expanded(
@@ -228,7 +230,6 @@ final List<String> items = List.generate(20, (index) => 'Item $index');
             const HomeDecor(),
             SponserdList(),
             CategoryList(),
-            
           ],
         ),
       ),
