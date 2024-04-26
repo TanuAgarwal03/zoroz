@@ -1,14 +1,18 @@
 import 'package:clickcart/components/category/category_item.dart';
+import 'package:clickcart/components/home/blockbuster_deals.dart';
 import 'package:clickcart/components/home/category_list.dart';
+import 'package:clickcart/components/home/home_decor.dart';
+import 'package:clickcart/components/home/sponserd_list.dart';
 import 'package:clickcart/components/product/product_card.dart';
 import 'package:clickcart/components/home/service_list.dart';
-import 'package:clickcart/utils/constants/colors.dart';
 import 'package:clickcart/utils/constants/images.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatelessWidget {
 
   Home({ super.key });
+
+final List<String> items = List.generate(20, (index) => 'Item $index');
 
   final List<Map<String, String>> categoryItems = [
     {'title': 'Mobiles', 'image': IKImages.cat1},
@@ -95,7 +99,21 @@ class Home extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(height: 10.0),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 15),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Image.asset(IKImages.banner5),
+                  ),
+                  const SizedBox(width: 6),
+                  Expanded(
+                    child: Image.asset(IKImages.banner6),
+                  ),
+                  // Expanded(),
+                ],
+              ),
+            ),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 10),
               color: Theme.of(context).cardColor,
@@ -189,144 +207,28 @@ class Home extends StatelessWidget {
                 ),
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.symmetric(vertical: 15),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 15),
               child: Row(
                 children: [
-                  // Expanded(),
-                  SizedBox(width: 5),
-                  // Expanded(),
-                ],
-              ),
-            ),
-            Container(
-              color: Theme.of(context).cardColor,
-              child: Column(
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      border: Border(bottom: BorderSide(width: 1,color: Theme.of(context).dividerColor))
-                    ),
-                    padding: const EdgeInsets.all(15.0),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: Text('Blockbuster deals',style: Theme.of(context).textTheme.headlineMedium)
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Text('Offer Ends in',style: Theme.of(context).textTheme.bodySmall),
-                            Text('09 : 32 : 45',style: Theme.of(context).textTheme.titleLarge?.merge(const TextStyle(color: IKColors.primary))),
-                          ],
-                        )
-                      ],
-                    ),
+                  Expanded(
+                    child: Image.asset(IKImages.banner4),
                   ),
-                  Row(
-                    children: [
-                      Expanded(
-                        flex: 8,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            border: Border(right: BorderSide(width: 1,color: Theme.of(context).dividerColor))
-                          ),
-                          padding: const EdgeInsets.all(15.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text('Headphone',style: Theme.of(context).textTheme.titleSmall?.merge(const TextStyle(color: IKColors.primary))),
-                              const SizedBox(height: 3),
-                              Text('OnePlus Bullets Wireless Z2 Headphone',maxLines: 1,overflow: TextOverflow.ellipsis,style: Theme.of(context).textTheme.titleMedium),
-                              const SizedBox(height: 4),
-                              Row(
-                                children: [
-                                  Text('105',style: Theme.of(context).textTheme.headlineMedium),
-                                  const SizedBox(width: 6),
-                                  Text('112',style: Theme.of(context).textTheme.bodySmall?.merge(const TextStyle(decoration: TextDecoration.lineThrough))),
-                                ],
-                              ),
-                              AspectRatio(
-                                aspectRatio: 1.5/1,
-                                child:Image.asset(IKImages.productDetail1,fit: BoxFit.contain),
-                              ),
-                              const SizedBox(height: 10),
-                              Row(
-                                children: [
-                                  const Spacer(flex: 1),
-                                  Expanded(
-                                    child:Container(
-                                      padding: const EdgeInsets.all(4),
-                                      decoration: BoxDecoration(
-                                        border: Border.all(width: 1,color: Theme.of(context).dividerColor),
-                                        borderRadius: BorderRadius.circular(4),
-                                      ),
-                                      child: AspectRatio(
-                                        aspectRatio: 1/1,
-                                        child: Image.asset(IKImages.productDetail1,fit: BoxFit.contain),
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(width: 5),
-                                  Expanded(
-                                    child:Container(
-                                      padding: const EdgeInsets.all(4),
-                                      decoration: BoxDecoration(
-                                        border: Border.all(width: 1,color: Theme.of(context).dividerColor),
-                                        borderRadius: BorderRadius.circular(4),
-                                      ),
-                                      child: AspectRatio(
-                                        aspectRatio: 1/1,
-                                        child: Image.asset(IKImages.productDetail2,fit: BoxFit.contain),
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(width: 5),
-                                  Expanded(
-                                    child:Container(
-                                      padding: const EdgeInsets.all(4),
-                                      decoration: BoxDecoration(
-                                        border: Border.all(width: 1,color: Theme.of(context).dividerColor),
-                                        borderRadius: BorderRadius.circular(4),
-                                      ),
-                                      child: AspectRatio(
-                                        aspectRatio: 1/1,
-                                        child: Image.asset(IKImages.productDetail3,fit: BoxFit.contain),
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(width: 5),
-                                  Expanded(
-                                    child:Container(
-                                      padding: const EdgeInsets.all(4),
-                                      decoration: BoxDecoration(
-                                        border: Border.all(width: 1,color: Theme.of(context).dividerColor),
-                                        borderRadius: BorderRadius.circular(4),
-                                      ),
-                                      child: AspectRatio(
-                                        aspectRatio: 1/1,
-                                        child: Image.asset(IKImages.productDetail4,fit: BoxFit.contain),
-                                      ),
-                                    ),
-                                  ),
-                                  const Spacer(flex: 1),
-                                ],
-                              )
-                            ],
-                          ),
-                        )
-                      ),
-                      Expanded(
-                        flex: 4,
-                        child: Container(
-                          color: IKColors.primary,
-                        )
-                      ),
-                    ],
-                  )
+                  const SizedBox(width: 6),
+                  Expanded(
+                    child: Image.asset(IKImages.banner3),
+                  ),
+                  // Expanded(),
                 ],
               ),
             ),
+            const BlockbusterDeals(),
+            const SizedBox(height: 12),
+            Image.asset(IKImages.banner2,width: double.infinity),
+            const HomeDecor(),
+            SponserdList(),
+            CategoryList(),
+            
           ],
         ),
       ),

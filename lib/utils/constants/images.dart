@@ -11,6 +11,11 @@ class IKImages {
 
   //banner
   static const String banner1  = "assets/images/banner/banner1.png";
+  static const String banner2  = "assets/images/banner/banner2.png";
+  static const String banner3  = "assets/images/banner/banner3.png";
+  static const String banner4  = "assets/images/banner/banner4.png";
+  static const String banner5  = "assets/images/banner/banner5.png";
+  static const String banner6  = "assets/images/banner/banner6.png";
   static const String offerShoes  = "assets/images/banner/shoes.png";
   static const String offerBag  = "assets/images/banner/bag.png";
   
@@ -21,6 +26,19 @@ class IKImages {
   
   //product
   static const String product1  = "assets/images/product/pic1.jpg";
+  static const String product2  = "assets/images/product/pic2.png";
+  static const String product3  = "assets/images/product/pic3.png";
+  static const String product4  = "assets/images/product/pic4.png";
+  static const String product5  = "assets/images/product/pic5.png";
+  static const String product6  = "assets/images/product/pic6.png";
+  static const String product7  = "assets/images/product/pic7.png";
+  static const String product8  = "assets/images/product/pic8.png";
+
+  //sponsored
+  static const String sponsored1  = "assets/images/sponsored/pic1.png";
+  static const String sponsored2  = "assets/images/sponsored/pic2.png";
+  static const String sponsored3  = "assets/images/sponsored/pic3.png";
+  static const String sponsored4  = "assets/images/sponsored/pic4.png";
 
   //product detail
   static const String productDetail1  = "assets/images/product/detail/pic1.png";
