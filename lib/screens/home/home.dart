@@ -4,6 +4,7 @@ import 'package:clickcart/components/home/blockbuster_deals.dart';
 import 'package:clickcart/components/home/category_list.dart';
 import 'package:clickcart/components/home/home_decor.dart';
 import 'package:clickcart/components/home/sponserd_list.dart';
+import 'package:clickcart/components/home/tag_swiper.dart';
 import 'package:clickcart/components/product/product_card.dart';
 import 'package:clickcart/components/home/service_list.dart';
 import 'package:clickcart/utils/constants/images.dart';
@@ -59,6 +60,7 @@ final List<String> items = List.generate(20, (index) => 'Item $index');
     },
   ];
 
+
   @override
   Widget build(BuildContext context){
     return Scaffold(
@@ -87,6 +89,7 @@ final List<String> items = List.generate(20, (index) => 'Item $index');
         child : Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            const TagSwiper(),
             BannerSwiper(),
             const SizedBox(height: 10.0),
             Container(
@@ -230,6 +233,39 @@ final List<String> items = List.generate(20, (index) => 'Item $index');
             const HomeDecor(),
             SponserdList(),
             CategoryList(),
+            // SliverGrid(
+            //   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+            //   delegate: SliverChildListDelegate(
+            //     [
+            //       Image.network('https://picsum.photos/250?image=1'),
+            //       Image.network('https://picsum.photos/250?image=1'),
+            //       Image.network('https://picsum.photos/250?image=1'),
+            //       Image.network('https://picsum.photos/250?image=1'),
+            //       Image.network('https://picsum.photos/250?image=1'),
+            //     ],
+            //   ),
+            // ),
+            // GridView.count(
+            //   crossAxisCount: 2,
+            //   children: <Widget>[
+            //     Image.network('https://picsum.photos/250?image=1'),
+            //     Image.network('https://picsum.photos/250?image=1'),
+            //     Image.network('https://picsum.photos/250?image=1'),
+            //     Image.network('https://picsum.photos/250?image=1'),
+            //     Image.network('https://picsum.photos/250?image=1'),
+            //   ],
+            // )
+            // GridView(
+            //   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            //     crossAxisCount: 3,
+            //   ),
+            //   children: [
+            //     Image.network('https://picsum.photos/250?image=1'),
+            //     Image.network('https://picsum.photos/250?image=2'),
+            //     Image.network('https://picsum.photos/250?image=3'),
+            //     Image.network('https://picsum.photos/250?image=4'),
+            //   ],
+            // )
           ],
         ),
       ),
