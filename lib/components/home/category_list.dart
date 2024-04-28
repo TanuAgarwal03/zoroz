@@ -12,16 +12,16 @@ class CategoryList extends StatelessWidget {
       'title' : 'Fashion',
     },
     {
-      'image' : IKImages.cat01,
-      'title' : 'Fashion',
+      'image' : IKImages.cat02,
+      'title' : 'Beauty',
     },
     {
-      'image' : IKImages.cat01,
-      'title' : 'Fashion',
+      'image' : IKImages.cat03,
+      'title' : 'Home',
     },
     {
-      'image' : IKImages.cat01,
-      'title' : 'Fashion',
+      'image' : IKImages.cat04,
+      'title' : 'Mobile',
     },
     {
       'image' : IKImages.cat01,

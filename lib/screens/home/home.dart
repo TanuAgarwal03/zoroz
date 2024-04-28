@@ -18,11 +18,11 @@ final List<String> items = List.generate(20, (index) => 'Item $index');
 
   final List<Map<String, String>> categoryItems = [
     {'title': 'Mobiles', 'image': IKImages.cat1},
-    {'title': 'Electronics', 'image': IKImages.cat1},
-    {'title': 'Camera', 'image': IKImages.cat1},
-    {'title': 'Headphone', 'image': IKImages.cat1},
-    {'title': 'TVs & LED', 'image': IKImages.cat1},
-    {'title': 'Furniture', 'image': IKImages.cat1},
+    {'title': 'Electronics', 'image': IKImages.cat2},
+    {'title': 'Camera', 'image': IKImages.cat3},
+    {'title': 'Headphone', 'image': IKImages.cat4},
+    {'title': 'TVs & LED', 'image': IKImages.cat5},
+    {'title': 'Furniture', 'image': IKImages.cat6},
   ];
 
   final List<Map<String, String>> productItems = [
@@ -37,13 +37,115 @@ final List<String> items = List.generate(20, (index) => 'Item $index');
     {
       'category' : 'Mobile',
       'title': 'APPLE iPhone 14 (Blue ,256gb storage)', 
-      'image': IKImages.product1,
+      'image': IKImages.product10,
       'price' : '105',
       'old-price' : '112',
       'offer' : '70% OFF',
     },
     {
-      'category' : 'Mobile',
+      'category' : 'Earbuds',
+      'title': 'OnePlus Bullets EarBuds', 
+      'image': IKImages.product17,
+      'price' : '105',
+      'old-price' : '112',
+      'offer' : '70% OFF',
+    },
+    {
+      'category' : 'Electronics',
+      'title': 'LG TurboWash Washing machine', 
+      'image': IKImages.product12,
+      'price' : '105',
+      'old-price' : '112',
+      'offer' : '70% OFF',
+    },
+  ];
+
+  final List<Map<String, String>> productItems3 = [
+    {
+      'category' : 'Electronics',
+      'title': 'LG TurboWash Washing machine automatic', 
+      'image': IKImages.product12,
+      'price' : '105',
+      'old-price' : '112',
+      'offer' : '70% OFF',
+    },
+    {
+      'category' : 'Electronics',
+      'title': 'KitchenAid 9-Cup Food', 
+      'image': IKImages.product11,
+      'price' : '105',
+      'old-price' : '112',
+      'offer' : '70% OFF',
+    },
+    {
+      'category' : 'Furniture',
+      'title': 'Wooden chair for kitchen', 
+      'image': IKImages.product7,
+      'price' : '105',
+      'old-price' : '112',
+      'offer' : '70% OFF',
+    },
+    {
+      'category' : 'Electronics',
+      'title': 'LG TurboWash Washing machine', 
+      'image': IKImages.product12,
+      'price' : '105',
+      'old-price' : '112',
+      'offer' : '70% OFF',
+    },
+  ];
+
+  final List<Map<String, String>> productItems2 = [
+    {
+      'title': 'Slim Leather Bifold Wallet in brown colour', 
+      'image': IKImages.product16,
+      'price' : '123',
+      'old-price' : '150',
+      'offer' : '15% OFF',
+    },
+    {
+      'title': 'Denim skinny fit jeans blue colour', 
+      'image': IKImages.product13,
+      'price' : '25',
+      'old-price' : '35',
+      'offer' : '25% OFF',
+    },
+    {
+      'title': 'Sony Bravia OLED TV', 
+      'image': IKImages.product9,
+      'price' : '25',
+      'old-price' : '35',
+      'offer' : '25% OFF',
+    },
+    {
+      'title': 'Polka dot wrap blouse silver', 
+      'image': IKImages.product15,
+      'price' : '105',
+      'old-price' : '112',
+      'offer' : '70% OFF',
+    },
+    {
+      'title': 'Pleated high-waisted red checked', 
+      'image': IKImages.product14,
+      'price' : '105',
+      'old-price' : '112',
+      'offer' : '70% OFF',
+    },
+    {
+      'title': 'LG TurboWash Washing machine', 
+      'image': IKImages.product12,
+      'price' : '105',
+      'old-price' : '112',
+      'offer' : '70% OFF',
+    },
+    {
+      'title': 'Ergonomic Office Chair', 
+      'image': IKImages.product7,
+      'price' : '105',
+      'old-price' : '112',
+      'offer' : '70% OFF',
+    },
+    {
       'title': 'APPLE iPhone 14 (Blue ,256gb storage)', 
       'image': IKImages.product1,
       'price' : '105',
@@ -51,9 +153,29 @@ final List<String> items = List.generate(20, (index) => 'Item $index');
       'offer' : '70% OFF',
     },
     {
-      'category' : 'Mobile',
+      'title': 'KitchenAid 9-Cup Food', 
+      'image': IKImages.product11,
+      'price' : '105',
+      'old-price' : '112',
+      'offer' : '70% OFF',
+    },
+    {
+      'title': 'Engraved Metal Money sofa 4', 
+      'image': IKImages.product5,
+      'price' : '105',
+      'old-price' : '112',
+      'offer' : '70% OFF',
+    },
+    {
+      'title': 'OnePlus Bullets EyeBuds', 
+      'image': IKImages.product17,
+      'price' : '105',
+      'old-price' : '112',
+      'offer' : '70% OFF',
+    },
+    {
       'title': 'APPLE iPhone 14 (Blue ,256gb storage)', 
-      'image': IKImages.product1,
+      'image': IKImages.product10,
       'price' : '105',
       'old-price' : '112',
       'offer' : '70% OFF',
@@ -195,7 +317,7 @@ final List<String> items = List.generate(20, (index) => 'Item $index');
               child: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
-                  children: productItems.map((item) {
+                  children: productItems3.map((item) {
                     return 
                       SizedBox(
                         width: 162,
@@ -233,39 +355,25 @@ final List<String> items = List.generate(20, (index) => 'Item $index');
             const HomeDecor(),
             SponserdList(),
             CategoryList(),
-            // SliverGrid(
-            //   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-            //   delegate: SliverChildListDelegate(
-            //     [
-            //       Image.network('https://picsum.photos/250?image=1'),
-            //       Image.network('https://picsum.photos/250?image=1'),
-            //       Image.network('https://picsum.photos/250?image=1'),
-            //       Image.network('https://picsum.photos/250?image=1'),
-            //       Image.network('https://picsum.photos/250?image=1'),
-            //     ],
-            //   ),
-            // ),
-            // GridView.count(
-            //   crossAxisCount: 2,
-            //   children: <Widget>[
-            //     Image.network('https://picsum.photos/250?image=1'),
-            //     Image.network('https://picsum.photos/250?image=1'),
-            //     Image.network('https://picsum.photos/250?image=1'),
-            //     Image.network('https://picsum.photos/250?image=1'),
-            //     Image.network('https://picsum.photos/250?image=1'),
-            //   ],
-            // )
-            // GridView(
-            //   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            //     crossAxisCount: 3,
-            //   ),
-            //   children: [
-            //     Image.network('https://picsum.photos/250?image=1'),
-            //     Image.network('https://picsum.photos/250?image=2'),
-            //     Image.network('https://picsum.photos/250?image=3'),
-            //     Image.network('https://picsum.photos/250?image=4'),
-            //   ],
-            // )
+            Wrap(
+              children: productItems2.map((item) {
+                return SizedBox(
+                  width: MediaQuery.of(context).size.width > 600 ? 
+                      MediaQuery.of(context).size.width / 3
+                      : 
+                      MediaQuery.of(context).size.width / 2
+                  ,
+                  child: ProductCard(
+                    category: 'null',
+                    title: item['title']!,
+                    image: item['image']!,
+                    price: item['price']!,
+                    oldPrice: item['old-price']!,
+                    offer: item['offer']!,
+                  ),
+                );
+              }).toList(),
+            )
           ],
         ),
       ),

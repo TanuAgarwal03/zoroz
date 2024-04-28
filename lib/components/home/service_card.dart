@@ -1,5 +1,4 @@
 import 'package:clickcart/utils/constants/colors.dart';
-import 'package:clickcart/utils/constants/svg.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -27,7 +26,7 @@ class ServiceCard extends StatelessWidget {
       child: Row(
         children: [
           SvgPicture.string(
-            IKSvg.truck,
+            icon,
             width: 45,
             height: 45,
             color: IKColors.primary,

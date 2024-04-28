@@ -25,8 +25,16 @@ class IKImages {
   
   //category
   static const String cat1  = "assets/images/category/cat1.jpg";
+  static const String cat2  = "assets/images/category/cat2.png";
+  static const String cat3  = "assets/images/category/cat3.png";
+  static const String cat4  = "assets/images/category/cat4.png";
+  static const String cat5  = "assets/images/category/cat5.png";
+  static const String cat6  = "assets/images/category/cat6.png";
 
   static const String cat01  = "assets/images/category/cat01.png";
+  static const String cat02  = "assets/images/category/cat02.png";
+  static const String cat03  = "assets/images/category/cat03.png";
+  static const String cat04  = "assets/images/category/cat04.png";
   
   //product
   static const String product1  = "assets/images/product/pic1.jpg";
@@ -37,6 +45,15 @@ class IKImages {
   static const String product6  = "assets/images/product/pic6.png";
   static const String product7  = "assets/images/product/pic7.png";
   static const String product8  = "assets/images/product/pic8.png";
+  static const String product9  = "assets/images/product/pic9.png";
+  static const String product10  = "assets/images/product/pic10.png";
+  static const String product11  = "assets/images/product/pic11.png";
+  static const String product12  = "assets/images/product/pic12.png";
+  static const String product13  = "assets/images/product/pic13.png";
+  static const String product14  = "assets/images/product/pic14.png";
+  static const String product15  = "assets/images/product/pic15.png";
+  static const String product16  = "assets/images/product/pic16.png";
+  static const String product17  = "assets/images/product/pic17.png";
 
   //sponsored
   static const String sponsored1  = "assets/images/sponsored/pic1.png";

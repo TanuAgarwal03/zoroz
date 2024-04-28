@@ -25,10 +25,14 @@ class ProductCard extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: Theme.of(context).cardColor,
-        border: Border(right: BorderSide(width: 1,color: Theme.of(context).dividerColor))
+        border: Border(
+          right: BorderSide(width: 1,color: Theme.of(context).dividerColor),
+          bottom: BorderSide(width: 1,color: Theme.of(context).dividerColor)
+        )
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           AspectRatio(
             aspectRatio: 1 / .9,
@@ -42,7 +46,8 @@ class ProductCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(category, style: Theme.of(context).textTheme.titleSmall?.merge(const TextStyle(color: IKColors.primary))),
+                if(category != "null")
+                  Text(category, style: Theme.of(context).textTheme.titleSmall?.merge(const TextStyle(color: IKColors.primary))),
                 const SizedBox(height: 3),
                 Text(title,maxLines: 1,overflow: TextOverflow.ellipsis,style: Theme.of(context).textTheme.titleSmall),
                 const SizedBox(height: 4),

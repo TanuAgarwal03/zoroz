@@ -13,14 +13,19 @@ class ServiceList extends StatelessWidget {
       'desc' : 'For all orders over 99',
     },
     {
-      'icon' : IKSvg.truck,
-      'title' : 'Free Shipping & Returns',
-      'desc' : 'For all orders over 99',
+      'icon' : IKSvg.secure,
+      'title' : 'Secure Payment',
+      'desc' : 'We ensure secure payment',
     },
     {
-      'icon' : IKSvg.truck,
-      'title' : 'Free Shipping & Returns',
-      'desc' : 'For all orders over 99',
+      'icon' : IKSvg.money,
+      'title' : 'Money Back Guarantee',
+      'desc' : 'Any back within 30 days',
+    },
+    {
+      'icon' : IKSvg.support,
+      'title' : 'Customer Support',
+      'desc' : 'Call or email us 24/7',
     },
   ];
 
