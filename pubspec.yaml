@@ -38,7 +38,7 @@ dependencies:
   country_code_picker: ^3.0.0
   flutter_svg: ^2.0.10+1
   card_swiper: ^3.0.1
-  marquee: ^2.2.3
+  slide_countdown: ^1.6.1
 
 dev_dependencies:
   flutter_test:

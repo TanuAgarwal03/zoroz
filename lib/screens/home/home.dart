@@ -211,7 +211,7 @@ final List<String> items = List.generate(20, (index) => 'Item $index');
         child : Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const TagSwiper(),
+            TagSwiper(),
             BannerSwiper(),
             const SizedBox(height: 10.0),
             Container(

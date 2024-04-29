@@ -1,8 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:marquee/marquee.dart';
 
 class TagSwiper extends StatelessWidget {
-  const TagSwiper({ super.key });
+
+  TagSwiper({ super.key });
+
+  final List<String> tagItems = [
+    "Deal of the day",
+    "🔥Hot Deals",
+    "Best Sellers",
+    "New Arrivals",
+    "Deal of the day",
+    "🔥Hot Deals",
+    "Best Sellers",
+    "New Arrivals",
+  ];
 
   @override
   Widget build(BuildContext context){
@@ -10,19 +21,18 @@ class TagSwiper extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 10),
       color: Theme.of(context).cardColor,
       height: 40,
-      child: Marquee(
-        text: 'Deal of the day      🔥Hot Deals      Best Sellers      New Arrivals',
-        style: Theme.of(context).textTheme.titleSmall,
-        scrollAxis: Axis.horizontal,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        blankSpace: 15.0,
-        velocity: 100.0,
-        pauseAfterRound: const Duration(seconds: 1),
-        startPadding: 15.0,
-        accelerationDuration: const Duration(seconds: 5),
-        accelerationCurve: Curves.linear,
-        decelerationDuration: const Duration(milliseconds: 1000),
-        decelerationCurve: Curves.easeOut,
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        padding: const EdgeInsets.symmetric(horizontal: 5),
+        child: Row(
+          children: tagItems.map((item) {
+            return 
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Text(item,style: Theme.of(context).textTheme.titleSmall),
+              );
+          }).toList(),
+        )
       ),
     );
   }
