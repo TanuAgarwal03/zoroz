@@ -51,7 +51,7 @@ class BannerSwiper extends StatelessWidget {
                             Text('AirPods',style: Theme.of(context).textTheme.headlineLarge?.merge(const TextStyle(color: Colors.white,fontSize: 35))),
                             Text('2nd generation',style: Theme.of(context).textTheme.titleLarge?.merge(const TextStyle(color: IKColors.secondary))),
                             const SizedBox(height: 6),
-                            Text('1259.00*',style: Theme.of(context).textTheme.titleLarge?.merge(const TextStyle(color: Colors.white))),
+                            Text('\$1259.00*',style: Theme.of(context).textTheme.titleLarge?.merge(const TextStyle(color: Colors.white))),
                             const SizedBox(height: 12),
                             ElevatedButton(
                               onPressed: (){},

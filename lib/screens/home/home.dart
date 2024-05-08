@@ -7,8 +7,10 @@ import 'package:clickcart/components/home/sponserd_list.dart';
 import 'package:clickcart/components/home/tag_swiper.dart';
 import 'package:clickcart/components/product/product_card.dart';
 import 'package:clickcart/components/home/service_list.dart';
+import 'package:clickcart/utils/constants/colors.dart';
 import 'package:clickcart/utils/constants/images.dart';
 import 'package:flutter/material.dart';
+import 'package:slide_countdown/slide_countdown.dart';
 
 class Home extends StatelessWidget {
 
@@ -259,7 +261,8 @@ final List<String> items = List.generate(20, (index) => 'Item $index');
                             Text('Offer Ends in',
                               style: Theme.of(context).textTheme.titleMedium?.merge(const TextStyle(color: Color(0xFFBF0A30))),
                             ),
-                            const SizedBox(width: 10,)
+                            const SizedBox(width: 10),
+                            const OfferCountdown(),
                           ],
                         )
                       ],
@@ -364,7 +367,6 @@ final List<String> items = List.generate(20, (index) => 'Item $index');
                       MediaQuery.of(context).size.width / 2
                   ,
                   child: ProductCard(
-                    category: 'null',
                     title: item['title']!,
                     image: item['image']!,
                     price: item['price']!,
@@ -377,6 +379,60 @@ final List<String> items = List.generate(20, (index) => 'Item $index');
           ],
         ),
       ),
+    );
+  }
+}
+
+
+class OfferCountdown extends StatefulWidget {
+  const OfferCountdown({super.key});
+
+  @override
+  State<OfferCountdown> createState() => _OfferCountdownState();
+}
+
+class _OfferCountdownState extends State<OfferCountdown> {
+  late final StreamDuration _streamDuration;
+
+  @override
+  void initState() {
+    super.initState();
+    _streamDuration = StreamDuration(
+      config: const StreamDurationConfig(
+        countDownConfig: CountDownConfig(
+          duration: Duration(days: 1),
+        ),
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _streamDuration.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        SlideCountdownSeparated(
+          // This duration no effect if you customize stream duration
+          streamDuration: _streamDuration,
+          style: const TextStyle(
+            color: IKColors.title,
+            fontSize: 13,
+            fontWeight: FontWeight.w500
+          ),
+          separatorStyle: const TextStyle(color: IKColors.primary,fontWeight: FontWeight.w500),
+          padding: const EdgeInsets.only(left: 5,right: 5,bottom: 1,top: 1),
+          decoration: const BoxDecoration(
+            color: IKColors.secondary,
+            borderRadius: BorderRadius.all(Radius.circular(4)),
+          ),
+        ),
+      ],
     );
   }
 }

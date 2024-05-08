@@ -1,10 +1,25 @@
 import 'package:clickcart/utils/constants/colors.dart';
 import 'package:clickcart/utils/constants/images.dart';
 import 'package:flutter/material.dart';
+import 'package:slide_countdown/slide_countdown.dart';
 
-class BlockbusterDeals extends StatelessWidget {
+class BlockbusterDeals extends StatefulWidget {
 
   const BlockbusterDeals({ super.key });
+
+  @override
+  State<BlockbusterDeals> createState() => _BlockbusterDealsState();
+}
+
+class _BlockbusterDealsState extends State<BlockbusterDeals> {
+
+  String imagePath = IKImages.productDetail1;
+
+  void changeImage(val) {
+    setState(() {
+      imagePath = val;
+    });
+  }
 
   @override
   Widget build(BuildContext context){
@@ -26,7 +41,8 @@ class BlockbusterDeals extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Text('Offer Ends in',style: Theme.of(context).textTheme.bodySmall),
-                    Text('09 : 32 : 45',style: Theme.of(context).textTheme.titleLarge?.merge(const TextStyle(color: IKColors.primary))),
+                    const OfferCountdown(),
+                    // Text('09 : 32 : 45',style: Theme.of(context).textTheme.titleLarge?.merge(const TextStyle(color: IKColors.primary))),
                   ],
                 )
               ],
@@ -51,71 +67,91 @@ class BlockbusterDeals extends StatelessWidget {
                       const SizedBox(height: 4),
                       Row(
                         children: [
-                          Text('105',style: Theme.of(context).textTheme.headlineMedium),
+                          Text('\$105',style: Theme.of(context).textTheme.headlineMedium),
                           const SizedBox(width: 6),
-                          Text('112',style: Theme.of(context).textTheme.bodySmall?.merge(const TextStyle(decoration: TextDecoration.lineThrough))),
+                          Text('\$112',style: Theme.of(context).textTheme.bodySmall?.merge(const TextStyle(decoration: TextDecoration.lineThrough))),
                         ],
                       ),
                       AspectRatio(
                         aspectRatio: 1.5/1,
-                        child:Image.asset(IKImages.productDetail1,fit: BoxFit.contain),
+                        child:Image.asset(imagePath,fit: BoxFit.contain),
                       ),
                       const SizedBox(height: 10),
                       Row(
                         children: [
                           const Spacer(flex: 1),
                           Expanded(
-                            child:Container(
-                              padding: const EdgeInsets.all(4),
-                              decoration: BoxDecoration(
-                                border: Border.all(width: 1,color: Theme.of(context).dividerColor),
-                                borderRadius: BorderRadius.circular(4),
-                              ),
-                              child: AspectRatio(
-                                aspectRatio: 1/1,
-                                child: Image.asset(IKImages.productDetail1,fit: BoxFit.contain),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(width: 5),
-                          Expanded(
-                            child:Container(
-                              padding: const EdgeInsets.all(4),
-                              decoration: BoxDecoration(
-                                border: Border.all(width: 1,color: Theme.of(context).dividerColor),
-                                borderRadius: BorderRadius.circular(4),
-                              ),
-                              child: AspectRatio(
-                                aspectRatio: 1/1,
-                                child: Image.asset(IKImages.productDetail2,fit: BoxFit.contain),
+                            child: GestureDetector(
+                              onTap: () {
+                                changeImage(IKImages.productDetail1);
+                              },
+                              child:  Container(
+                                padding: const EdgeInsets.all(4),
+                                decoration: BoxDecoration(
+                                  border: Border.all(width: 1,color: Theme.of(context).dividerColor),
+                                  borderRadius: BorderRadius.circular(4),
+                                ),
+                                child: AspectRatio(
+                                  aspectRatio: 1/1,
+                                  child: Image.asset(IKImages.productDetail1,fit: BoxFit.contain),
+                                ),
                               ),
                             ),
                           ),
                           const SizedBox(width: 5),
                           Expanded(
-                            child:Container(
-                              padding: const EdgeInsets.all(4),
-                              decoration: BoxDecoration(
-                                border: Border.all(width: 1,color: Theme.of(context).dividerColor),
-                                borderRadius: BorderRadius.circular(4),
-                              ),
-                              child: AspectRatio(
-                                aspectRatio: 1/1,
-                                child: Image.asset(IKImages.productDetail3,fit: BoxFit.contain),
+                            child: GestureDetector(
+                              onTap: () {
+                                changeImage(IKImages.productDetail2);
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.all(4),
+                                decoration: BoxDecoration(
+                                  border: Border.all(width: 1,color: Theme.of(context).dividerColor),
+                                  borderRadius: BorderRadius.circular(4),
+                                ),
+                                child: AspectRatio(
+                                  aspectRatio: 1/1,
+                                  child: Image.asset(IKImages.productDetail2,fit: BoxFit.contain),
+                                ),
                               ),
                             ),
                           ),
                           const SizedBox(width: 5),
                           Expanded(
-                            child:Container(
-                              padding: const EdgeInsets.all(4),
-                              decoration: BoxDecoration(
-                                border: Border.all(width: 1,color: Theme.of(context).dividerColor),
-                                borderRadius: BorderRadius.circular(4),
+                            child: GestureDetector(
+                              onTap: () {
+                                changeImage(IKImages.productDetail3);
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.all(4),
+                                decoration: BoxDecoration(
+                                  border: Border.all(width: 1,color: Theme.of(context).dividerColor),
+                                  borderRadius: BorderRadius.circular(4),
+                                ),
+                                child: AspectRatio(
+                                  aspectRatio: 1/1,
+                                  child: Image.asset(IKImages.productDetail3,fit: BoxFit.contain),
+                                ),
                               ),
-                              child: AspectRatio(
-                                aspectRatio: 1/1,
-                                child: Image.asset(IKImages.productDetail4,fit: BoxFit.contain),
+                            ),
+                          ),
+                          const SizedBox(width: 5),
+                          Expanded(
+                            child: GestureDetector(
+                              onTap: () {
+                                changeImage(IKImages.productDetail4);
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.all(4),
+                                decoration: BoxDecoration(
+                                  border: Border.all(width: 1,color: Theme.of(context).dividerColor),
+                                  borderRadius: BorderRadius.circular(4),
+                                ),
+                                child: AspectRatio(
+                                  aspectRatio: 1/1,
+                                  child: Image.asset(IKImages.productDetail4,fit: BoxFit.contain),
+                                ),
                               ),
                             ),
                           ),
@@ -166,6 +202,61 @@ class BlockbusterDeals extends StatelessWidget {
           )
         ],
       ),
+    );
+  }
+}
+
+
+
+class OfferCountdown extends StatefulWidget {
+  const OfferCountdown({super.key});
+
+  @override
+  State<OfferCountdown> createState() => _OfferCountdownState();
+}
+
+class _OfferCountdownState extends State<OfferCountdown> {
+  late final StreamDuration _streamDuration;
+
+  @override
+  void initState() {
+    super.initState();
+    _streamDuration = StreamDuration(
+      config: const StreamDurationConfig(
+        countDownConfig: CountDownConfig(
+          duration: Duration(days: 2),
+        ),
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _streamDuration.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        SlideCountdown(
+          // This duration no effect if you customize stream duration
+          streamDuration: _streamDuration,
+          style: const TextStyle(
+            color: IKColors.primary,
+            fontSize: 16,
+            fontWeight: FontWeight.w500
+          ),
+          separatorStyle: const TextStyle(color: IKColors.primary,fontWeight: FontWeight.w500),
+          padding: const EdgeInsets.only(left: 0,right: 0,bottom: 0,top: 3),
+          decoration: const BoxDecoration(
+            color: Colors.transparent,
+            borderRadius: BorderRadius.all(Radius.circular(0)),
+          ),
+        ),
+      ],
     );
   }
 }
