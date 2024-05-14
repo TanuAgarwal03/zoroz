@@ -120,4 +120,21 @@ class IKSvg {
 </svg>
 ''';
 
+  static const String trash = '''
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M2 4H3.33333H14" stroke="#EB5757" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M12.6667 4V13.3333C12.6667 13.687 12.5262 14.0261 12.2761 14.2761C12.0261 14.5262 11.687 14.6667 11.3333 14.6667H4.66667C4.31305 14.6667 3.97391 14.5262 3.72386 14.2761C3.47381 14.0261 3.33334 13.687 3.33334 13.3333V4M5.33334 4V2.66667C5.33334 2.31305 5.47381 1.97391 5.72386 1.72386C5.97391 1.47381 6.31305 1.33334 6.66667 1.33334H9.33334C9.68696 1.33334 10.0261 1.47381 10.2761 1.72386C10.5262 1.97391 10.6667 2.31305 10.6667 2.66667V4" stroke="#EB5757" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M6.66666 7.33334V11.3333" stroke="#EB5757" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M9.33334 7.33334V11.3333" stroke="#EB5757" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+''';
+
+  static const String save = '''
+  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M11.0833 12.25H2.91667C2.60725 12.25 2.3105 12.1271 2.09171 11.9083C1.87292 11.6895 1.75 11.3928 1.75 11.0833V2.91667C1.75 2.60725 1.87292 2.3105 2.09171 2.09171C2.3105 1.87292 2.60725 1.75 2.91667 1.75H9.33333L12.25 4.66667V11.0833C12.25 11.3928 12.1271 11.6895 11.9083 11.9083C11.6895 12.1271 11.3928 12.25 11.0833 12.25Z" stroke="#7D899D" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M9.91667 12.25V7.58334H4.08333V12.25" stroke="#7D899D" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M4.08333 1.75V4.66667H8.75" stroke="#7D899D" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+''';
+
 }

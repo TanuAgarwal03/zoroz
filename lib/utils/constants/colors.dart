@@ -5,6 +5,7 @@ class IKColors {
 
   static const Color primary = Color(0xFF2874F0);
   static const Color secondary = Color(0xFFFFE019);
+  static const Color danger = Color(0xFFEB5757);
 
   //light theme const
   static const Color background = Color(0xFFF2F3F8);
