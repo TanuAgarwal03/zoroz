@@ -7,6 +7,7 @@ class IKImages {
   
   static const String profile  = "assets/images/profile.png";
   static const String dailyOffer  = "assets/images/daily-offer.png";
+  static const String giftBox  = "assets/images/gift-box.png";
   static const String ktEssential  = "assets/images/kitchen-essential.png";
 
   //background

@@ -126,7 +126,7 @@ class ProductCart extends StatelessWidget {
                 Expanded(
                   flex: 4,
                   child: Container(
-                    padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 10),
+                    padding: const EdgeInsets.symmetric(vertical: 3,horizontal: 10),
                     decoration: BoxDecoration(
                       border: Border(right: BorderSide(width: 1,color: Theme.of(context).dividerColor))
                     ),
@@ -134,7 +134,10 @@ class ProductCart extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        const Icon(Icons.minimize,color: Color(0xFF7D899D)),
+                        const Padding(
+                          padding: EdgeInsets.only(bottom: 14.0),
+                          child: Icon(Icons.minimize,color: Color(0xFF7D899D)),
+                        ),
                         Text('$count',style: Theme.of(context).textTheme.titleMedium),
                         const Icon(Icons.add,color: Color(0xFF7D899D)),
                       ],

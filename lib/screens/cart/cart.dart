@@ -24,7 +24,7 @@ class Cart extends StatelessWidget {
       'id' : "2",
       'category' : 'Apple',
       'title': 'Polka dot wrap blouse', 
-      'image': IKImages.product2,
+      'image': IKImages.product15,
       'price' : '135',
       'old-price' : '152',
       'offer' : '30% OFF',
@@ -36,7 +36,7 @@ class Cart extends StatelessWidget {
       'id' : "3",
       'category' : 'Apple',
       'title': 'Cuisinart Compact 2-Slice', 
-      'image': IKImages.product3,
+      'image': IKImages.product9,
       'price' : '125',
       'old-price' : '164',
       'offer' : '45% OFF',
@@ -48,7 +48,7 @@ class Cart extends StatelessWidget {
       'id' : "4",
       'category' : 'Apple',
       'title': 'LG TurboWash Washing', 
-      'image': IKImages.product4,
+      'image': IKImages.product12,
       'price' : '100',
       'old-price' : '112',
       'offer' : '15% OFF',
@@ -60,7 +60,7 @@ class Cart extends StatelessWidget {
       'id' : "5",
       'category' : 'Apple',
       'title': 'KitchenAid 9-Cup Food', 
-      'image': IKImages.product5,
+      'image': IKImages.product11,
       'price' : '15',
       'old-price' : '20',
       'offer' : '25% OFF',
@@ -84,6 +84,7 @@ class Cart extends StatelessWidget {
         ],
       ),
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Container(
             color: Theme.of(context).cardColor,
@@ -153,9 +154,10 @@ class Cart extends StatelessWidget {
                 children: [
                   Container(
                     color: const Color(0xFFC5F4FF),
-                    padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 12),
+                    padding: const EdgeInsets.only(left: 15),
                     margin: const EdgeInsets.symmetric(vertical: 10),
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text.rich(
                           TextSpan(
@@ -172,6 +174,7 @@ class Cart extends StatelessWidget {
                             ]
                           )
                         ),
+                        Image.asset(IKImages.giftBox,height: 45)
                       ],
                     ),
                   )
@@ -196,22 +199,94 @@ class Cart extends StatelessWidget {
                   ),
 
                   Container(
-                    color: Colors.white,
+                    color: Theme.of(context).cardColor,
+                    margin: const EdgeInsets.only(top: 5,bottom: 10),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         Container(
+                          decoration: BoxDecoration(
+                            border: Border(bottom: BorderSide(width: 1,color: Theme.of(context).dividerColor))
+                          ),
                           padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 15),
                           child: Text('Price Details',style: Theme.of(context).textTheme.titleLarge),
                         ),
-                        
+                        Padding(
+                          padding: const EdgeInsets.all(15),
+                          child: Column(
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text('Price (5 Items)',style: Theme.of(context).textTheme.titleMedium?.merge(const TextStyle(fontWeight: FontWeight.w400))),
+                                  Text('\$21299',style: Theme.of(context).textTheme.titleMedium?.merge(const TextStyle(fontWeight: FontWeight.w400)))
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 4,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text('Discount',style: Theme.of(context).textTheme.titleMedium?.merge(const TextStyle(fontWeight: FontWeight.w400))),
+                                  Text('\$4000',style: Theme.of(context).textTheme.titleMedium?.merge(const TextStyle(fontWeight: FontWeight.w400)))
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 4,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text('Delivery Charges',style: Theme.of(context).textTheme.titleMedium?.merge(const TextStyle(fontWeight: FontWeight.w400))),
+                                  Text('Free Delivery',style: Theme.of(context).textTheme.titleMedium?.merge(const TextStyle(color: IKColors.success,fontWeight: FontWeight.w400)))
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          decoration: BoxDecoration(
+                            border: Border(top: BorderSide(width: 1,color: Theme.of(context).dividerColor))
+                          ),
+                          padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 15),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text('Total Amount',style:Theme.of(context).textTheme.titleLarge),
+                              Text('\$17299',style:Theme.of(context).textTheme.titleLarge?.merge(const TextStyle(color: IKColors.success)))
+                            ],
+                          ),
+                        )
                       ],
                     ),
                   )
-
                 ]
               ),
             )
+          ),
+          Container(
+            padding: const EdgeInsets.all(15),
+            decoration: BoxDecoration(
+              color: Theme.of(context).cardColor,
+              boxShadow: const <BoxShadow>[
+                BoxShadow(
+                  color: Color.fromRGBO(0, 0, 0, 0.1),
+                  blurRadius: 20,
+                ),
+              ],
+            ),
+            child: ElevatedButton(
+              onPressed: () { 
+                Navigator.pushNamed(context, '/delivery_address');
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: IKColors.secondary,
+                side: const BorderSide(color: IKColors.secondary),
+                foregroundColor: IKColors.title
+              ),
+              child: const Text('Place Order'),
+            ),
           )
         ],
       ),
