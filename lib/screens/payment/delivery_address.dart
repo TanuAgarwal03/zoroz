@@ -21,7 +21,7 @@ class DeliveryAddress extends StatefulWidget {
 
 class _DeliveryAddressState extends State<DeliveryAddress> {
 
-  String _selectedValue = "English";
+  String _selectedValue = "e4";
 
   // ignore: non_constant_identifier_names
   List<AddressItem> Addresses = [
@@ -106,8 +106,7 @@ class _DeliveryAddressState extends State<DeliveryAddress> {
                 Text('Payment',style: Theme.of(context).textTheme.bodyMedium?.merge(const TextStyle(fontWeight: FontWeight.w500))),
               ],
             )
-          )
-          ,
+          ),
           Expanded(
             child : SingleChildScrollView(
               child: Column(
@@ -120,17 +119,45 @@ class _DeliveryAddressState extends State<DeliveryAddress> {
                       color: Theme.of(context).cardColor,
                     ),
                     child: Column(
-                      children: Addresses.map((item) {
-                        return AddressView(
-                          data: item,
-                          groupValue: _selectedValue,
-                          onChanged: (value) {
-                            setState(() {
-                              _selectedValue = value;
-                            });
+                      children: [
+                        Column(
+                          children: Addresses.map((item) {
+                            return AddressView(
+                              data: item,
+                              groupValue: _selectedValue,
+                              onChanged: (value) {
+                                setState(() {
+                                  _selectedValue = value;
+                                });
+                              },
+                            );
+                          }).toList(),
+                        ),
+                        GestureDetector(
+                          onTap: (){ 
+                            Navigator.pushNamed(context, '/add_delivery_address');
                           },
-                        );
-                      }).toList(),
+                          child : Container(
+                            height: 48,
+                            color: Theme.of(context).dividerColor,
+                            padding: const EdgeInsets.symmetric(horizontal: 13, vertical: 5),
+                            margin: const EdgeInsets.only(bottom: 12,top: 18),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                const Icon(Icons.add_circle_outline,color:IKColors.primary),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                Expanded(
+                                  child: Text('Add Address', style: Theme.of(context).textTheme.titleMedium)
+                                ),
+                                Icon(Icons.arrow_forward_ios,size: 16,color: Theme.of(context).textTheme.titleLarge?.color)
+                              ],  
+                            ),
+                          )
+                        )
+                      ],
                     ),
                   )
                 ],
@@ -150,7 +177,7 @@ class _DeliveryAddressState extends State<DeliveryAddress> {
             ),
             child: ElevatedButton(
               onPressed: () { 
-                Navigator.pushNamed(context, '/delivery_address');
+                Navigator.pushNamed(context, '/payment');
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: IKColors.secondary,
