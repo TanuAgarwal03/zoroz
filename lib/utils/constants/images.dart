@@ -86,4 +86,24 @@ class IKImages {
   static const String dutchFlag  = "assets/images/flags/dutch.png";
   static const String turkishFlag  = "assets/images/flags/turkish.png";
 
+  //brand
+  static const String brand1  = "assets/images/brand/pic1.png";
+  static const String brand2  = "assets/images/brand/pic2.png";
+  static const String brand3  = "assets/images/brand/pic3.png";
+  static const String brand4  = "assets/images/brand/pic4.png";
+  static const String brand5  = "assets/images/brand/pic5.png";
+  static const String brand6  = "assets/images/brand/pic6.png";
+  static const String brand7  = "assets/images/brand/pic7.png";
+  static const String brand8  = "assets/images/brand/pic8.png";
+  static const String brand9  = "assets/images/brand/pic9.png";
+  static const String brand10  = "assets/images/brand/pic10.png";
+  
+  //chat
+  static const String chatUser1  = "assets/images/chat/pic1.png";
+  static const String chatUser2  = "assets/images/chat/pic2.png";
+  static const String chatUser3  = "assets/images/chat/pic3.png";
+  static const String chatUser4  = "assets/images/chat/pic4.png";
+  static const String chatUser5  = "assets/images/chat/pic5.png";
+  static const String chatUser6  = "assets/images/chat/pic6.png";
+
 }

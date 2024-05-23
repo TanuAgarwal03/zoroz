@@ -1,4 +1,5 @@
 import 'package:clickcart/utils/constants/colors.dart';
+import 'package:clickcart/utils/constants/images.dart';
 import 'package:flutter/material.dart';
 
 class CategoryItem {
@@ -8,6 +9,10 @@ class CategoryItem {
 class SizeItem {
   String title;
   SizeItem({required this.title});
+}
+class BrandItem {
+  String image;
+  BrandItem({required this.image});
 }
 
 class FilterSheet extends StatefulWidget {
@@ -21,6 +26,7 @@ class _FilterSheetState extends State<FilterSheet> {
 
   String _selectedCategory = "All";
   String _selectedSize = "S";
+  String _selectedBrand = IKImages.brand1;
 
   RangeValues _currentRangeValues = const RangeValues(200, 280);
 
@@ -34,12 +40,27 @@ class _FilterSheetState extends State<FilterSheet> {
     CategoryItem(title: "Hand Cream"),
   ];
 
+  // ignore: non_constant_identifier_names
   List<SizeItem> Sizes = [
     SizeItem(title: "S"),
     SizeItem(title: "M"),
     SizeItem(title: "L"),
     SizeItem(title: "XL"),
     SizeItem(title: "2XL"),
+  ];
+
+  // ignore: non_constant_identifier_names
+  List<BrandItem> Brands = [
+    BrandItem(image: IKImages.brand1),
+    BrandItem(image: IKImages.brand2),
+    BrandItem(image: IKImages.brand3),
+    BrandItem(image: IKImages.brand4),
+    BrandItem(image: IKImages.brand5),
+    BrandItem(image: IKImages.brand6),
+    BrandItem(image: IKImages.brand7),
+    BrandItem(image: IKImages.brand8),
+    BrandItem(image: IKImages.brand9),
+    BrandItem(image: IKImages.brand10),
   ];
 
   @override
@@ -81,6 +102,29 @@ class _FilterSheetState extends State<FilterSheet> {
                         child: Text('See All',style: Theme.of(context).textTheme.bodyMedium?.merge(const TextStyle(color: IKColors.primary))),
                       )
                     ],
+                  ),
+                  Wrap(
+                    children: Brands.map((item) {
+                      return GestureDetector(
+                        onTap: (){ 
+                          setState(() {
+                            _selectedBrand = item.image;
+                          });
+                        },
+                        child : Container(
+                          margin: const EdgeInsets.only(right: 5,bottom: 5),
+                          padding:const EdgeInsets.all(3),
+                          decoration: BoxDecoration(
+                            border: Border.all(width: 1,color: _selectedBrand == item.image ? IKColors.primary : Theme.of(context).dividerColor),
+                            borderRadius: BorderRadius.circular(45),
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(45),
+                            child: Image.asset(item.image,height: 45,width: 45),
+                          ),
+                        ),
+                      );
+                    }).toList(),
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -158,6 +202,7 @@ class _FilterSheetState extends State<FilterSheet> {
                       _currentRangeValues.start.round().toString(),
                       _currentRangeValues.end.round().toString(),
                     ),
+                    activeColor: IKColors.primary,
                     onChanged: (RangeValues values) {
                       setState(() {
                         _currentRangeValues = values;

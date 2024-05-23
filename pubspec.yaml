@@ -72,6 +72,8 @@ flutter:
     - assets/images/banner/
     - assets/images/sponsored/
     - assets/images/background/
+    - assets/images/brand/
+    - assets/images/chat/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
