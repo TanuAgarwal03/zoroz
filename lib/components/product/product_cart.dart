@@ -1,3 +1,5 @@
+import 'package:clickcart/components/common/touch_spin.dart';
+import 'package:clickcart/components/product/product_card.dart';
 import 'package:clickcart/utils/constants/colors.dart';
 import 'package:clickcart/utils/constants/svg.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +16,9 @@ class ProductCart extends StatelessWidget {
   final String count;
   final String offer;
   final String reviews;
+  final String? bottomOption;
+  final String? orderStatus;
+  final String? orderRated;
 
   const ProductCart({super.key, 
     this.category,
@@ -25,6 +30,9 @@ class ProductCart extends StatelessWidget {
     required this.count,
     required this.offer,
     required this.reviews,
+    this.bottomOption,
+    this.orderStatus,
+    this.orderRated,
   });
 
   @override
@@ -33,89 +41,101 @@ class ProductCart extends StatelessWidget {
       color: Theme.of(context).cardColor,
       child: Column(
         children: [
-          Row(
-            children: [
-              SizedBox(
-                width: 145,
-                height: 150,
-                child:  Image.asset(image,width: double.infinity,height: double.infinity,),
-              ), 
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 12.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('Apple',style:Theme.of(context).textTheme.titleSmall?.merge(const TextStyle(color: IKColors.primary))),
-                    const SizedBox(
-                      height: 3,
-                    ),
-                    Text(title,style:Theme.of(context).textTheme.titleMedium),
-                    const SizedBox(
-                      height: 2,
-                    ),
-                    Row(
-                      children: [
-                        Text('\$$price',style: Theme.of(context).textTheme.titleMedium),
-                        const SizedBox(width: 6),
-                        Text('\$$oldPrice',style: Theme.of(context).textTheme.bodySmall?.merge(const TextStyle(decoration: TextDecoration.lineThrough))),
-                        const SizedBox(width: 6),
-                        Text('$offer',style: Theme.of(context).textTheme.bodySmall?.merge(const TextStyle(color: Color(0xFFEB5757)))),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 3,
-                    ),
-                    Row(
-                      children: [
-                        const Icon(
-                          Icons.star,
-                          size: 16,
-                          color: Color(0xFFFFA048),
-                        ),
-                        const Icon(
-                          Icons.star,
-                          size: 16,
-                          color: Color(0xFFFFA048),
-                        ),
-                        const Icon(
-                          Icons.star,
-                          size: 16,
-                          color: Color(0xFFFFA048),
-                        ),
-                        const Icon(
-                          Icons.star,
-                          size: 16,
-                          color: Color(0xFFFFA048),
-                        ),
-                        const Icon(
-                          Icons.star,
-                          size: 16,
-                          color: Color(0xFFFFA048),
-                        ),
-                        const SizedBox(width: 6),
-                        Text('($reviews Review)',style: Theme.of(context).textTheme.bodySmall)
-                      ],
-                    ),
-                    const SizedBox(height: 8),
-                    Row(
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                            color: IKColors.primary,
-                            borderRadius: BorderRadius.circular(10)
+          GestureDetector(
+            onTap: () {
+              Navigator.pushNamed(context, '/product_detail', arguments: ScreenArguments(
+                  title, 
+                  image, 
+                  price, 
+                  oldPrice, 
+                  offer
+                )
+              );
+            },
+            child: Row(
+              children: [
+                SizedBox(
+                  width: 145,
+                  height: 150,
+                  child:  Image.asset(image,width: double.infinity,height: double.infinity,),
+                ), 
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 12.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Apple',style:Theme.of(context).textTheme.titleSmall?.merge(const TextStyle(color: IKColors.primary))),
+                      const SizedBox(
+                        height: 3,
+                      ),
+                      Text(title,style:Theme.of(context).textTheme.titleMedium),
+                      const SizedBox(
+                        height: 2,
+                      ),
+                      Row(
+                        children: [
+                          Text('\$$price',style: Theme.of(context).textTheme.titleMedium),
+                          const SizedBox(width: 6),
+                          Text('\$$oldPrice',style: Theme.of(context).textTheme.bodySmall?.merge(const TextStyle(decoration: TextDecoration.lineThrough))),
+                          const SizedBox(width: 6),
+                          Text(offer,style: Theme.of(context).textTheme.bodySmall?.merge(const TextStyle(color: Color(0xFFEB5757)))),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 3,
+                      ),
+                      Row(
+                        children: [
+                          const Icon(
+                            Icons.star,
+                            size: 16,
+                            color: Color(0xFFFFA048),
                           ),
-                          margin: const EdgeInsets.only(right: 4),
-                          height: 14,
-                          width: 14,
-                          child: const Icon(Icons.reply,size: 12,color: Colors.white)
-                        ),
-                        Text('$returnday Days return available',style:Theme.of(context).textTheme.bodyMedium)
-                      ]
-                    )
-                  ], 
-                ),
-              )
-            ],
+                          const Icon(
+                            Icons.star,
+                            size: 16,
+                            color: Color(0xFFFFA048),
+                          ),
+                          const Icon(
+                            Icons.star,
+                            size: 16,
+                            color: Color(0xFFFFA048),
+                          ),
+                          const Icon(
+                            Icons.star,
+                            size: 16,
+                            color: Color(0xFFFFA048),
+                          ),
+                          const Icon(
+                            Icons.star,
+                            size: 16,
+                            color: Color(0xFFFFA048),
+                          ),
+                          const SizedBox(width: 6),
+                          Text('($reviews Review)',style: Theme.of(context).textTheme.bodySmall)
+                        ],
+                      ),
+                      const SizedBox(height: 8),
+                      Row(
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                              color: IKColors.primary,
+                              borderRadius: BorderRadius.circular(10)
+                            ),
+                            margin: const EdgeInsets.only(right: 4),
+                            height: 14,
+                            width: 14,
+                            child: const Icon(Icons.reply,size: 12,color: Colors.white)
+                          ),
+                          Text('$returnday Days return available',style:Theme.of(context).textTheme.bodyMedium)
+                        ]
+                      )
+                    ], 
+                  ),
+                )
+              ],
+            ),
           ),
           Container(
             decoration: BoxDecoration(
@@ -130,41 +150,114 @@ class ProductCart extends StatelessWidget {
                     decoration: BoxDecoration(
                       border: Border(right: BorderSide(width: 1,color: Theme.of(context).dividerColor))
                     ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        const Padding(
-                          padding: EdgeInsets.only(bottom: 14.0),
-                          child: Icon(Icons.minimize,color: Color(0xFF7D899D)),
+                    child: 
+                    bottomOption == 'order' ?
+                    (
+                      orderStatus == 'completed' ?
+                      Padding(
+                        padding: const EdgeInsets.all(7.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Icon(Icons.check_circle,size: 16,color: IKColors.success),
+                            const SizedBox(width: 3),
+                            Text('Completed',style: Theme.of(context).textTheme.bodyMedium?.merge(const TextStyle(color: IKColors.success)))
+                          ],
                         ),
-                        Text('$count',style: Theme.of(context).textTheme.titleMedium),
-                        const Icon(Icons.add,color: Color(0xFF7D899D)),
-                      ],
+                      )
+                      :
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 7.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SvgPicture.string(
+                              IKSvg.truck2,
+                              width: 14,
+                              height: 14,
+                              // ignore: deprecated_member_use
+                              color: IKColors.primary,
+                            ),
+                            const SizedBox(width: 3),
+                            Text('Track Order',style: Theme.of(context).textTheme.bodyMedium)
+                          ],
+                        ),
+                      )
                     )
+                    :
+                    TouchSpin(
+                      count : count
+                    ),
                   )
                 ),
                 Expanded(
                   flex: 5,
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 10),
-                    decoration: BoxDecoration(
-                      border: Border(right: BorderSide(width: 1,color: Theme.of(context).dividerColor))
+                  child: GestureDetector(
+                    onTap: () {
+                      bottomOption == 'order' ?
+                        orderStatus == 'completed' ?
+                          Navigator.pushNamed(context, '/write_review')
+                          :
+                          null
+                      :
+                      Navigator.pushNamed(context, '/wishlist');
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 10),
+                      decoration: BoxDecoration(
+                        border: Border(right: BorderSide(width: 1,color: Theme.of(context).dividerColor))
+                      ),
+                      child: 
+                      bottomOption == 'order' ?
+                      (
+                        orderStatus == 'completed' ?
+                        (
+                          orderRated == 'yes' ?
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Icon(Icons.star,size: 15,color: Color(0xFFFFAC5F)),
+                              const SizedBox(width: 2),
+                              Text('4.5',style: Theme.of(context).textTheme.titleMedium?.merge(const TextStyle(fontWeight: FontWeight.w400))),
+                              Text(' Edit Review',style: Theme.of(context).textTheme.bodyMedium?.merge(const TextStyle(decoration: TextDecoration.underline,decorationColor: IKColors.primary,color: IKColors.primary))),
+                            ],
+                          )
+                          :
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Icon(Icons.star,size: 15,color: Color(0xFFFFAC5F)),
+                              const SizedBox(width: 2),
+                              Text('Write Review',style: Theme.of(context).textTheme.titleMedium?.merge(const TextStyle(fontWeight: FontWeight.w400)))
+                            ],
+                          )
+                        )
+                        :
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.star,size: 15,color: Theme.of(context).textTheme.bodyMedium?.color),
+                            const SizedBox(width: 2),
+                            Text('Write Review',style: Theme.of(context).textTheme.bodyMedium)
+                          ],
+                        )
+                      )
+                      :
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SvgPicture.string(
+                            IKSvg.save,
+                            width: 20,
+                            height: 20,
+                          ),
+                          const SizedBox(
+                            width: 4,
+                          ),
+                          Text('Save for later',style:Theme.of(context).textTheme.bodyMedium),
+                        ],
+                      )
                     ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SvgPicture.string(
-                          IKSvg.save,
-                          width: 20,
-                          height: 20,
-                        ),
-                        const SizedBox(
-                          width: 4,
-                        ),
-                        Text('Save for later',style:Theme.of(context).textTheme.bodyMedium),
-                      ],
-                    )
                   )
                 ),
                 Expanded(

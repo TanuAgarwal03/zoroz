@@ -1,5 +1,8 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:clickcart/utils/constants/colors.dart';
 import 'package:clickcart/utils/constants/images.dart';
+import 'package:clickcart/utils/constants/sizes.dart';
 import 'package:clickcart/utils/constants/svg.dart';
 import 'package:flutter/material.dart';
 import 'package:clickcart/screens/cart/cart.dart';
@@ -18,14 +21,14 @@ class BottomNavigation extends StatefulWidget {
 
 class _BottomNavigationState extends State<BottomNavigation> {
 
-  int _selectedIndex = 4;
+  int _selectedIndex = 0;
 
   final List<Widget> _pages = <Widget>[
     Home(),
     Category(),
     Cart(),
     Wishlist(),
-    Profile(),
+    const Profile(),
   ];
 
   void _onItemTapped(int index) {
@@ -42,6 +45,11 @@ class _BottomNavigationState extends State<BottomNavigation> {
         children: _pages,
       ),
       bottomNavigationBar: Container(
+        margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width > IKSizes.container ? 
+           (MediaQuery.of(context).size.width - IKSizes.container) / 2
+            :
+            0
+           ),
         decoration: BoxDecoration(
           border: Border(top: BorderSide(width: 2,color: Theme.of(context).dividerColor)),
           boxShadow: const <BoxShadow>[
@@ -52,6 +60,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
           ],
         ),
         child : BottomNavigationBar(
+          backgroundColor: Theme.of(context).cardColor,
           type: BottomNavigationBarType.fixed,
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
@@ -61,7 +70,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
                   IKSvg.home,
                   width: 20,
                   height: 20,
-                  color: _selectedIndex == 0 ? IKColors.primary : IKColors.title,
+                  color: _selectedIndex == 0 ? IKColors.primary : Theme.of(context).textTheme.titleMedium?.color,
                 ),
               ),
               label: 'Home',
@@ -73,7 +82,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
                   IKSvg.category,
                   width: 20,
                   height: 20,
-                  color: _selectedIndex == 1 ? IKColors.primary : IKColors.title,
+                  color: _selectedIndex == 1 ? IKColors.primary : Theme.of(context).textTheme.titleMedium?.color,
                 ),
               ),
               label: 'Menus',
@@ -85,7 +94,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
                   IKSvg.cart,
                   width: 20,
                   height: 20,
-                  color: _selectedIndex == 2 ? IKColors.primary : IKColors.title,
+                  color: _selectedIndex == 2 ? IKColors.primary : Theme.of(context).textTheme.titleMedium?.color,
                 ),
               ),
               label: 'Cart',
@@ -97,7 +106,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
                   IKSvg.wishlist,
                   width: 20,
                   height: 20,
-                  color: _selectedIndex == 3 ? IKColors.primary : IKColors.title,
+                  color: _selectedIndex == 3 ? IKColors.primary : Theme.of(context).textTheme.titleMedium?.color,
                 ),
               ),
               label: 'Wishlist',

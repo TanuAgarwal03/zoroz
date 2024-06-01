@@ -10,6 +10,7 @@ class PaymentCard extends StatelessWidget {
   final String cardImg;
   final String? activeCard;
   final String? id;
+  final bool? addCard;
 
   const PaymentCard({super.key, 
     required this.type,
@@ -20,12 +21,13 @@ class PaymentCard extends StatelessWidget {
     required this.cardImg,
     this.activeCard,
     this.id,
+    this.addCard,
   });
 
   @override
   Widget build(BuildContext context){
     return Container(
-      padding: const EdgeInsets.all(15),
+      padding: addCard == true ? const EdgeInsets.all(25) : const EdgeInsets.all(15),
       decoration: BoxDecoration(
         color:const Color(0xFF092A60),
         borderRadius: BorderRadius.circular(15),
@@ -36,6 +38,7 @@ class PaymentCard extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              if(addCard != true)
               Container(
                 height: 20,
                 width: 20,
@@ -53,23 +56,24 @@ class PaymentCard extends StatelessWidget {
                   ),
                 ),
               ),
+              if(addCard != true)
               const SizedBox(
                 width: 10,
               ),
               Expanded(
-                child: Text(type,style: Theme.of(context).textTheme.titleMedium?.merge(const TextStyle(letterSpacing: 1.5,color: Colors.white))),
+                child: Text(type.toUpperCase(),style: Theme.of(context).textTheme.titleMedium?.merge(const TextStyle(letterSpacing: 1.5,color: Colors.white))),
               ),
               Image.asset(cardImg,height: 17),
             ],
           ),
           const SizedBox(height: 18),
-          Text(cardNumber,style: Theme.of(context).textTheme.headlineMedium?.merge(const TextStyle(letterSpacing: 1.5,color: Colors.white))),
+          Text(cardNumber,style: Theme.of(context).textTheme.headlineMedium?.merge(TextStyle(fontSize: addCard == true ? 20 : 18, letterSpacing: 1.5,color: Colors.white))),
           const SizedBox(height: 20),
           Row(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Expanded(
-                child: Text(name,style: Theme.of(context).textTheme.titleMedium?.merge(const TextStyle(color: Colors.white))),
+                child: Text(name.toUpperCase(),style: Theme.of(context).textTheme.titleMedium?.merge(const TextStyle(color: Colors.white))),
               ),
               Column(
                 children: [

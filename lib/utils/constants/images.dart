@@ -40,7 +40,7 @@ class IKImages {
   static const String cat04  = "assets/images/category/cat04.png";
   
   //product
-  static const String product1  = "assets/images/product/pic1.jpg";
+  static const String product1  = "assets/images/product/pic1.png";
   static const String product2  = "assets/images/product/pic2.png";
   static const String product3  = "assets/images/product/pic3.png";
   static const String product4  = "assets/images/product/pic4.png";
@@ -105,5 +105,20 @@ class IKImages {
   static const String chatUser4  = "assets/images/chat/pic4.png";
   static const String chatUser5  = "assets/images/chat/pic5.png";
   static const String chatUser6  = "assets/images/chat/pic6.png";
+  
+  //television
+  static const String tel1  = "assets/images/product/television/tel1.png";
+  static const String tel2  = "assets/images/product/television/tel2.png";
+  static const String tel3  = "assets/images/product/television/tel3.png";
+  static const String tel4  = "assets/images/product/television/tel4.png";
+
+  //camera
+  static const String cam1  = "assets/images/product/camera/cam1.png";
+  static const String cam2  = "assets/images/product/camera/cam2.png";
+  static const String cam3  = "assets/images/product/camera/cam3.png";
+
+  static const String mouse  = "assets/images/product/cam-accessories/mouse.png";
+  static const String led  = "assets/images/product/cam-accessories/led.png";
+  static const String keyboard  = "assets/images/product/cam-accessories/keyboard.png";
 
 }

@@ -16,9 +16,10 @@ class BrandItem {
 }
 
 class FilterSheet extends StatefulWidget {
-  const FilterSheet({ Key? key }) : super(key: key);
+  const FilterSheet({ super.key });
 
   @override
+  // ignore: library_private_types_in_public_api
   _FilterSheetState createState() => _FilterSheetState();
 }
 
@@ -98,7 +99,9 @@ class _FilterSheetState extends State<FilterSheet> {
                     children: [
                       Text('Brand',style: Theme.of(context).textTheme.titleMedium?.merge(const TextStyle(fontSize: 15))),
                       TextButton(
-                        onPressed: (){}, 
+                        onPressed: (){
+                          Navigator.pushNamed(context, '/main_home');
+                        }, 
                         child: Text('See All',style: Theme.of(context).textTheme.bodyMedium?.merge(const TextStyle(color: IKColors.primary))),
                       )
                     ],
@@ -131,7 +134,9 @@ class _FilterSheetState extends State<FilterSheet> {
                     children: [
                       Text('Categories:',style: Theme.of(context).textTheme.titleMedium?.merge(const TextStyle(fontSize: 15))),
                       TextButton(
-                        onPressed: (){}, 
+                        onPressed: (){
+                          Navigator.pushNamed(context, '/main_home');
+                        }, 
                         child: Text('See All',style: Theme.of(context).textTheme.bodyMedium?.merge(const TextStyle(color: IKColors.primary))),
                       )
                     ],
@@ -161,7 +166,9 @@ class _FilterSheetState extends State<FilterSheet> {
                     children: [
                       Text('Size:',style: Theme.of(context).textTheme.titleMedium?.merge(const TextStyle(fontSize: 15))),
                       TextButton(
-                        onPressed: (){}, 
+                        onPressed: (){
+                          Navigator.pushNamed(context, '/main_home');
+                        }, 
                         child: Text('See All',style: Theme.of(context).textTheme.bodyMedium?.merge(const TextStyle(color: IKColors.primary))),
                       )
                     ],
@@ -222,23 +229,23 @@ class _FilterSheetState extends State<FilterSheet> {
               children: [
                 Expanded(
                   child: ElevatedButton(
-                    onPressed: (){}, 
-                    child: Text('Reset',style: TextStyle(color: IKColors.primary)),
+                    onPressed: () => Navigator.pop(context),
                     style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.symmetric(vertical: 8),
                       backgroundColor:Colors.transparent,
                       side: BorderSide(color: Theme.of(context).dividerColor),
-                    ),
+                    ), 
+                    child: const Text('Reset',style: TextStyle(color: IKColors.primary)),
                   ),
                 ),
                 const SizedBox(width: 5),
                 Expanded(
                   child: ElevatedButton(
-                    onPressed: (){}, 
-                    child: Text('Apply'),
+                    onPressed: () => Navigator.pop(context), 
                     style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.symmetric(vertical: 8)
                     ),
+                    child: const Text('Apply'),
                   ),
                 )
               ],

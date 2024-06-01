@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 class IKSizes {
   IKSizes._();
 
@@ -21,5 +19,8 @@ class IKSizes {
   static const radiusLg = 12.0;
   static const radiusMd = 8.0;
   static const radiusSm = 4.0;
+
+  //container
+  static const double container = 750;
 
 }

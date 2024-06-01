@@ -16,7 +16,7 @@ class App extends StatelessWidget {
       themeMode: ThemeMode.system,
       theme: IKAppTheme.lightTheme,
       darkTheme: IKAppTheme.darkTheme,
-      initialRoute: '/chat_screen',
+      initialRoute: '/choose_language',
       routes: AppRoutes.routes,
       debugShowCheckedModeBanner: false,
     );

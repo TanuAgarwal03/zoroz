@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 
 class ServiceList extends StatelessWidget {
   
-  ServiceList({super.key});
+  final bool? vertical;
+
+  ServiceList({super.key, this.vertical});
 
   final List<Map<String, String>> serviceList = [
     {
@@ -41,11 +43,12 @@ class ServiceList extends StatelessWidget {
           children: serviceList.map((item) {
             return 
               SizedBox(
-                width: 250,
+                width: vertical == true  ? null : 250,
                 child: ServiceCard(
                   icon: item['icon']!,
                   title: item['title']!,
                   desc: item['desc']!,
+                  vertical : vertical,
                 ),
               );
           }).toList(),

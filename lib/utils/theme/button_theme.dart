@@ -13,7 +13,8 @@ class IKButtonTheme {
       disabledBackgroundColor: Colors.grey,
       disabledForegroundColor: Colors.grey,
       side: const BorderSide(color: IKColors.primary),
-      padding: const EdgeInsets.symmetric(vertical: 12,horizontal: 25),
+      // padding: const EdgeInsets.symmetric(vertical: 12,horizontal: 25),
+      padding: const EdgeInsets.symmetric(vertical: 15,horizontal: 25),
       textStyle: const TextStyle(fontSize: 18, fontFamily: "Jost", color: Colors.white,fontWeight: FontWeight.w500),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
     )

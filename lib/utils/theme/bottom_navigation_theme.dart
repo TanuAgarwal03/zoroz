@@ -32,10 +32,10 @@ class IKBottomNavigationTheme {
       fontFamily: 'Jost',
       fontSize: 13,
     ),
-    unselectedItemColor: IKColors.title,
+    unselectedItemColor: Colors.white,
     selectedItemColor: IKColors.primary,
     unselectedIconTheme: IconThemeData(
-      color: IKColors.title,
+      color: Colors.white,
     ),
     selectedIconTheme: IconThemeData(
       color: IKColors.primary,

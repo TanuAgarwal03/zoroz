@@ -8,9 +8,24 @@ class BannerSwiper extends StatelessWidget {
   BannerSwiper({ super.key });
 
   final List<Map<String, String>> images = [
-    {'title': 'Mobiles', 'image': IKImages.cat1},
-    {'title': 'Electronics', 'image': IKImages.cat1},
-    {'title': 'Camera', 'image': IKImages.cat1},
+    {
+      'title': 'AirPods', 
+      'sub-title': '2nd generation',
+      'price' : '\$1259.00', 
+      'image': IKImages.offerEarbuds
+    },
+    {
+      'title': 'Shoes', 
+      'sub-title': '1st generation',
+      'price' : '\$156.00', 
+      'image': IKImages.offerShoes
+    },
+    {
+      'title': 'Bag', 
+      'sub-title': '3nd generation',
+      'price' : '\$1139.00', 
+      'image': IKImages.offerBag
+    },
   ];
 
   @override
@@ -18,17 +33,23 @@ class BannerSwiper extends StatelessWidget {
     return Container(
       constraints: const BoxConstraints(
         minHeight: 174,
-        maxHeight: 350,
+        maxHeight: 300,
       ),
       height: MediaQuery.of(context).size.width / 2.2,
       child: Swiper(
         itemBuilder: (context, index) {
-          // final image = images[index];
+
+          final catImage = images[index]['image']!;
+          final title = images[index]['title']!;
+          final subTitle = images[index]['sub-title']!;
+          final price = images[index]['price']!;
+
           const image = IKImages.bannerBg;
           return Stack(
             children: [
               Image.asset(
                 image,
+                width: double.infinity,
                 height: double.infinity,
                 fit: BoxFit.fill,
               ),
@@ -38,7 +59,7 @@ class BannerSwiper extends StatelessWidget {
                 right: 0,
                 bottom: 0,
                 child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Expanded(
                       flex: 5,
@@ -48,13 +69,15 @@ class BannerSwiper extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text('AirPods',style: Theme.of(context).textTheme.headlineLarge?.merge(const TextStyle(color: Colors.white,fontSize: 35))),
-                            Text('2nd generation',style: Theme.of(context).textTheme.titleLarge?.merge(const TextStyle(color: IKColors.secondary))),
+                            Text(title,style: Theme.of(context).textTheme.headlineLarge?.merge(const TextStyle(color: Colors.white,fontSize: 35))),
+                            Text(subTitle,style: Theme.of(context).textTheme.titleLarge?.merge(const TextStyle(color: IKColors.secondary))),
                             const SizedBox(height: 6),
-                            Text('\$1259.00*',style: Theme.of(context).textTheme.titleLarge?.merge(const TextStyle(color: Colors.white))),
+                            Text(price,style: Theme.of(context).textTheme.titleLarge?.merge(const TextStyle(color: Colors.white))),
                             const SizedBox(height: 12),
                             ElevatedButton(
-                              onPressed: (){},
+                              onPressed: (){
+                                Navigator.pushNamed(context, '/products');
+                              },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.white,
                                 padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -68,15 +91,15 @@ class BannerSwiper extends StatelessWidget {
                     ),
                     Expanded(
                       flex: 4,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
+                      child: Wrap(
+                        // mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           Container(
                             padding: const EdgeInsets.only(top: 10,left: 10),
                             constraints: const BoxConstraints(
                               maxHeight: 250,
                             ),
-                            child: Image.asset(IKImages.offerEarbuds,fit: BoxFit.contain)
+                            child: Image.asset(catImage,fit: BoxFit.contain)
                           ),
                         ]
                       )

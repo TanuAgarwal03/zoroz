@@ -1,13 +1,23 @@
+import 'package:clickcart/screens/cart/cart.dart';
+import 'package:clickcart/screens/category/category.dart';
 import 'package:clickcart/screens/chat/chat_list.dart';
 import 'package:clickcart/screens/chat/chat_screen.dart';
+import 'package:clickcart/screens/notifications/notifications.dart';
+import 'package:clickcart/screens/order/my_orders.dart';
+import 'package:clickcart/screens/order/track_order.dart';
+import 'package:clickcart/screens/order/write_review.dart';
 import 'package:clickcart/screens/payment/add_card.dart';
 import 'package:clickcart/screens/payment/add_delivery_address.dart';
 import 'package:clickcart/screens/payment/checkout.dart';
 import 'package:clickcart/screens/payment/payment.dart';
 import 'package:clickcart/screens/product/product_detail.dart';
 import 'package:clickcart/screens/product/products.dart';
+import 'package:clickcart/screens/profile/coupons.dart';
 import 'package:clickcart/screens/profile/edit_profile.dart';
+import 'package:clickcart/screens/profile/profile.dart';
+import 'package:clickcart/screens/profile/questions.dart';
 import 'package:clickcart/screens/search/search_screen.dart';
+import 'package:clickcart/screens/wishlist/wishlist.dart';
 import 'package:flutter/material.dart';
 import 'package:clickcart/screens/auth/choose_language.dart';
 import 'package:clickcart/screens/auth/sign_in.dart';
@@ -18,7 +28,7 @@ import 'package:clickcart/screens/payment/delivery_address.dart';
 
 class AppRoutes {
   static final Map<String, WidgetBuilder> routes = {
-    '/': (context) => const ChooseLanguage(),
+    '/choose_language': (context) => const ChooseLanguage(),
     '/signin': (context) => const SignIn(),
     '/otp': (context) => const Otp(),
     '/signup': (context) => const SignUp(),
@@ -29,10 +39,20 @@ class AppRoutes {
     '/add_card': (context) => const AddCard(),
     '/checkout': (context) => const Checkout(),
     '/products': (context) => const Products(),
-    '/products_detal': (context) => ProductDetail(),
-    '/edit_profile': (context) => EditProfile(),
+    '/product_detail': (context) => const ProductDetail(),
+    '/edit_profile': (context) => const EditProfile(),
     '/search_screen': (context) => SearchScreen(),
     '/chat_list': (context) => ChatList(),
     '/chat_screen': (context) => ChatScreen(),
+    '/my_orders': (context) => const MyOrders(),
+    '/track_order': (context) => const TrackOrder(),
+    '/write_review': (context) => const WriteReview(),
+    '/cart': (context) => Cart(),
+    '/wishlist': (context) => Wishlist(),
+    '/notifications': (context) => Notifications(),
+    '/coupons': (context) => Coupons(),
+    '/profile': (context) => const Profile(),
+    '/categories': (context) => Category(),
+    '/questions': (context) => Questions(),
   };
 }
