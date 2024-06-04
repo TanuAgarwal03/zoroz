@@ -17,6 +17,15 @@ import 'package:clickcart/screens/profile/edit_profile.dart';
 import 'package:clickcart/screens/profile/profile.dart';
 import 'package:clickcart/screens/profile/questions.dart';
 import 'package:clickcart/screens/search/search_screen.dart';
+import 'package:clickcart/screens/shortcodes/accordion.dart';
+import 'package:clickcart/screens/shortcodes/badges.dart';
+import 'package:clickcart/screens/shortcodes/bottomsheet.dart';
+import 'package:clickcart/screens/shortcodes/buttons.dart';
+import 'package:clickcart/screens/shortcodes/charts.dart';
+import 'package:clickcart/screens/shortcodes/components.dart';
+import 'package:clickcart/screens/shortcodes/inputs.dart';
+import 'package:clickcart/screens/shortcodes/lists.dart';
+import 'package:clickcart/screens/shortcodes/modalbox.dart';
 import 'package:clickcart/screens/wishlist/wishlist.dart';
 import 'package:flutter/material.dart';
 import 'package:clickcart/screens/auth/choose_language.dart';
@@ -54,5 +63,14 @@ class AppRoutes {
     '/profile': (context) => const Profile(),
     '/categories': (context) => Category(),
     '/questions': (context) => Questions(),
+    '/components': (context) => const Components(),
+    '/accordion': (context) =>  AccordionScreen(),
+    '/bottomsheet': (context) =>  const Bottomsheet(),
+    '/modalbox': (context) =>  const ModalBox(),
+    '/buttons': (context) =>  const Buttons(),
+    '/badges': (context) =>  const Badges(),
+    '/charts': (context) =>  const Charts(),
+    '/inputs': (context) =>  const Inputs(),
+    '/lists': (context) =>  const Lists(),
   };
 }

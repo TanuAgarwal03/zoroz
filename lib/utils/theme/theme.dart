@@ -1,4 +1,5 @@
 import 'package:clickcart/utils/constants/colors.dart';
+import 'package:clickcart/utils/theme/badge_theme.dart';
 import 'package:clickcart/utils/theme/bottom_navigation_theme.dart';
 import 'package:clickcart/utils/theme/button_theme.dart';
 import 'package:clickcart/utils/theme/card_theme.dart';
@@ -21,6 +22,7 @@ class IKAppTheme {
     dividerColor: IKColors.border,
     cardColor: IKColors.card,
     bottomNavigationBarTheme: IKBottomNavigationTheme.lightBottomNavigationTheme,
+    badgeTheme: IKBadgeTheme.lightBadgeTheme,
   );
 
   static ThemeData darkTheme = ThemeData(
@@ -35,6 +37,7 @@ class IKAppTheme {
     dividerColor: IKColors.darkBorder,
     cardColor: IKColors.darkCard,
     bottomNavigationBarTheme: IKBottomNavigationTheme.darkBottomNavigationTheme,
+    badgeTheme: IKBadgeTheme.darkBadgeTheme,
   );
 
 }

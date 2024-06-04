@@ -11,6 +11,7 @@ class IKSizes {
   // button sizes
   static const double buttonHeight = 18.0;
   static const double borderRadius = 12.0;
+  static const double borderRadiusSm = 8.0;
 
   //header height
   static const headerHeight = 60.0;

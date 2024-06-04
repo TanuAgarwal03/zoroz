@@ -15,7 +15,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
   final List<Map<String, String>> menuItems = [
     {'name': 'Home', 'icon': IKSvg.home, 'navigate' : '/main_home'},
     {'name': 'Products', 'icon': IKSvg.bag, 'navigate' : '/products'},
-    // {'name': 'Components', 'icon': IKSvg.grid2, 'navigate' : '/'},
+    {'name': 'Components', 'icon': IKSvg.grid2, 'navigate' : '/components'},
     // {'name': 'Pages', 'icon': IKSvg.diamond, 'navigate' : '/main_home'},
     {'name': 'Featured', 'icon': IKSvg.star, 'navigate' : '/categories'},
     {'name': 'Wishlist', 'icon': IKSvg.wishlist, 'navigate' : '/wishlist'},

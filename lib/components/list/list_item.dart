@@ -4,9 +4,10 @@ class ListItem extends StatelessWidget {
 
   final String title;
   final dynamic icon;
+  final dynamic image;
   final Function()? onTap;
 
-  const ListItem({ super.key, required this.title, this.icon, this.onTap });
+  const ListItem({ super.key, required this.title, this.icon, this.image, this.onTap });
 
   @override
   Widget build(BuildContext context){
@@ -16,7 +17,8 @@ class ListItem extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 8),
         child: Row(
           children: [
-            icon,
+             image 
+            ?? icon ?? const SizedBox(),
             const SizedBox(width: 10),
             Expanded(
               child: Text(title,style:Theme.of(context).textTheme.titleLarge?.merge(const TextStyle(fontWeight: FontWeight.w400)))
