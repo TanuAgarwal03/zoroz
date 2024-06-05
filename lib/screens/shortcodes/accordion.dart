@@ -84,8 +84,9 @@ class AccordionScreen extends StatelessWidget {
                           contentBorderWidth: 0,
                           scaleWhenAnimating: false,
                           openAndCloseAnimation: true,
+                          disableScrolling: true,
                           contentBorderColor: Colors.transparent,
-                          headerPadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 0),
+                          headerPadding: const EdgeInsets.symmetric(vertical: 4, horizontal: 0),
                           rightIcon: Icon(
                             Icons.keyboard_arrow_down,
                             color: Theme.of(context).textTheme.titleMedium?.color,
@@ -119,24 +120,28 @@ class AccordionScreen extends StatelessWidget {
                         decoration: BoxDecoration(
                           border: Border(bottom: BorderSide(width: 1,color: Theme.of(context).dividerColor))
                         ),
-                        child: Text('Classic Accordion',style: Theme.of(context).textTheme.titleLarge),
+                        child: Text('Accordion with background',style: Theme.of(context).textTheme.titleLarge),
                       ),
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 5),
+                        padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 5),
                         child:Accordion(
                           headerBorderColor: Colors.transparent,
                           headerBorderColorOpened: Theme.of(context).dividerColor,
                           headerBorderWidth: 0,
-                          headerBackgroundColor: Theme.of(context).cardColor,
+                          headerBackgroundColor: IKColors.primary.withOpacity(1),
                           headerBackgroundColorOpened: IKColors.primary,
                           contentBorderWidth: 0,
+                          disableScrolling: true,
+                          paddingBetweenOpenSections: 8,
+                          paddingBetweenClosedSections: 8,
                           scaleWhenAnimating: false,
                           openAndCloseAnimation: true,
+                          contentBackgroundColor: Theme.of(context).dividerColor.withOpacity(.5),
                           contentBorderColor: Colors.transparent,
                           headerPadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-                          rightIcon: Icon(
+                          rightIcon: const Icon(
                             Icons.keyboard_arrow_down,
-                            color: Theme.of(context).textTheme.titleMedium?.color,
+                            color: Colors.white,
                             size: 24,
                           ),
                           children: accordionData.map((item) {
@@ -144,8 +149,8 @@ class AccordionScreen extends StatelessWidget {
                               isOpen: item['id'] == '1' ? true : false,
                               contentVerticalPadding: 10,
                               contentHorizontalPadding: 12,
-                              header: Text(item['title']!, style: Theme.of(context).textTheme.titleMedium),
-                              content: Text(item['content']!,style: Theme.of(context).textTheme.bodyMedium),
+                              header: Text(item['title']!, style: Theme.of(context).textTheme.titleMedium?.merge(const TextStyle(color: Colors.white))),
+                              content: Text(item['content']!,style: Theme.of(context).textTheme.titleMedium?.merge(const TextStyle(fontWeight: FontWeight.w400))),
                             );
                           }).toList()
                         ),

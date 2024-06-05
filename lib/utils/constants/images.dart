@@ -11,6 +11,7 @@ class IKImages {
   static const String ktEssential  = "assets/images/kitchen-essential.png";
   static const String visa  = "assets/images/visa.png";
   static const String mastercard  = "assets/images/mastercard.png";
+  static const String thumbsUp  = "assets/images/thumbs-up.png";
 
   //background
   static const String bannerBg  = "assets/images/background/bg1.png";

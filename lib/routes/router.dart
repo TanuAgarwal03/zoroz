@@ -26,6 +26,13 @@ import 'package:clickcart/screens/shortcodes/components.dart';
 import 'package:clickcart/screens/shortcodes/inputs.dart';
 import 'package:clickcart/screens/shortcodes/lists.dart';
 import 'package:clickcart/screens/shortcodes/modalbox.dart';
+import 'package:clickcart/screens/shortcodes/pricings.dart';
+import 'package:clickcart/screens/shortcodes/snackbars.dart';
+import 'package:clickcart/screens/shortcodes/socials.dart';
+import 'package:clickcart/screens/shortcodes/swipeables.dart';
+import 'package:clickcart/screens/shortcodes/tables.dart';
+import 'package:clickcart/screens/shortcodes/tabs.dart';
+import 'package:clickcart/screens/shortcodes/toggle.dart';
 import 'package:clickcart/screens/wishlist/wishlist.dart';
 import 'package:flutter/material.dart';
 import 'package:clickcart/screens/auth/choose_language.dart';
@@ -72,5 +79,12 @@ class AppRoutes {
     '/charts': (context) =>  const Charts(),
     '/inputs': (context) =>  const Inputs(),
     '/lists': (context) =>  const Lists(),
+    '/pricings': (context) =>  const Pricings(),
+    '/snackbars': (context) =>  const Snackbars(),
+    '/socials': (context) =>  const Socials(),
+    '/swipeables': (context) =>  const Swipeables(),
+    '/tabs': (context) =>  const Tabs(),
+    '/tables': (context) =>  const Tables(),
+    '/toggle': (context) =>  const Toggle(),
   };
 }

@@ -1,3 +1,4 @@
+import 'package:clickcart/utils/constants/colors.dart';
 import 'package:clickcart/utils/constants/sizes.dart';
 import 'package:clickcart/components/list/list_item.dart';
 import 'package:clickcart/utils/constants/svg.dart';
@@ -40,9 +41,11 @@ class Components extends StatelessWidget {
                     Navigator.pushNamed(context, '/accordion');
                   },
                   icon: SvgPicture.string(
-                    IKSvg.profile,
+                    IKSvg.accordion,
                     width: 20,
                     height: 20,
+                    // ignore: deprecated_member_use
+                    color: IKColors.primary,
                   ),
                   title: "Accordion List",
                 ),
@@ -52,9 +55,11 @@ class Components extends StatelessWidget {
                     Navigator.pushNamed(context, '/bottomsheet');
                   },
                   icon: SvgPicture.string(
-                    IKSvg.profile,
+                    IKSvg.sheet,
                     width: 20,
                     height: 20,
+                    // ignore: deprecated_member_use
+                    color: IKColors.primary,
                   ),
                   title: "Bottom Sheets",
                 ),
@@ -64,9 +69,11 @@ class Components extends StatelessWidget {
                     Navigator.pushNamed(context, '/modalbox');
                   },
                   icon: SvgPicture.string(
-                    IKSvg.profile,
+                    IKSvg.cube,
                     width: 20,
                     height: 20,
+                    // ignore: deprecated_member_use
+                    color: IKColors.primary,
                   ),
                   title: "Modal Box",
                 ),
@@ -76,9 +83,11 @@ class Components extends StatelessWidget {
                     Navigator.pushNamed(context, '/buttons');
                   },
                   icon: SvgPicture.string(
-                    IKSvg.profile,
+                    IKSvg.accordion,
                     width: 20,
                     height: 20,
+                    // ignore: deprecated_member_use
+                    color: IKColors.primary,
                   ),
                   title: "Button Styles",
                 ),
@@ -88,9 +97,11 @@ class Components extends StatelessWidget {
                     Navigator.pushNamed(context, '/badges');
                   },
                   icon: SvgPicture.string(
-                    IKSvg.profile,
+                    IKSvg.badge,
                     width: 20,
                     height: 20,
+                    // ignore: deprecated_member_use
+                    color: IKColors.primary,
                   ),
                   title: "Badges",
                 ),
@@ -100,9 +111,11 @@ class Components extends StatelessWidget {
                     Navigator.pushNamed(context, '/charts');
                   },
                   icon: SvgPicture.string(
-                    IKSvg.profile,
+                    IKSvg.charts,
                     width: 20,
                     height: 20,
+                    // ignore: deprecated_member_use
+                    color: IKColors.primary,
                   ),
                   title: "Charts",
                 ),
@@ -112,9 +125,11 @@ class Components extends StatelessWidget {
                     Navigator.pushNamed(context, '/inputs');
                   },
                   icon: SvgPicture.string(
-                    IKSvg.profile,
+                    IKSvg.input,
                     width: 20,
                     height: 20,
+                    // ignore: deprecated_member_use
+                    color: IKColors.primary,
                   ),
                   title: "Inputs",
                 ),
@@ -124,11 +139,111 @@ class Components extends StatelessWidget {
                     Navigator.pushNamed(context, '/lists');
                   },
                   icon: SvgPicture.string(
-                    IKSvg.profile,
+                    IKSvg.list,
                     width: 20,
                     height: 20,
+                    // ignore: deprecated_member_use
+                    color: IKColors.primary,
                   ),
                   title: "List Styles",
+                ),
+                const SizedBox(height: 5),
+                ListItem(
+                  onTap: (){
+                    Navigator.pushNamed(context, '/pricings');
+                  },
+                  icon: SvgPicture.string(
+                    IKSvg.pricing,
+                    width: 20,
+                    height: 20,
+                    // ignore: deprecated_member_use
+                    color: IKColors.primary,
+                  ),
+                  title: "Pricings",
+                ),
+                const SizedBox(height: 5),
+                ListItem(
+                  onTap: (){
+                    Navigator.pushNamed(context, '/snackbars');
+                  },
+                  icon: SvgPicture.string(
+                    IKSvg.accordion,
+                    width: 20,
+                    height: 20,
+                    // ignore: deprecated_member_use
+                    color: IKColors.primary,
+                  ),
+                  title: "Snackbars",
+                ),
+                const SizedBox(height: 5),
+                ListItem(
+                  onTap: (){
+                    Navigator.pushNamed(context, '/socials');
+                  },
+                  icon: SvgPicture.string(
+                    IKSvg.social,
+                    width: 20,
+                    height: 20,
+                    // ignore: deprecated_member_use
+                    color: IKColors.primary,
+                  ),
+                  title: "Socials",
+                ),
+                const SizedBox(height: 5),
+                ListItem(
+                  onTap: (){
+                    Navigator.pushNamed(context, '/swipeables');
+                  },
+                  icon: SvgPicture.string(
+                    IKSvg.accordion,
+                    width: 20,
+                    height: 20,
+                    // ignore: deprecated_member_use
+                    color: IKColors.primary,
+                  ),
+                  title: "Swipeable",
+                ),
+                const SizedBox(height: 5),
+                ListItem(
+                  onTap: (){
+                    Navigator.pushNamed(context, '/tabs');
+                  },
+                  icon: SvgPicture.string(
+                    IKSvg.tabs,
+                    width: 20,
+                    height: 20,
+                    // ignore: deprecated_member_use
+                    color: IKColors.primary,
+                  ),
+                  title: "Tabs",
+                ),
+                const SizedBox(height: 5),
+                ListItem(
+                  onTap: (){
+                    Navigator.pushNamed(context, '/tables');
+                  },
+                  icon: SvgPicture.string(
+                    IKSvg.table,
+                    width: 20,
+                    height: 20,
+                    // ignore: deprecated_member_use
+                    color: IKColors.primary,
+                  ),
+                  title: "Tables",
+                ),
+                const SizedBox(height: 5),
+                ListItem(
+                  onTap: (){
+                    Navigator.pushNamed(context, '/toggle');
+                  },
+                  icon: SvgPicture.string(
+                    IKSvg.toggle,
+                    width: 20,
+                    height: 20,
+                    // ignore: deprecated_member_use
+                    color: IKColors.primary,
+                  ),
+                  title: "Toggle",
                 ),
               ]
             ),
