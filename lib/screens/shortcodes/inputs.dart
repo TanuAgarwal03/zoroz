@@ -186,6 +186,7 @@ class Inputs extends StatelessWidget {
                                   padding: const EdgeInsets.all(0),
                                 ),
                               ),
+                              keyboardType: TextInputType.phone,
                               hintText: 'Enter Phone',
                               onChangeEvent: (e) {
 

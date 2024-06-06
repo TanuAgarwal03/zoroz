@@ -19,6 +19,7 @@ class ProductCart extends StatelessWidget {
   final String? bottomOption;
   final String? orderStatus;
   final String? orderRated;
+  final Function()? removePress;
 
   const ProductCart({super.key, 
     this.category,
@@ -33,6 +34,7 @@ class ProductCart extends StatelessWidget {
     this.bottomOption,
     this.orderStatus,
     this.orderRated,
+    this.removePress,
   });
 
   @override
@@ -166,21 +168,26 @@ class ProductCart extends StatelessWidget {
                         ),
                       )
                       :
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 7.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            SvgPicture.string(
-                              IKSvg.truck2,
-                              width: 14,
-                              height: 14,
-                              // ignore: deprecated_member_use
-                              color: IKColors.primary,
-                            ),
-                            const SizedBox(width: 3),
-                            Text('Track Order',style: Theme.of(context).textTheme.bodyMedium)
-                          ],
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pushNamed(context, '/track_order');
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 7.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SvgPicture.string(
+                                IKSvg.truck2,
+                                width: 14,
+                                height: 14,
+                                // ignore: deprecated_member_use
+                                color: IKColors.primary,
+                              ),
+                              const SizedBox(width: 3),
+                              Text('Track Order',style: Theme.of(context).textTheme.bodyMedium)
+                            ],
+                          ),
                         ),
                       )
                     )
@@ -262,22 +269,25 @@ class ProductCart extends StatelessWidget {
                 ),
                 Expanded(
                   flex: 4,
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SvgPicture.string(
-                          IKSvg.trash,
-                          width: 20,
-                          height: 20,
-                        ),
-                        const SizedBox(
-                          width: 4,
-                        ),
-                        Text('Remove',style:Theme.of(context).textTheme.bodyMedium?.merge(const TextStyle(color: IKColors.danger))),
-                      ],
-                    )
+                  child: GestureDetector(
+                    onTap: removePress,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SvgPicture.string(
+                            IKSvg.trash,
+                            width: 20,
+                            height: 20,
+                          ),
+                          const SizedBox(
+                            width: 4,
+                          ),
+                          Text('Remove',style:Theme.of(context).textTheme.bodyMedium?.merge(const TextStyle(color: IKColors.danger))),
+                        ],
+                      )
+                    ),
                   )
                 ),
               ],

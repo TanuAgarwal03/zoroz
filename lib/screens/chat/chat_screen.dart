@@ -5,10 +5,15 @@ import 'package:clickcart/utils/constants/svg.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class ChatScreen extends StatelessWidget {
+class ChatScreen extends StatefulWidget {
 
-  ChatScreen({ super.key });
+  const ChatScreen({ super.key });
 
+  @override
+  State<ChatScreen> createState() => _ChatScreenState();
+}
+
+class _ChatScreenState extends State<ChatScreen> {
   final List<Map<String, dynamic>> messageList = [
     {
       'type' : 'receive',
@@ -78,6 +83,34 @@ class ChatScreen extends StatelessWidget {
     },
   ];
 
+  TextEditingController controller = TextEditingController();
+  ScrollController scrollController = ScrollController();
+  
+  String message = '';
+
+
+  void sendMessage(){
+    setState(() {
+      if(message.isNotEmpty){
+        messageList.add({
+          'type' : 'send',
+          'time' : '10:30',
+          'data' : <Map<String, String>> [
+            {
+              'message' : message,
+            },
+          ],
+        });
+      }
+      controller.text = '';
+      scrollController.animateTo(
+        scrollController.position.maxScrollExtent + 100,
+        duration: const Duration(milliseconds: 200),
+        curve: Curves.fastOutSlowIn,
+      );
+    });
+  }
+
   @override
   Widget build(BuildContext context){
     return Scaffold(
@@ -143,7 +176,9 @@ class ChatScreen extends StatelessWidget {
                         )
                       ),
                       IconButton(
-                        onPressed: (){},
+                        onPressed: (){
+                          Navigator.pushNamed(context, '/chat_call');
+                        },
                         icon: Container(
                           height: 40,
                           width: 40,
@@ -164,6 +199,7 @@ class ChatScreen extends StatelessWidget {
                 ),
                 Expanded(
                   child: SingleChildScrollView(
+                    controller: scrollController,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: messageList.map((data) {
@@ -234,6 +270,12 @@ class ChatScreen extends StatelessWidget {
                   ),
                   alignment: Alignment.center,
                   child: TextField(
+                    onChanged: (value) {
+                      setState(() {
+                        message = value;
+                      });
+                    },
+                    controller:controller,
                     decoration: InputDecoration(
                       prefixIcon: IconButton(
                         icon: const Icon(Icons.emoji_emotions_outlined,color: IKColors.primary),
@@ -242,7 +284,9 @@ class ChatScreen extends StatelessWidget {
                       hintText: 'Type Something',
                       hintStyle: TextStyle(color: Theme.of(context).textTheme.bodyLarge?.color),
                       suffixIcon: IconButton(
-                        onPressed:(){}, 
+                        onPressed:(){
+                          sendMessage();
+                        }, 
                         icon: SvgPicture.string(
                           IKSvg.send,
                           width: 20,

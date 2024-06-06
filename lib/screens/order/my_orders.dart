@@ -92,6 +92,12 @@ class _MyOrdersState extends State<MyOrders> {
   List _orderData = orderItems;
   String _activeFilter = 'all';
 
+  void removeItem(id){
+    setState(() {
+      _orderData.removeWhere((item) => item['id'] == id);
+    });
+  }
+
   void _orderFilter(val) {
     setState(() {
       _activeFilter = val;
@@ -149,6 +155,9 @@ class _MyOrdersState extends State<MyOrders> {
                         orderStatus : item['order-status']!,
                         orderRated : item['order-rated']!,
                         bottomOption : 'order',
+                        removePress :(){ 
+                          removeItem(item['id']);
+                        },
                       ),
                     );
                   }).toList(),

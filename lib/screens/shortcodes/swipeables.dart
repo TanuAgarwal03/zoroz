@@ -1,5 +1,60 @@
+import 'package:clickcart/utils/constants/images.dart';
 import 'package:clickcart/utils/constants/sizes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
+
+final List<Map<String, String>> swipeableData = [
+    {
+      'image' : IKImages.chatUser2,
+      'title': 'New Arrivals Alert!', 
+      'desc': '15 July 2024', 
+    },
+    {
+      'image' : IKImages.chatUser3,
+      'title': 'Flash Sale Announcement', 
+      'desc': '15 July 2024', 
+    },
+    {
+      'image' : IKImages.chatUser4,
+      'title': 'Exclusive Discounts Inside', 
+      'desc': '15 July 2024', 
+    },
+    {
+      'image' : IKImages.chatUser5,
+      'title': 'Limited Stock - Act Fast!', 
+      'desc': '15 July 2024', 
+    },
+    {
+      'image' : IKImages.chatUser6,
+      'title': 'Get Ready to Shop', 
+      'desc': '15 July 2024', 
+    },
+    {
+      'image' : IKImages.chatUser2,
+      'title': 'New Arrivals Alert!', 
+      'desc': '15 July 2024', 
+    },
+    {
+      'image' : IKImages.chatUser3,
+      'title': 'Flash Sale Announcement', 
+      'desc': '15 July 2024', 
+    },
+    {
+      'image' : IKImages.chatUser4,
+      'title': 'Exclusive Discounts Inside', 
+      'desc': '15 July 2024', 
+    },
+    {
+      'image' : IKImages.chatUser5,
+      'title': 'Limited Stock - Act Fast!', 
+      'desc': '15 July 2024', 
+    },
+    {
+      'image' : IKImages.chatUser6,
+      'title': 'Get Ready to Shop', 
+      'desc': '15 July 2024', 
+    },
+];
 
 class Swipeables extends StatefulWidget {
   const Swipeables({ super.key });
@@ -8,25 +63,9 @@ class Swipeables extends StatefulWidget {
   State<Swipeables> createState() => _SwipeablesState();
 }
 
-class _SwipeablesState extends State<Swipeables> {
+class _SwipeablesState extends State<Swipeables> with SingleTickerProviderStateMixin {
 
-  final List<String> items = List<String>.generate(20, (i) => "Item ${i + 1}");
-
-  void _editItem(int index) {
-    // Handle edit action
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Edit ${items[index]}')),
-    );
-  }
-
-  void _deleteItem(int index) {
-    setState(() {
-      items.removeAt(index);
-    });
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Deleted Item ${index + 1}')),
-    );
-  }
+  late final controller = SlidableController(this);
 
   @override
   Widget build(BuildContext context){
@@ -46,106 +85,97 @@ class _SwipeablesState extends State<Swipeables> {
           ),
         )
       ),
-      body: ListView.builder(
-        itemCount: items.length,
-        itemBuilder: (context, index) {
-          final item = items[index];
+      body: ListView(
+          children : swipeableData.map((item){
+            return Slidable(
+              // Specify a key if the Slidable is dismissible.
+              key: const ValueKey(0),
 
-          return Dismissible(
-            key: Key(item),
-            background: slideLeftBackground(index),
-            secondaryBackground: slideRightBackground(index),
-            confirmDismiss: (direction) async {
-              if (direction == DismissDirection.startToEnd) {
-                return false; // Prevent dismissal for edit action
-              } else if (direction == DismissDirection.endToStart) {
-                final bool res = await showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      title: const Text("Confirm"),
-                      content: const Text("Are you sure you want to delete this item?"),
-                      actions: <Widget>[
-                        TextButton(
-                          onPressed: () => Navigator.of(context).pop(false),
-                          child: const Text("Cancel"),
-                        ),
-                        TextButton(
-                          onPressed: () => Navigator.of(context).pop(true),
-                          child: const Text("Delete"),
-                        ),
-                      ],
-                    );
-                  },
-                );
-                return res; // Only delete if confirmed
-              }
-              return false;
-            },
-            child: ListTile(
-              title: Text(item),
-            ),
-          );
-        },
-      ),
-    );
-    
-  }
-  Widget slideLeftBackground(int index) {
-    return Container(
-      color: Colors.green,
-      child: Align(
-        alignment: Alignment.centerLeft,
-        child: Row(
-          children: [
-            IconButton(
-              icon: const Icon(Icons.edit, color: Colors.white),
-              onPressed: () => _editItem(index),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+              // The start action pane is the one at the left or the top side.
+              startActionPane: ActionPane(
+                // A motion is a widget used to control how the pane animates.
+                motion: const ScrollMotion(),
 
-  Widget slideRightBackground(int index) {
-    return Container(
-      color: Colors.red,
-      child: Align(
-        alignment: Alignment.centerRight,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            IconButton(
-              icon: const Icon(Icons.delete, color: Colors.white),
-              onPressed: () async {
-                final bool res = await showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      title: const Text("Confirm"),
-                      content: const Text("Are you sure you want to delete this item?"),
-                      actions: <Widget>[
-                        TextButton(
-                          onPressed: () => Navigator.of(context).pop(false),
-                          child: const Text("Cancel"),
-                        ),
-                        TextButton(
-                          onPressed: () => Navigator.of(context).pop(true),
-                          child: const Text("Delete"),
-                        ),
-                      ],
-                    );
-                  },
-                );
-                if (res) {
-                  _deleteItem(index);
-                }
-              },
-            ),
-          ],
+                // A pane can dismiss the Slidable.
+                dismissible: DismissiblePane(onDismissed: () {}),
+
+                // All actions are defined in the children parameter.
+                children: const [
+                  // A SlidableAction can have an icon and/or a label.
+                  SlidableAction(
+                    onPressed: doNothing,
+                    backgroundColor: Color(0xFFFE4A49),
+                    foregroundColor: Colors.white,
+                    icon: Icons.delete,
+                    label: 'Delete',
+                    padding: EdgeInsets.symmetric(horizontal: 2),
+                  ),
+                  SlidableAction(
+                    onPressed: doNothing,
+                    backgroundColor: Color(0xFF21B7CA),
+                    foregroundColor: Colors.white,
+                    icon: Icons.share,
+                    label: 'Share',
+                  ),
+                ],
+              ),
+
+              // The end action pane is the one at the right or the bottom side.
+              endActionPane:  ActionPane(
+                motion: const ScrollMotion(),
+                children: [
+                  SlidableAction(
+                    // An action can be bigger than the others.
+                    // flex: 2,
+                    onPressed: (_) => controller.openEndActionPane(),
+                    backgroundColor: const Color(0xFF7BC043),
+                    foregroundColor: Colors.white,
+                    icon: Icons.archive,
+                    label: 'Archive',
+                  ),
+                  SlidableAction(
+                    onPressed: (_) => controller.close(),
+                    backgroundColor: const Color(0xFF0392CF),
+                    foregroundColor: Colors.white,
+                    icon: Icons.save,
+                    label: 'Save',
+                  ),
+                ],
+              ),
+
+              // The child of the Slidable is what the user sees when the
+              // component is not dragged.
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 15),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).cardColor,
+                  border: Border(bottom: BorderSide(width: 1,color: Theme.of(context).dividerColor))
+                ),
+                child: Row(
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(IKSizes.radiusMd),
+                      child: Image.asset(item['image']!,height: 50,width: 50),
+                    ),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Text(item['title']!,style: Theme.of(context).textTheme.titleLarge),
+                          const SizedBox(height: 2),
+                          Text(item['desc']!,style: Theme.of(context).textTheme.bodyMedium),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            );
+          }).toList(),
         ),
-      ),
     );
   }
 }
+
+void doNothing(BuildContext context) {}

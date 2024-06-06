@@ -199,7 +199,7 @@ class TrackOrder extends StatelessWidget {
                                   margin: const EdgeInsets.only(bottom: 20,left: 15),
                                   padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 10),
                                   decoration: BoxDecoration(
-                                    color: const Color(0xFFF2F3F8),
+                                    color: Theme.of(context).dividerColor.withOpacity(.5),
                                     borderRadius: BorderRadius.circular(4),
                                   ),
                                   child: Column(
@@ -250,7 +250,7 @@ class TrackOrder extends StatelessWidget {
                                   margin: const EdgeInsets.only(bottom: 20,left: 15),
                                   padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 10),
                                   decoration: BoxDecoration(
-                                    color: const Color(0xFFF2F3F8),
+                                    color: Theme.of(context).dividerColor.withOpacity(.5),
                                     borderRadius: BorderRadius.circular(4),
                                   ),
                                   child: Column(
@@ -301,7 +301,7 @@ class TrackOrder extends StatelessWidget {
                                   margin: const EdgeInsets.only(bottom: 20,left: 15),
                                   padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 10),
                                   decoration: BoxDecoration(
-                                    color: const Color(0xFFF2F3F8),
+                                    color: Theme.of(context).dividerColor.withOpacity(.5),
                                     borderRadius: BorderRadius.circular(4),
                                   ),
                                   child: Column(

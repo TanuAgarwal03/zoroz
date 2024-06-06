@@ -5,10 +5,18 @@ import 'package:flutter/material.dart';
 import 'package:clickcart/utils/constants/colors.dart';
 
 
-class SignIn extends StatelessWidget {
+class SignIn extends StatefulWidget {
 
   const SignIn({ super.key });
-  
+
+  @override
+  State<SignIn> createState() => _SignInState();
+}
+
+class _SignInState extends State<SignIn> {
+
+  String activeInput = 'phone';
+
   @override
   Widget build(BuildContext context){
     
@@ -77,15 +85,54 @@ class SignIn extends StatelessWidget {
                             Text('Enter Mobile number',
                               style: Theme.of(context).textTheme.labelMedium,
                             ),
-                            Text('Use Email Id',
-                              style: Theme.of(context).textTheme.labelSmall?.merge(const TextStyle(color: IKColors.primary)),
+                            activeInput == 'email' ?
+                              TextButton(
+                                onPressed: (){
+                                  setState(() {
+                                    activeInput = 'phone';
+                                  });
+                                }, 
+                                child: Text('Use Phone Number',
+                                  style: Theme.of(context).textTheme.labelSmall?.merge(const TextStyle(color: IKColors.primary)),
+                                )
+                              )
+                              :
+                              TextButton(
+                                onPressed: (){
+                                  setState(() {
+                                    activeInput = 'email';
+                                  });
+                                }, 
+                                child: Text('Use Email Id',
+                                style: Theme.of(context).textTheme.labelSmall?.merge(const TextStyle(color: IKColors.primary)),
+                              )
                             ),
                           ],
                         ),
                         const SizedBox(height: 12),
+
+                        activeInput == 'email' ?
                         TextField(
                           decoration: InputDecoration(
+                            hintText: 'Enter your email',
+                            contentPadding: const EdgeInsets.all(18),
+                            prefixIcon: const Icon(Icons.email_outlined,color: IKColors.primary),
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Theme.of(context).dividerColor,width: 2.0),
+                            ),
+                            focusedBorder: const UnderlineInputBorder(
+                              borderSide: BorderSide(color: IKColors.primary,width: 2.0)
+                            )
+                          ),
+                          keyboardType: TextInputType.phone,
+                          style: Theme.of(context).textTheme.headlineMedium?.merge(const TextStyle(fontWeight: FontWeight.w400)),
+                        )
+                          :
+                        TextField(
+                          maxLength: 10,
+                          decoration: InputDecoration(
                             hintText: 'Phone number',
+                            counterText: "",
                             contentPadding: const EdgeInsets.all(18),
                             prefixIcon: SizedBox(
                               height: 50,
@@ -113,6 +160,7 @@ class SignIn extends StatelessWidget {
                           keyboardType: TextInputType.phone,
                           style: Theme.of(context).textTheme.headlineMedium?.merge(const TextStyle(fontWeight: FontWeight.w400)),
                         ),
+                        
                         const SizedBox(height: 12),
                         RichText(
                           text: TextSpan(

@@ -4,9 +4,15 @@ import 'package:clickcart/utils/constants/images.dart';
 import 'package:clickcart/utils/constants/sizes.dart';
 import 'package:flutter/material.dart';
 
-class Cart extends StatelessWidget {
+class Cart extends StatefulWidget {
 
-  Cart({ super.key });
+  const Cart({ super.key });
+
+  @override
+  State<Cart> createState() => _CartState();
+}
+
+class _CartState extends State<Cart> {
 
   final List<Map<String, String>> cartItems = [
     {
@@ -70,6 +76,12 @@ class Cart extends StatelessWidget {
       'reviews' : '180',
     },
   ];
+
+  void removeItem(id){
+    setState(() {
+      cartItems.removeWhere((item) => item['id'] == id);
+    });
+  }
 
   @override
   Widget build(BuildContext context){
@@ -211,6 +223,9 @@ class Cart extends StatelessWidget {
                               returnday: item['returnday']!,
                               count: item['count']!,
                               reviews: item['reviews']!,
+                              removePress :(){ 
+                                removeItem(item['id']);
+                              },
                             ),
                           );
                         }).toList(),

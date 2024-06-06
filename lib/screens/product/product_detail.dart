@@ -6,6 +6,7 @@ import 'package:clickcart/utils/constants/images.dart';
 import 'package:clickcart/utils/constants/sizes.dart';
 import 'package:clickcart/utils/constants/svg.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_share/flutter_share.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class ProductDetail extends StatefulWidget {
@@ -170,6 +171,14 @@ class _ProductDetailState extends State<ProductDetail> {
       {'image': IKImages.product3},
     ];
 
+    Future<void> share() async {
+      await FlutterShare.share(
+          title: 'Example share',
+          text: 'Example share text',
+          linkUrl: 'https://flutter.dev/',
+          chooserTitle: 'Example Chooser Title');
+    }
+
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size(IKSizes.container, IKSizes.headerHeight), 
@@ -295,7 +304,7 @@ class _ProductDetailState extends State<ProductDetail> {
                               right: 5,
                               top: 50,
                               child: IconButton(
-                                onPressed: () {}, 
+                                onPressed: share, 
                                 iconSize: 20,
                                 icon: SvgPicture.string(
                                   IKSvg.share,

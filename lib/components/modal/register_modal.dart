@@ -83,7 +83,7 @@ const RegisterModal({ super.key });
                 side: const BorderSide(color: IKColors.secondary),
                 foregroundColor: IKColors.title
               ),
-              child: const Text('Login'),
+              child: const Text('Register'),
             ),
           ],
         ),

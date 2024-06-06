@@ -359,6 +359,7 @@ class _PaymentMethodState extends State<PaymentMethod> {
                               contentPadding: const EdgeInsets.symmetric(vertical: 5),
                             ),
                             cursorColor: IKColors.primary,
+                            keyboardType: TextInputType.number,
                             style: TextStyle(color: Theme.of(context).textTheme.titleMedium?.color),
                           ),
                         ),

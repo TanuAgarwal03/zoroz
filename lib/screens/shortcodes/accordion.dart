@@ -85,6 +85,7 @@ class AccordionScreen extends StatelessWidget {
                           scaleWhenAnimating: false,
                           openAndCloseAnimation: true,
                           disableScrolling: true,
+                          contentBackgroundColor: Theme.of(context).cardColor,
                           contentBorderColor: Colors.transparent,
                           headerPadding: const EdgeInsets.symmetric(vertical: 4, horizontal: 0),
                           rightIcon: Icon(

@@ -26,7 +26,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
   final List<Widget> _pages = <Widget>[
     Home(),
     Category(),
-    Cart(),
+    const Cart(),
     Wishlist(),
     const Profile(),
   ];

@@ -174,7 +174,7 @@ class Badges extends StatelessWidget {
                             Padding(
                               padding: EdgeInsets.only(right: 8.0,bottom: 8.0),
                               child: OutlineBadge(
-                                textColor : Colors.black,
+                                textColor : Color.fromARGB(255, 175, 139, 24),
                                 color : IKColors.secondary,
                                 title:'Secondary'
                               ),

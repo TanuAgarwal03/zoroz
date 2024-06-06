@@ -1,5 +1,6 @@
 import 'package:clickcart/screens/cart/cart.dart';
 import 'package:clickcart/screens/category/category.dart';
+import 'package:clickcart/screens/chat/chat_call.dart';
 import 'package:clickcart/screens/chat/chat_list.dart';
 import 'package:clickcart/screens/chat/chat_screen.dart';
 import 'package:clickcart/screens/notifications/notifications.dart';
@@ -59,11 +60,11 @@ class AppRoutes {
     '/edit_profile': (context) => const EditProfile(),
     '/search_screen': (context) => SearchScreen(),
     '/chat_list': (context) => ChatList(),
-    '/chat_screen': (context) => ChatScreen(),
+    '/chat_screen': (context) => const ChatScreen(),
     '/my_orders': (context) => const MyOrders(),
     '/track_order': (context) => const TrackOrder(),
     '/write_review': (context) => const WriteReview(),
-    '/cart': (context) => Cart(),
+    '/cart': (context) => const Cart(),
     '/wishlist': (context) => Wishlist(),
     '/notifications': (context) => Notifications(),
     '/coupons': (context) => Coupons(),
@@ -86,5 +87,6 @@ class AppRoutes {
     '/tabs': (context) =>  const Tabs(),
     '/tables': (context) =>  const Tables(),
     '/toggle': (context) =>  const Toggle(),
+    '/chat_call': (context) =>  const ChatCall(),
   };
 }

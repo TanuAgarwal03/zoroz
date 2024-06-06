@@ -8,9 +8,10 @@ class BorderInput extends StatefulWidget {
   final String? hintText;
   final String? type;
   final dynamic prefixIcon;
+  final dynamic keyboardType;
   final Function(String?)? onChangeEvent;
 
-  const BorderInput({ super.key, this.hintText, this.type, this.onChangeEvent, this.prefixIcon });
+  const BorderInput({ super.key, this.hintText, this.type, this.onChangeEvent, this.prefixIcon, this.keyboardType });
 
   @override
   // ignore: library_private_types_in_public_api
@@ -27,6 +28,7 @@ class _BorderInputState extends State<BorderInput> {
       onChanged: widget.onChangeEvent,
       obscureText: widget.type == 'password' ? _showPassword : false,
       style: Theme.of(context).textTheme.titleMedium,
+      keyboardType: widget.keyboardType,
       decoration: InputDecoration(
         hintText: widget.hintText,
         hintStyle: Theme.of(context).textTheme.bodyMedium,
