@@ -9,8 +9,10 @@ class ScreenArguments {
   final String price;
   final String oldPrice;
   final String offer;
+  final String itemNo;
+  final String slug;
 
-  ScreenArguments(this.title, this.image, this.price, this.oldPrice, this.offer);
+  ScreenArguments(this.title, this.image, this.price, this.oldPrice, this.offer, this.itemNo, this.slug);
 }
 
 class ProductCard extends StatefulWidget {
@@ -23,6 +25,8 @@ class ProductCard extends StatefulWidget {
   final String offer;
   final dynamic addCartBtn;
   final String? inWishlist;
+  final String itemNo;
+  final String slug;
 
   const ProductCard({super.key, 
     this.category,
@@ -33,6 +37,8 @@ class ProductCard extends StatefulWidget {
     required this.offer,
     this.addCartBtn,
     this.inWishlist,
+    required this.itemNo,
+    required this.slug,
   });
 
   @override
@@ -59,7 +65,9 @@ class _ProductCardState extends State<ProductCard> {
             widget.image, 
             widget.price, 
             widget.oldPrice, 
-            widget.offer
+            widget.offer,
+            widget.itemNo,
+            widget.slug
           )
         );
       },
@@ -79,10 +87,7 @@ class _ProductCardState extends State<ProductCard> {
               children: [  
                 AspectRatio(
                   aspectRatio: 1 / .9,
-                  child: Image(
-                    image: AssetImage(widget.image),
-                    fit: BoxFit.contain, // use this
-                  ),
+                  child: Image.network(widget.image, fit: BoxFit.contain)
                 ),
                 Positioned(
                   right: 5,
@@ -113,15 +118,15 @@ class _ProductCardState extends State<ProductCard> {
                   if(widget.category != null)
                     Text(widget.category!, style: Theme.of(context).textTheme.titleSmall?.merge(const TextStyle(color: IKColors.primary))),
                   const SizedBox(height: 3),
-                  Text(widget.title,maxLines: 1,overflow: TextOverflow.ellipsis,style: Theme.of(context).textTheme.titleSmall),
+                  Text(widget.title,maxLines: 2, overflow: TextOverflow.ellipsis,style: Theme.of(context).textTheme.titleSmall),
                   const SizedBox(height: 4),
                   Row(
                     children: [
-                      Text('\$${widget.price}',style: Theme.of(context).textTheme.titleMedium),
+                      Text('\₹${widget.price}',style: Theme.of(context).textTheme.titleMedium),
                       const SizedBox(width: 6),
-                      Text('\$${widget.oldPrice}',style: Theme.of(context).textTheme.bodySmall?.merge(const TextStyle(decoration: TextDecoration.lineThrough))),
+                      (widget.offer == '0') ? const Text(''):Text('\$${widget.oldPrice}',style: Theme.of(context).textTheme.bodySmall?.merge(const TextStyle(decoration: TextDecoration.lineThrough))),
                       const SizedBox(width: 6),
-                      Text(widget.offer,style: Theme.of(context).textTheme.bodySmall?.merge(const TextStyle(color: Color(0xFFEB5757)))),
+                      (widget.offer == '0') ? const Text(''): Text(widget.offer,style: Theme.of(context).textTheme.bodySmall?.merge(const TextStyle(color: Color(0xFFEB5757)))),
                     ],
                   ),
                   if(widget.addCartBtn != null)

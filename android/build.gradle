@@ -1,18 +1,48 @@
+// allprojects {
+//     ext.kotlin_version = '1.8.10'
+//     repositories {
+//         google()
+//         mavenCentral()
+//     }
+// }
+
+// rootProject.buildDir = '../build'
+// subprojects {
+//     project.buildDir = "${rootProject.buildDir}/${project.name}"
+// }
+// subprojects {
+//     project.evaluationDependsOn(':app')
+// }
+
+// tasks.register("clean", Delete) {
+//     delete rootProject.buildDir
+// }
+
 allprojects {
+    ext.kotlin_version = '1.8.10'
     repositories {
         google()
         mavenCentral()
+        gradlePluginPortal() // Ensure plugins are fetched correctly
     }
 }
 
 rootProject.buildDir = '../build'
+
 subprojects {
     project.buildDir = "${rootProject.buildDir}/${project.name}"
 }
+
 subprojects {
     project.evaluationDependsOn(':app')
 }
 
+// Ensure the correct Gradle version
 tasks.register("clean", Delete) {
     delete rootProject.buildDir
 }
+
+// Force use of Gradle 8.0+ if needed
+// gradle.wrapper {
+//     distributionUrl = "https://services.gradle.org/distributions/gradle-8.1-all.zip"
+// }

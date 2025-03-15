@@ -1,79 +1,116 @@
+// import 'package:clickcart/components/bottomsheet/notification_sheet.dart';
+import 'dart:convert';
+
 import 'package:clickcart/components/drawer/drawer_menu.dart';
 import 'package:clickcart/components/list/list_item.dart';
-import 'package:clickcart/utils/constants/colors.dart';
+import 'package:clickcart/screens/profile/privacy_policy.dart';
+import 'package:clickcart/screens/profile/terms_conditions.dart';
+// import 'package:clickcart/utils/constants/colors.dart';
 import 'package:clickcart/utils/constants/images.dart';
 import 'package:clickcart/utils/constants/sizes.dart';
 import 'package:clickcart/utils/constants/svg.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:http/http.dart' as http;
 
-class Profile extends StatelessWidget {
-  const Profile({ super.key });
+class Profile extends StatefulWidget {
+  const Profile({super.key});
 
   @override
-  Widget build(BuildContext context){
+  State<Profile> createState() => _ProfileState();
+}
+
+class _ProfileState extends State<Profile> {
+  String email = '';
+  String mobile = '';
+  String address = '';
+  bool isLoading = true;
+  @override
+  void initState() {
+    super.initState();
+    fetchData();
+  }
+
+  Future<void> fetchData() async {
+    try {
+      final url = Uri.parse(
+          'https://backend.vansedemo.xyz/api/setting/store/customization/all');
+      final response = await http.get(url);
+
+      if (response.statusCode == 200) {
+        final decodedResponse = json.decode(response.body);
+        // print('Decoded response: $decodedResponse');
+
+        final Map<String, dynamic> data =
+            decodedResponse is List ? decodedResponse[0] : decodedResponse;
+
+        if (data.containsKey('footer')) {
+          final aboutus = data['footer'];
+
+          setState(() {
+            address = aboutus['block4_address']['en'] ?? 'Address';
+            mobile = aboutus['block4_phone'] ?? '1234567890';
+            email = aboutus['block4_email'] ?? 'zoroz@123';
+            isLoading = false;
+          });
+        } else {
+          print('Contact data missing in response.');
+          setState(() {
+            isLoading = false;
+          });
+        }
+      } else {
+        print('Failed to load data. Status code: ${response.statusCode}');
+        setState(() {
+          isLoading = false;
+        });
+      }
+    } catch (e) {
+      print('Error fetching contact details: $e');
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: const Size(IKSizes.container, IKSizes.headerHeight), 
-        child: Container(
-          alignment: Alignment.center,
+          preferredSize: const Size(IKSizes.container, IKSizes.headerHeight),
           child: Container(
-            constraints: const BoxConstraints(
-              maxWidth: IKSizes.container
-            ),
-            child: AppBar(
-              title: Image.asset(IKImages.logo,height: 24,),
-              titleSpacing: 5,
-              leading: Builder(
-                builder: (context) {
-                  return IconButton(
-                    icon: const Icon(Icons.menu),
-                    iconSize: 28,
-                    onPressed: () {
-                      Scaffold.of(context).openDrawer();
-                    },
-                  );
-                },
-              ),
-              actions: [
-                IconButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/search_screen');
-                  }, 
-                  iconSize: 28,
-                  icon: SvgPicture.string(IKSvg.search),
+            alignment: Alignment.center,
+            child: Container(
+              constraints: const BoxConstraints(maxWidth: IKSizes.container),
+              child: AppBar(
+                title: Image.asset(
+                  'assets/images/applogo.png',
+                  height: 30,
                 ),
-                Stack(
-                  children: [
-                    IconButton(
-                      onPressed: () {
-                        Navigator.pushNamed(context, '/chat_list');
-                      }, 
+                titleSpacing: 5,
+                leading: Builder(
+                  builder: (context) {
+                    return IconButton(
+                      icon: const Icon(Icons.menu),
                       iconSize: 28,
-                      // ignore: deprecated_member_use
-                      icon: SvgPicture.string(IKSvg.chat,height: 20,width: 20, color: Colors.white),
-                    ),
-                    Positioned(
-                      top: 8,
-                      right: 8,
-                      child: Container(
-                        height: 16,
-                        width: 16,
-                        decoration: BoxDecoration(
-                          color: IKColors.secondary,
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        alignment: Alignment.center,
-                        child: const Text('14',style: TextStyle(color: Colors.black,fontSize: 10)),
-                      ),
-                    ),
-                  ],
+                      onPressed: () {
+                        Scaffold.of(context).openDrawer();
+                      },
+                    );
+                  },
                 ),
-              ],
+                actions: [
+                  IconButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/search_screen');
+                    },
+                    iconSize: 28,
+                    icon: SvgPicture.string(IKSvg.search),
+                  ),
+                ],
+              ),
             ),
-          ),
-        )
-      ),
+          )),
       drawer: const DrawerMenu(),
       body: Container(
         alignment: Alignment.topCenter,
@@ -86,101 +123,23 @@ class Profile extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Container(
-                  margin: const EdgeInsets.only(bottom: 10),
-                  padding: const EdgeInsets.all(15),
-                  color: Theme.of(context).cardColor,
-                  child: Column(
-                    children: [
-                      Row(
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(20),
-                            child : Image.asset(IKImages.profile,height: 40,width: 40),
-                          ),
-                          const SizedBox(width: 15),
-                          Text('James Smith',style: Theme.of(context).textTheme.headlineLarge?.merge(const TextStyle(fontWeight: FontWeight.w400))),
-                        ],
+                    margin: const EdgeInsets.only(bottom: 10),
+                    padding: const EdgeInsets.all(15),
+                    color: Theme.of(context).cardColor,
+                    child: Column(children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: Image.asset(IKImages.profile,
+                            height: 80, width: 80),
                       ),
                       const SizedBox(height: 15),
-                      Wrap(
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                              Navigator.pushNamed(context, '/my_orders');
-                            },
-                            child: Container(
-                              width: MediaQuery.of(context).size.width > IKSizes.container ?
-                                IKSizes.container / 2 - 17.5
-                                :
-                                MediaQuery.of(context).size.width / 2 - 17.5,
-                              margin: const EdgeInsets.only(bottom: 5),
-                              padding: const EdgeInsets.all(11),
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                border: Border.all(width: 1,color: Theme.of(context).dividerColor)
-                              ),
-                              child: Text('Your order',style: Theme.of(context).textTheme.titleLarge),
-                            ),
-                          ),
-                          const SizedBox(width: 5),
-                          GestureDetector(
-                            onTap: () {
-                              Navigator.pushNamed(context, '/wishlist');
-                            },
-                            child: Container(
-                              width: MediaQuery.of(context).size.width > IKSizes.container ?
-                                IKSizes.container / 2 - 17.5
-                                :
-                                MediaQuery.of(context).size.width / 2 - 17.5,
-                              margin: const EdgeInsets.only(bottom: 5),
-                              padding: const EdgeInsets.all(11),
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                border: Border.all(width: 1,color: Theme.of(context).dividerColor)
-                              ),
-                              child: Text('Wishlist',style: Theme.of(context).textTheme.titleLarge),
-                            ),
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              Navigator.pushNamed(context, '/coupons');
-                            },
-                            child: Container(
-                              width: MediaQuery.of(context).size.width > IKSizes.container ?
-                                IKSizes.container / 2 - 17.5
-                                :
-                                MediaQuery.of(context).size.width / 2 - 17.5,
-                              padding: const EdgeInsets.all(11),
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                border: Border.all(width: 1,color: Theme.of(context).dividerColor)
-                              ),
-                              child: Text('Coupons',style: Theme.of(context).textTheme.titleLarge),
-                            ),
-                          ),
-                          const SizedBox(width: 5),
-                          GestureDetector(
-                            onTap: () {
-                              Navigator.pushNamed(context, '/track_order');
-                            },
-                            child: Container(
-                              width: MediaQuery.of(context).size.width > IKSizes.container ?
-                                IKSizes.container / 2 - 17.5
-                                :
-                                MediaQuery.of(context).size.width / 2 - 17.5,
-                              padding: const EdgeInsets.all(11),
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                border: Border.all(width: 1,color: Theme.of(context).dividerColor)
-                              ),
-                              child: Text('Track order',style: Theme.of(context).textTheme.titleLarge),
-                            ),
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
-                ),
+                      Text('James Smith',
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineLarge
+                              ?.merge(const TextStyle(
+                                  fontWeight: FontWeight.w400))),
+                    ])),
                 Container(
                   margin: const EdgeInsets.only(bottom: 10),
                   color: Theme.of(context).cardColor,
@@ -188,18 +147,22 @@ class Profile extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 12),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 15, vertical: 12),
                         decoration: BoxDecoration(
-                          border: Border(bottom: BorderSide(width: 1,color: Theme.of(context).dividerColor))
-                        ),
-                        child: Text('Account Settings',style: Theme.of(context).textTheme.headlineMedium),
+                            border: Border(
+                                bottom: BorderSide(
+                                    width: 1,
+                                    color: Theme.of(context).dividerColor))),
+                        child: Text('Account Settings',
+                            style: Theme.of(context).textTheme.headlineMedium),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(15),
                         child: Column(
                           children: [
                             ListItem(
-                              onTap: (){
+                              onTap: () {
                                 Navigator.pushNamed(context, '/edit_profile');
                               },
                               icon: SvgPicture.string(
@@ -210,48 +173,26 @@ class Profile extends StatelessWidget {
                               title: "Edit profile",
                             ),
                             ListItem(
-                              onTap: (){
-                                Navigator.pushNamed(context, '/payment');
-                              },
-                              icon: SvgPicture.string(
-                                IKSvg.card,
-                                width: 20,
-                                height: 20,
-                              ),
-                              title: "Saved Cards & Wallet",
-                            ),
-                            ListItem(
-                              onTap: (){
-                                Navigator.pushNamed(context, '/delivery_address');
+                              onTap: () {
+                                Navigator.pushNamed(context, '/my_orders');
                               },
                               icon: SvgPicture.string(
                                 IKSvg.address,
                                 width: 20,
                                 height: 20,
                               ),
-                              title: "Saved Addresses",
+                              title: "My Orders",
                             ),
                             ListItem(
-                              onTap: (){
-                                Navigator.pushNamed(context, '/choose_language');
+                              onTap: () {
+                                Navigator.pushNamed(context, '/signin');
                               },
                               icon: SvgPicture.string(
-                                IKSvg.language,
+                                IKSvg.signout,
                                 width: 20,
                                 height: 20,
                               ),
-                              title: "Select Language",
-                            ),
-                            ListItem(
-                              onTap: (){
-                                Navigator.pushNamed(context, '/notifications');
-                              },
-                              icon: SvgPicture.string(
-                                IKSvg.bell,
-                                width: 20,
-                                height: 20,
-                              ),
-                              title: "Notifications Settings",
+                              title: "Logout",
                             ),
                           ],
                         ),
@@ -265,41 +206,123 @@ class Profile extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 12),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 15, vertical: 12),
                         decoration: BoxDecoration(
-                          border: Border(bottom: BorderSide(width: 1,color: Theme.of(context).dividerColor))
-                        ),
-                        child: Text('My Activity',style: Theme.of(context).textTheme.headlineMedium),
+                            border: Border(
+                                bottom: BorderSide(
+                                    width: 1,
+                                    color: Theme.of(context).dividerColor))),
+                        child: Text('Support Center',
+                            style: Theme.of(context).textTheme.headlineMedium),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(15),
                         child: Column(
                           children: [
                             ListItem(
-                              onTap: (){
-                                Navigator.pushNamed(context, '/write_review');
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const PrivacyPolicy(),
+                                  ),
+                                );
                               },
                               icon: SvgPicture.string(
-                                IKSvg.review,
+                                IKSvg.list,
                                 width: 20,
                                 height: 20,
                               ),
-                              title: "Reviews",
+                              title: "Privacy Policy",
                             ),
                             ListItem(
-                              onTap: (){
-                                Navigator.pushNamed(context, '/questions');
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        const TermsConditions(),
+                                  ),
+                                );
                               },
                               icon: SvgPicture.string(
-                                IKSvg.comment,
+                                IKSvg.receipt,
                                 width: 20,
                                 height: 20,
                               ),
-                              title: "Questions & Answers",
+                              title: "Terms & Conditions",
                             ),
                           ],
                         ),
                       )
+                    ],
+                  ),
+                ),
+                Container(
+                  color: Theme.of(context).cardColor,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 15, vertical: 12),
+                        decoration: BoxDecoration(
+                            border: Border(
+                                bottom: BorderSide(
+                                    width: 1,
+                                    color: Theme.of(context).dividerColor))),
+                        child: Text('About Us',
+                            style: Theme.of(context).textTheme.headlineMedium),
+                      ),
+                      Padding(
+                          padding: const EdgeInsets.all(15),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Icon(Icons.apartment, size: 15),
+                                  const SizedBox(
+                                    width: 3,
+                                  ),
+                                  Expanded(
+                                    child: Text(
+                                      address,
+                                      style:
+                                          const TextStyle(color: Colors.black),
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  const Icon(Icons.call, size: 15),
+                                  const SizedBox(
+                                    width: 3,
+                                  ),
+                                  Text('Tel : $mobile',
+                                      style:
+                                          const TextStyle(color: Colors.black)),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  const Icon(Icons.mail, size: 15),
+                                  const SizedBox(
+                                    width: 3,
+                                  ),
+                                  Text('Email : $email',
+                                      style:
+                                          const TextStyle(color: Colors.black)),
+                                ],
+                              ),
+                            ],
+                          ))
                     ],
                   ),
                 ),

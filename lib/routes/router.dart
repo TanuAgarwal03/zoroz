@@ -1,3 +1,4 @@
+import 'package:clickcart/screens/auth/splash.dart';
 import 'package:clickcart/screens/cart/cart.dart';
 import 'package:clickcart/screens/category/category.dart';
 import 'package:clickcart/screens/chat/chat_call.dart';
@@ -45,6 +46,7 @@ import 'package:clickcart/screens/payment/delivery_address.dart';
 
 class AppRoutes {
   static final Map<String, WidgetBuilder> routes = {
+    '/splash': (context) => const Splash(),
     '/choose_language': (context) => const ChooseLanguage(),
     '/signin': (context) => const SignIn(),
     '/otp': (context) => const Otp(),
@@ -71,7 +73,7 @@ class AppRoutes {
     '/profile': (context) => const Profile(),
     '/categories': (context) => Category(),
     '/questions': (context) => Questions(),
-    '/components': (context) => const Components(),
+    '/components': (context) => const CategoriesScreen(),
     '/accordion': (context) =>  AccordionScreen(),
     '/bottomsheet': (context) =>  const Bottomsheet(),
     '/modalbox': (context) =>  const ModalBox(),

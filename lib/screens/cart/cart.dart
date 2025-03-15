@@ -214,6 +214,8 @@ class _CartState extends State<Cart> {
                           return Padding(
                             padding: const EdgeInsets.only(bottom: 6.0),
                             child: ProductCart(
+                              slug: item['slug'] ?? 'polar-m600-charging-cable-black',
+                                        itemNo: item['itemNo']?? 'IP7G8960B',
                               category: item['category']!,
                               title: item['title']!,
                               price: item['price']!,

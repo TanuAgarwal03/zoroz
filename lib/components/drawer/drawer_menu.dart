@@ -14,13 +14,13 @@ class DrawerMenu extends StatefulWidget {
 class _DrawerMenuState extends State<DrawerMenu> {
   final List<Map<String, String>> menuItems = [
     {'name': 'Home', 'icon': IKSvg.home, 'navigate' : '/main_home'},
-    {'name': 'Products', 'icon': IKSvg.bag, 'navigate' : '/products'},
-    {'name': 'Components', 'icon': IKSvg.grid2, 'navigate' : '/components'},
+    // {'name': 'Products', 'icon': IKSvg.bag, 'navigate' : '/products'},
+    {'name': 'Categories', 'icon': IKSvg.grid2, 'navigate' : '/components'},
     // {'name': 'Pages', 'icon': IKSvg.diamond, 'navigate' : '/main_home'},
-    {'name': 'Featured', 'icon': IKSvg.star, 'navigate' : '/categories'},
-    {'name': 'Wishlist', 'icon': IKSvg.wishlist, 'navigate' : '/wishlist'},
+    // {'name': 'Featured', 'icon': IKSvg.star, 'navigate' : '/categories'},
+    // {'name': 'Wishlist', 'icon': IKSvg.wishlist, 'navigate' : '/wishlist'},
     {'name': 'Orders', 'icon': IKSvg.receipt, 'navigate' : '/my_orders'},
-    {'name': 'My Cart', 'icon': IKSvg.cart, 'navigate' : '/cart'},
+    // {'name': 'My Cart', 'icon': IKSvg.cart, 'navigate' : '/cart'},
     {'name': 'Profile', 'icon': IKSvg.user, 'navigate' : '/profile'},
     {'name': 'Logout', 'icon': IKSvg.signout, 'navigate' : '/signin'},
   ];
@@ -113,16 +113,17 @@ class _DrawerMenuState extends State<DrawerMenu> {
                       children: [
                         RichText(
                           text: TextSpan(
-                            text: "ClickCart",
+                            text: "Zoroz",
                             children: const <TextSpan>[
                                 TextSpan(
-                                  text: ' ecommerce store',
+                                  text: '',
                                   style: TextStyle(fontWeight: FontWeight.w400)
                                 )
                             ],
                             style: Theme.of(context).textTheme.titleMedium?.merge(const TextStyle(fontSize: 13))
                           ),
                         ),
+                        // Text('https://store.vansedemo.xyz/',style: Theme.of(context).textTheme.titleMedium?.merge(const TextStyle(fontWeight: FontWeight.w400,fontSize: 13))),
                         Text('App Version 1.0',style: Theme.of(context).textTheme.titleMedium?.merge(const TextStyle(fontWeight: FontWeight.w400,fontSize: 13))),
                       ],
                     ),

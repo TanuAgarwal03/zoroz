@@ -1,0 +1,2 @@
+C:/Users/Lytechx/Downloads/Zoroz/zoroz_mobile_app/package/android/app/.cxx/RelWithDebInfo/2k1z3k5l/x86/CMakeFiles/edit_cache.dir
+C:/Users/Lytechx/Downloads/Zoroz/zoroz_mobile_app/package/android/app/.cxx/RelWithDebInfo/2k1z3k5l/x86/CMakeFiles/rebuild_cache.dir

@@ -61,7 +61,8 @@ class _BlockbusterDealsState extends State<BlockbusterDeals> {
                         imagePath, 
                         '\$105', 
                         '\$112', 
-                        '70% off'
+                        '70% off',
+                          '',''
                       )
                     );
                   },
@@ -186,7 +187,8 @@ class _BlockbusterDealsState extends State<BlockbusterDeals> {
                           IKImages.product2, 
                           '\$105', 
                           '\$112', 
-                          '70% off'
+                          '70% off',
+                          '',''
                           )
                         );
                       },
@@ -214,7 +216,8 @@ class _BlockbusterDealsState extends State<BlockbusterDeals> {
                           IKImages.product3, 
                           '\$105', 
                           '\$112', 
-                          '70% off'
+                          '70% off',
+                          '',''
                           )
                         );
                       },

@@ -33,7 +33,8 @@ class HomeDecor extends StatelessWidget {
                           IKImages.product4, 
                           '\$105', 
                           '\$112', 
-                          '70% off'
+                          '70% off',
+                          '','',
                           )
                         );
                       },
@@ -61,7 +62,8 @@ class HomeDecor extends StatelessWidget {
                           IKImages.product5, 
                           '\$105', 
                           '\$112', 
-                          '70% off'
+                          '70% off',
+                          '',''
                           )
                         );
                       },
@@ -92,7 +94,8 @@ class HomeDecor extends StatelessWidget {
                           IKImages.product6, 
                           '\$105', 
                           '\$112', 
-                          '70% off'
+                          '70% off',
+                          '',''
                           )
                         );
                       },
@@ -120,7 +123,8 @@ class HomeDecor extends StatelessWidget {
                           IKImages.product7, 
                           '\$105', 
                           '\$112', 
-                          '70% off'
+                          '70% off',
+                          '',''
                           )
                         );
                       },
@@ -148,7 +152,8 @@ class HomeDecor extends StatelessWidget {
                           IKImages.product8, 
                           '\$105', 
                           '\$112', 
-                          '70% off'
+                          '70% off',
+                          '',''
                           )
                         );
                       },

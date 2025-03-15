@@ -36,6 +36,16 @@ class ServiceCard extends StatelessWidget {
             color: IKColors.primary,
           ),
           const SizedBox(height: 5),
+//           FittedBox(
+//   fit: BoxFit.scaleDown, // Ensures text shrinks if necessary but won't grow bigger than its natural size
+//   alignment: Alignment.centerLeft, // Aligns text inside the box
+//   child: Text(
+//     title,
+//     style: Theme.of(context).textTheme.titleMedium,
+//     maxLines: 1,
+//   ),
+// ),
+
           Text(title,style: Theme.of(context).textTheme.titleMedium),
           const SizedBox(height: 1),
           Text(desc, style: Theme.of(context).textTheme.bodySmall),

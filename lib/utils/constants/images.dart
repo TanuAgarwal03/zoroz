@@ -4,6 +4,7 @@ class IKImages {
 
   //logo
   static const String logo  = "assets/images/logo.png";
+  static const String logo2  = "assets/images/logo2.png";
   
   static const String profile  = "assets/images/profile.png";
   static const String dailyOffer  = "assets/images/daily-offer.png";
@@ -12,6 +13,7 @@ class IKImages {
   static const String visa  = "assets/images/visa.png";
   static const String mastercard  = "assets/images/mastercard.png";
   static const String thumbsUp  = "assets/images/thumbs-up.png";
+  static const String splash  = "assets/images/splash.jpg";
 
   //background
   static const String bannerBg  = "assets/images/background/bg1.png";

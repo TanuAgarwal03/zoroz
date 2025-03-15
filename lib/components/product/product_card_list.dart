@@ -17,6 +17,8 @@ class ProductCardList extends StatefulWidget {
   final String reviews;
   final bool? wishlistIcon;
   final String? productid;
+  final String? itemNo;
+  final String? slug;
 
   const ProductCardList({super.key, 
     this.category,
@@ -30,6 +32,8 @@ class ProductCardList extends StatefulWidget {
     required this.reviews,
     this.wishlistIcon,
     this.productid,
+    this.slug,
+    this.itemNo
   });
 
   @override
@@ -49,7 +53,8 @@ class _ProductCardListState extends State<ProductCardList> {
             widget.image, 
             widget.price, 
             widget.oldPrice, 
-            widget.offer
+            widget.offer,
+            widget.slug??'', widget.itemNo??''
           )
         );
       },
@@ -64,7 +69,7 @@ class _ProductCardListState extends State<ProductCardList> {
                   child: SizedBox(
                     width: 145,
                     height: 150,
-                    child:  Image.asset(widget.image,width: double.infinity,height: double.infinity,),
+                    child:  Image.network(widget.image,width: double.infinity,height: double.infinity,),
                   ),
                 ), 
                 Expanded(
@@ -74,7 +79,7 @@ class _ProductCardListState extends State<ProductCardList> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Apple',style:Theme.of(context).textTheme.titleSmall?.merge(const TextStyle(color: IKColors.primary))),
+                        // Text('Apple',style:Theme.of(context).textTheme.titleSmall?.merge(const TextStyle(color: IKColors.primary))),
                         const SizedBox(
                           height: 3,
                         ),
@@ -86,9 +91,9 @@ class _ProductCardListState extends State<ProductCardList> {
                           children: [
                             Text('\$${widget.price}',style: Theme.of(context).textTheme.titleMedium),
                             const SizedBox(width: 6),
-                            Text('\$${widget.oldPrice}',style: Theme.of(context).textTheme.bodySmall?.merge(const TextStyle(decoration: TextDecoration.lineThrough))),
+                            (widget.offer == '0')?Text(''):Text('\$${widget.oldPrice}',style: Theme.of(context).textTheme.bodySmall?.merge(const TextStyle(decoration: TextDecoration.lineThrough))),
                             const SizedBox(width: 6),
-                            Text(widget.offer,style: Theme.of(context).textTheme.bodySmall?.merge(const TextStyle(color: Color(0xFFEB5757)))),
+                            (widget.offer == '0')?Text(''):Text(widget.offer,style: Theme.of(context).textTheme.bodySmall?.merge(const TextStyle(color: Color(0xFFEB5757)))),
                           ],
                         ),
                         const SizedBox(
@@ -122,7 +127,7 @@ class _ProductCardListState extends State<ProductCardList> {
                               color: Color(0xFFFFA048),
                             ),
                             const SizedBox(width: 6),
-                            Text('(${widget.reviews} Review)',style: Theme.of(context).textTheme.bodySmall)
+                            Text('(${widget.reviews})',style: Theme.of(context).textTheme.bodySmall)
                           ],
                         ),
                         const SizedBox(height: 8),
@@ -138,7 +143,7 @@ class _ProductCardListState extends State<ProductCardList> {
                               width: 14,
                               child: const Icon(Icons.reply,size: 12,color: Colors.white)
                             ),
-                            Text('${widget.returnday} Days return available',style:Theme.of(context).textTheme.bodyMedium)
+                            Text('${widget.returnday} return available',style:Theme.of(context).textTheme.bodyMedium)
                           ]
                         )
                       ], 

@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 class IKColors {
   IKColors._();
 
-  static const Color primary = Color(0xFF2874F0);
-  static const Color secondary = Color(0xFFFFE019);
+  static const Color primary = Color(0xFFEF4444);
+  static const Color secondary = Color(0xFFEF4444);
   static const Color danger = Color(0xFFEB5757);
   static const Color success = Color(0xFF219653);
   static const Color warning = Color(0xFFCC9108);

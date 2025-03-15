@@ -20,6 +20,8 @@ class ProductCart extends StatelessWidget {
   final String? orderStatus;
   final String? orderRated;
   final Function()? removePress;
+  final String itemNo;
+  final String slug;
 
   const ProductCart({super.key, 
     this.category,
@@ -35,6 +37,8 @@ class ProductCart extends StatelessWidget {
     this.orderStatus,
     this.orderRated,
     this.removePress,
+    required this.itemNo,
+    required this.slug
   });
 
   @override
@@ -50,7 +54,9 @@ class ProductCart extends StatelessWidget {
                   image, 
                   price, 
                   oldPrice, 
-                  offer
+                  offer,
+                  slug,
+                  itemNo
                 )
               );
             },
@@ -78,9 +84,9 @@ class ProductCart extends StatelessWidget {
                         children: [
                           Text('\$$price',style: Theme.of(context).textTheme.titleMedium),
                           const SizedBox(width: 6),
-                          Text('\$$oldPrice',style: Theme.of(context).textTheme.bodySmall?.merge(const TextStyle(decoration: TextDecoration.lineThrough))),
+                          (offer == '0')? Text('') :Text('\$$oldPrice',style: Theme.of(context).textTheme.bodySmall?.merge(const TextStyle(decoration: TextDecoration.lineThrough))),
                           const SizedBox(width: 6),
-                          Text(offer,style: Theme.of(context).textTheme.bodySmall?.merge(const TextStyle(color: Color(0xFFEB5757)))),
+                          (offer == '0')? Text('') : Text(offer,style: Theme.of(context).textTheme.bodySmall?.merge(const TextStyle(color: Color(0xFFEB5757)))),
                         ],
                       ),
                       const SizedBox(

@@ -16,7 +16,7 @@ class App extends StatelessWidget {
       themeMode: ThemeMode.system,
       theme: IKAppTheme.lightTheme,
       darkTheme: IKAppTheme.darkTheme,
-      initialRoute: '/choose_language',
+      initialRoute: '/splash',
       routes: AppRoutes.routes,
       debugShowCheckedModeBanner: false,
     );

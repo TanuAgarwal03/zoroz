@@ -50,8 +50,8 @@ class _WriteReviewState extends State<WriteReview> {
                       const SizedBox(height: 10),
                       const ProductCardList(
                         title: 'APPLE iPhone 14 (Blue, 128 GB)', 
-                        price: '\$105', 
-                        oldPrice: '\$112', 
+                        price: '105', 
+                        oldPrice: '112', 
                         image: IKImages.product1, 
                         returnday: '14', 
                         count: "count", 

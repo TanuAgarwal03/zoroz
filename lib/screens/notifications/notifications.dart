@@ -173,6 +173,8 @@ class Notifications extends StatelessWidget {
                                     SizedBox(
                                       width: 162,
                                       child : ProductCard(
+                                        slug: item['slug']?? 'polar-m600-charging-cable-black',
+                                        itemNo: item['itemNo']?? 'IP7G8960B',
                                           category: item['category']!,
                                           title: item['title']!,
                                           image: item['image']!,
