@@ -5,9 +5,10 @@ import 'package:clickcart/components/home/banner_swiper.dart';
 import 'package:clickcart/components/product/product_card.dart';
 import 'package:clickcart/components/home/service_list.dart';
 import 'package:clickcart/utils/constants/sizes.dart';
-import 'package:clickcart/utils/constants/svg.dart';
+// import 'package:clickcart/utils/constants/svg.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hive/hive.dart';
+// import 'package:flutter_svg/flutter_svg.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -31,6 +32,7 @@ class _HomeState extends State<Home> {
   String? thirdBanner;
   String? fourthBanner;
   String? fifthBanner;
+  String? token;
 
   void loginSheetTime() async {
     Timer(
@@ -52,8 +54,9 @@ class _HomeState extends State<Home> {
     fetchAppleProductItems();
     fetchSmartWearItems();
     fetchCameraProductItems();
-    loginSheetTime();
+    // loginSheetTime();
     fetchSliders();
+    fetchLogindetails();
   }
 
   Future<void> fetchSliders() async {
@@ -142,7 +145,7 @@ class _HomeState extends State<Home> {
             // 'image' : images[0],
             'image': images.isNotEmpty
                 ? images[0]
-                : 'https://img.myipadbox.com/upload/store/product_l/${product['itemNo']}.jpg', // Default image,
+                : 'https://img.myipadbox.com/upload/store/product_l/${product['itemNo']}.jpg',
             'price': prices['price'].toString(),
             'old-price': prices['originalPrice'].toString(),
             'offer': '${prices['discount']}',
@@ -291,7 +294,6 @@ class _HomeState extends State<Home> {
         setState(() {
           cameraProductItems = cameraloadedProducts;
           isLoading = false;
-          // print('Loaded Apple Products: $appleloadedProducts');
         });
       } else {
         print('Failed to load products: ${response.statusCode}');
@@ -300,6 +302,20 @@ class _HomeState extends State<Home> {
     } catch (e) {
       print('Error fetching products: $e');
       setState(() => isLoading = false);
+    }
+  }
+
+  void fetchLogindetails() async {
+    var box = await Hive.openBox('userBox');
+    final loginData = box.get('loginData');
+
+    if (loginData != null) {
+      token = loginData['token'];
+      print('Phone: ${loginData['phone']}');
+      print('Token (if available): ${loginData['token']}');
+      print('Name : ${loginData['name']}');
+      print('Email : ${loginData['email']}');
+      print('Id : ${loginData['_id']}');
     }
   }
 
@@ -329,23 +345,6 @@ class _HomeState extends State<Home> {
                   height: 30,
                 ),
                 titleSpacing: 5,
-                actions: [
-                  IconButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/search_screen');
-                    },
-                    iconSize: 28,
-                    icon: SvgPicture.string(IKSvg.search),
-                  ),
-                  // IconButton(
-                  //   onPressed: () {
-                  //     Navigator.pushNamed(context, '/notifications');
-                  //   },
-                  //   iconSize: 28,
-                  //   // ignore: deprecated_member_use
-                  //   icon: SvgPicture.string(IKSvg.bell, color: Colors.white),
-                  // ),
-                ],
               ),
             ),
           )),
@@ -361,28 +360,86 @@ class _HomeState extends State<Home> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Container(
-                  height: 10,
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).cardColor,
+                  decoration: BoxDecoration(color: Theme.of(context).cardColor),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 12.0, vertical: 12.0),
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(context, '/search_screen');
+                      },
+                      child: Container(
+                        height: 48,
+                        padding: const EdgeInsets.symmetric(horizontal: 12),
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).cardColor,
+                          borderRadius: BorderRadius.circular(8),
+                          border: Border.all(color: Colors.grey.shade300),
+                          boxShadow: [
+                            BoxShadow(
+                              // ignore: deprecated_member_use
+                              color: Colors.grey.withOpacity(0.1),
+                              blurRadius: 5,
+                              offset: const Offset(0, 2),
+                            ),
+                          ],
+                        ),
+                        child: Row(
+                          children: [
+                            const Icon(Icons.search, color: Colors.grey),
+                            const SizedBox(width: 10),
+                            Expanded(
+                              child: Text(
+                                'Search products',
+                                style: TextStyle(
+                                  color: Colors.grey.shade600,
+                                  fontSize: 16,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
                   ),
                 ),
                 BannerSwiper(),
                 Container(
-                  height: 10,
+                  padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+                  width: double.infinity,
                   decoration: BoxDecoration(
                     color: Theme.of(context).cardColor,
                   ),
+                  child: Text('Trending Categories',
+                      style: Theme.of(context).textTheme.headlineMedium),
                 ),
                 Container(
                   color: Theme.of(context).cardColor,
-                  height: 140, 
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: categories.map((category) {
-                        String slug = generateSlug(category['name']['en']);
-                        String id = category['_id'];
-                        return GestureDetector(
+                  padding: const EdgeInsets.all(10),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // The GridView for showing categories (max 9 items shown)
+                      GridView.builder(
+                        itemCount:
+                            categories.length > 9 ? 9 : categories.length,
+                        shrinkWrap:
+                            true, // Makes it take only the space it needs
+                        physics:
+                            const NeverScrollableScrollPhysics(), // No scroll, let parent scroll
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 3,
+                          mainAxisSpacing: 10,
+                          crossAxisSpacing: 8,
+                          childAspectRatio: 1.1,
+                        ),
+                        itemBuilder: (context, index) {
+                          final category = categories[index];
+                          String slug = generateSlug(category['name']['en']);
+                          String id = category['_id'];
+
+                          return GestureDetector(
                             onTap: () {
                               Navigator.pushNamed(
                                 context,
@@ -390,19 +447,29 @@ class _HomeState extends State<Home> {
                                 arguments: {'slug': slug, 'id': id},
                               );
                             },
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 10),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.grey[200],
+                                borderRadius: BorderRadius.circular(8),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.withOpacity(0.2),
+                                    blurRadius: 5,
+                                    offset: const Offset(0, 3),
+                                  ),
+                                ],
+                              ),
                               child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  const SizedBox(height: 8),
-                                  ClipOval(
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(30),
                                     child: category['icon'] != null &&
                                             category['icon'].isNotEmpty
                                         ? Image.network(
                                             category['icon'],
-                                            width: 60, // Adjust size as needed
-                                            height: 60,
+                                            width: 50,
+                                            height: 50,
                                             fit: BoxFit.cover,
                                             errorBuilder: (context, error,
                                                     stackTrace) =>
@@ -414,25 +481,143 @@ class _HomeState extends State<Home> {
                                             size: 60),
                                   ),
                                   const SizedBox(height: 5),
-                                  SizedBox(
-                                    width: 70,
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 4.0),
                                     child: Text(
-                                      category['name']['en'],
+                                      category['name']['en'] ?? '',
                                       textAlign: TextAlign.center,
-                                      style: const TextStyle(
-                                        fontSize: 14,
-                                      ),
                                       maxLines: 2,
                                       overflow: TextOverflow.ellipsis,
+                                      style: const TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w500,
+                                      ),
                                     ),
                                   ),
                                 ],
                               ),
-                            ));
-                      }).toList(),
-                    ),
+                            ),
+                          );
+                        },
+                      ),
+
+                      const SizedBox(height: 10),
+
+                      // Conditionally display the "View More" button if categories > 9
+                      if (categories.length > 9)
+                        Container(
+                          width: double.infinity,
+                          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 12),
+                          color: Theme.of(context).cardColor,
+                          child: ElevatedButton(
+                            onPressed: () {
+                              Navigator.pushNamed(context, '/components');
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: const Color.fromARGB(255, 236, 97, 97),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 24, vertical: 12),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                            ),
+                            child: const Text(
+                              'View More',
+                              style: TextStyle(fontSize: 16,),
+                            ),
+                          ),
+                        ),
+                    ],
                   ),
                 ),
+
+                // Container(
+                //   color: Theme.of(context).cardColor,
+                //   height: 500,
+                //   padding: const EdgeInsets.all(10),
+                //   child: GridView.builder(
+                //     itemCount: categories.length,
+                //     gridDelegate:
+                //         const SliverGridDelegateWithFixedCrossAxisCount(
+                //       crossAxisCount: 3, // Number of items per row
+                //       mainAxisSpacing: 10,
+                //       crossAxisSpacing: 8,
+                //       childAspectRatio:
+                //           1.1, // Adjusts height of the title below image
+                //     ),
+                //     physics:
+                //         const NeverScrollableScrollPhysics(), // Disable inner scroll
+                //     itemBuilder: (context, index) {
+                //       final category = categories[index];
+                //       String slug = generateSlug(category['name']['en']);
+                //       String id = category['_id'];
+
+                //       return GestureDetector(
+                //         onTap: () {
+                //           Navigator.pushNamed(
+                //             context,
+                //             '/products',
+                //             arguments: {'slug': slug, 'id': id},
+                //           );
+                //         },
+                //         child: Container(
+                //           decoration: BoxDecoration(
+                //             color: Colors.grey[200],
+                //             borderRadius:
+                //                 BorderRadius.circular(8), // Rounded container
+                //             boxShadow: [
+                //               BoxShadow(
+                //                 color: Colors.grey.withOpacity(0.2),
+                //                 blurRadius: 5,
+                //                 offset: const Offset(0, 3),
+                //               ),
+                //             ],
+                //           ),
+                //           child: Column(
+                //             mainAxisAlignment: MainAxisAlignment.center,
+                //             children: [
+                //               ClipRRect(
+                //                 borderRadius:
+                //                     BorderRadius.circular(30), // Circular image
+                //                 child: category['icon'] != null &&
+                //                         category['icon'].isNotEmpty
+                //                     ? Image.network(
+                //                         category['icon'],
+                //                         width: 50,
+                //                         height: 50,
+                //                         fit: BoxFit.cover,
+                //                         errorBuilder:
+                //                             (context, error, stackTrace) =>
+                //                                 const Icon(
+                //                                     Icons.image_not_supported,
+                //                                     size: 60),
+                //                       )
+                //                     : const Icon(Icons.image_not_supported,
+                //                         size: 60),
+                //               ),
+                //               const SizedBox(height: 5),
+                //               Padding(
+                //                 padding:
+                //                     const EdgeInsets.symmetric(horizontal: 4.0),
+                //                 child: Text(
+                //                   category['name']['en'] ?? '',
+                //                   textAlign: TextAlign.center,
+                //                   maxLines: 2,
+                //                   overflow: TextOverflow.ellipsis,
+                //                   style: const TextStyle(
+                //                     fontSize: 14,
+                //                     fontWeight: FontWeight.w500,
+                //                   ),
+                //                 ),
+                //               ),
+                //             ],
+                //           ),
+                //         ),
+                //       );
+                //     },
+                //   ),
+                // ),
 
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 5),
@@ -628,7 +813,8 @@ class _HomeState extends State<Home> {
                     )),
                 // const BlockbusterDeals(),
                 const SizedBox(height: 12),
-                Image.asset('assets/images/banner/launch.jpg', width: double.infinity),
+                Image.asset('assets/images/banner/launch.jpg',
+                    width: double.infinity),
                 // const HomeDecor(),
                 // SponserdList(),
                 // CategoryList(),
@@ -679,53 +865,3 @@ class _HomeState extends State<Home> {
     );
   }
 }
-
-// class OfferCountdown extends StatefulWidget {
-//   const OfferCountdown({super.key});
-
-//   @override
-//   State<OfferCountdown> createState() => _OfferCountdownState();
-// }
-
-// class _OfferCountdownState extends State<OfferCountdown> {
-//   late final StreamDuration _streamDuration;
-
-//   @override
-//   void initState() {
-//     super.initState();
-//     _streamDuration = StreamDuration(
-//       config: const StreamDurationConfig(
-//         countDownConfig: CountDownConfig(
-//           duration: Duration(days: 1),
-//         ),
-//       ),
-//     );
-//   }
-
-//   @override
-//   void dispose() {
-//     super.dispose();
-//     _streamDuration.dispose();
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Column(
-//       mainAxisAlignment: MainAxisAlignment.center,
-//       children: [
-//         SlideCountdownSeparated(
-//           streamDuration: _streamDuration,
-//           style: const TextStyle(
-//               color: IKColors.title, fontSize: 13, fontWeight: FontWeight.w500),
-//           separatorStyle: const TextStyle(
-//               color: IKColors.primary, fontWeight: FontWeight.w500),
-//           padding: const EdgeInsets.only(left: 5, right: 5, bottom: 1, top: 1),
-//           decoration: const BoxDecoration(
-//             color: IKColors.secondary,
-//             borderRadius: BorderRadius.all(Radius.circular(4)),
-//           ),
-//         ),
-//       ],
-//     );
-//   }
-// }

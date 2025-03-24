@@ -1,8 +1,8 @@
 import 'package:clickcart/components/product/product_card.dart';
 import 'package:clickcart/utils/constants/colors.dart';
-import 'package:clickcart/utils/constants/svg.dart';
+// import 'package:clickcart/utils/constants/svg.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+// import 'package:flutter_svg/flutter_svg.dart';
 
 class ProductCardList extends StatefulWidget {
 
@@ -42,7 +42,7 @@ class ProductCardList extends StatefulWidget {
 
 class _ProductCardListState extends State<ProductCardList> {
   
-  dynamic _isWishlist = false;
+  // dynamic _isWishlist = false;
 
   @override
   Widget build(BuildContext context){
@@ -89,9 +89,9 @@ class _ProductCardListState extends State<ProductCardList> {
                         ),
                         Row(
                           children: [
-                            Text('\$${widget.price}',style: Theme.of(context).textTheme.titleMedium),
+                            Text('₹${widget.price}',style: Theme.of(context).textTheme.titleMedium),
                             const SizedBox(width: 6),
-                            (widget.offer == '0')?Text(''):Text('\$${widget.oldPrice}',style: Theme.of(context).textTheme.bodySmall?.merge(const TextStyle(decoration: TextDecoration.lineThrough))),
+                            (widget.offer == '0')?Text(''):Text('₹${widget.oldPrice}',style: Theme.of(context).textTheme.bodySmall?.merge(const TextStyle(decoration: TextDecoration.lineThrough))),
                             const SizedBox(width: 6),
                             (widget.offer == '0')?Text(''):Text(widget.offer,style: Theme.of(context).textTheme.bodySmall?.merge(const TextStyle(color: Color(0xFFEB5757)))),
                           ],
@@ -99,35 +99,35 @@ class _ProductCardListState extends State<ProductCardList> {
                         const SizedBox(
                           height: 3,
                         ),
-                        Row(
+                        const Row(
                           children: [
-                            const Icon(
+                            Icon(
                               Icons.star,
                               size: 16,
                               color: Color(0xFFFFA048),
                             ),
-                            const Icon(
+                            Icon(
                               Icons.star,
                               size: 16,
                               color: Color(0xFFFFA048),
                             ),
-                            const Icon(
+                            Icon(
                               Icons.star,
                               size: 16,
                               color: Color(0xFFFFA048),
                             ),
-                            const Icon(
+                            Icon(
                               Icons.star,
                               size: 16,
                               color: Color(0xFFFFA048),
                             ),
-                            const Icon(
+                            Icon(
                               Icons.star,
                               size: 16,
                               color: Color(0xFFFFA048),
                             ),
-                            const SizedBox(width: 6),
-                            Text('(${widget.reviews})',style: Theme.of(context).textTheme.bodySmall)
+                            SizedBox(width: 6),
+                            // Text('(${widget.reviews})',style: Theme.of(context).textTheme.bodySmall)
                           ],
                         ),
                         const SizedBox(height: 8),
@@ -153,26 +153,26 @@ class _ProductCardListState extends State<ProductCardList> {
                 const Spacer(flex: 1),
               ],
             ),
-            if(widget.wishlistIcon != false)
-            Positioned(
-              right: 5,
-              top: 5,
-              child: IconButton(
-                onPressed: () {
-                  setState(() {
-                    _isWishlist = !_isWishlist;
-                  });
-                }, 
-                iconSize: 20,
-                icon: SvgPicture.string(
-                  IKSvg.heart,
-                  width: 16,
-                  height: 16,
-                  // ignore: deprecated_member_use
-                  color: _isWishlist ? IKColors.danger : Theme.of(context).textTheme.bodyLarge?.color,
-                ), 
-              ),
-            )
+            // if(widget.wishlistIcon != false)
+            // Positioned(
+            //   right: 5,
+            //   top: 5,
+            //   child: IconButton(
+            //     onPressed: () {
+            //       setState(() {
+            //         _isWishlist = !_isWishlist;
+            //       });
+            //     }, 
+            //     iconSize: 20,
+            //     icon: SvgPicture.string(
+            //       IKSvg.heart,
+            //       width: 16,
+            //       height: 16,
+            //       // ignore: deprecated_member_use
+            //       color: _isWishlist ? IKColors.danger : Theme.of(context).textTheme.bodyLarge?.color,
+            //     ), 
+            //   ),
+            // )
           ],
         ),
       ),

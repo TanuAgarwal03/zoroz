@@ -1,4 +1,3 @@
-import 'package:clickcart/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 
 class SortItem {
@@ -8,82 +7,57 @@ class SortItem {
 }
 
 class ShortBy extends StatefulWidget {
-  const ShortBy({ super.key });
+  final Function(String) onSortSelected;
+  final String initialSelectedValue; // 👈 Add this line
+
+  const ShortBy({
+    super.key,
+    required this.onSortSelected,
+    required this.initialSelectedValue, // 👈 Include this
+  });
 
   @override
-  // ignore: library_private_types_in_public_api
   _ShortByState createState() => _ShortByState();
 }
-
 class _ShortByState extends State<ShortBy> {
-
-  String _selectedValue = "Relevance";
-
-  // ignore: non_constant_identifier_names
-  List<SortItem> SortOptions = [
-    SortItem(title: "Relevance"),
-    SortItem(title: "Popularity"),
+  late String _selectedValue;
+    List<SortItem> sortOptions = [
     SortItem(title: "Price - Low to High"),
     SortItem(title: "Price - High to Low"),
-    SortItem(title: "Newest First"),
   ];
 
-  @override
+@override
+void initState() {
+  super.initState();
+  _selectedValue = widget.initialSelectedValue; // 👈 Use parent value here!
+}
+
+@override
   Widget build(BuildContext context) {
     return Container(
       height: 260,
       color: Theme.of(context).cardColor,
       child: Column(
         children: [
-          Container(
-            padding: const EdgeInsets.only(left: 15,top: 2,bottom: 2,right: 5),
-            decoration: BoxDecoration(
-              border: Border(bottom: BorderSide(width: 1,color: Theme.of(context).dividerColor))
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text('SORT BY',style: Theme.of(context).textTheme.titleLarge),
-                IconButton(
-                  onPressed: () => Navigator.pop(context), 
-                  icon: Icon(Icons.close,color: Theme.of(context).textTheme.titleMedium?.color)
-                )
-              ],
-            ),
-          ),
           Padding(
-            padding: const EdgeInsets.all(15),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: SortOptions.map((item) {
-                return GestureDetector(
-                  onTap: (){ 
-                    setState(() {
-                      _selectedValue = item.title;
-                    });
-                    Navigator.pop(context);
-                  },
-                  child : Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 6),
-                    child: Row(
-                      children: [
-                        Expanded(child: Text(item.title,style: Theme.of(context).textTheme.titleMedium?.merge(const TextStyle( fontSize: 15,fontWeight: FontWeight.w400)))),
-                        Container(
-                          height: 18,
-                          width: 18,
-                          decoration: BoxDecoration(
-                            border: Border.all(width: 4,color: _selectedValue == item.title ? IKColors.primary : Theme.of(context).dividerColor),
-                            borderRadius: BorderRadius.circular(14),
-                          ),
-                        ),
-                      ],
-                    ),
-                  )
-                );
-              }).toList(),
-            ),
-          )
+            padding: const EdgeInsets.all(16.0),
+            child: Text("Sort By", style: Theme.of(context).textTheme.titleLarge),
+          ),
+          ...sortOptions.map((option) {
+            return RadioListTile<String>(
+              title: Text(option.title),
+              value: option.title,
+              groupValue: _selectedValue,
+              onChanged: (value) {
+                setState(() {
+                  _selectedValue = value!;
+                  print(_selectedValue);
+                });
+                widget.onSortSelected(_selectedValue); // 👈 Call the callback
+                Navigator.pop(context); // 👈 Close modal after selection
+              },
+            );
+          }).toList(),
         ],
       ),
     );

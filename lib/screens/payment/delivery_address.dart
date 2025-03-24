@@ -201,7 +201,7 @@ class _DeliveryAddressState extends State<DeliveryAddress> {
                     side: const BorderSide(color: IKColors.secondary),
                     foregroundColor: IKColors.title
                   ),
-                  child: const Text('Continue'),
+                  child: const Text('Continue', style: TextStyle(color: Colors.white),),
                 ),
               )
             ]

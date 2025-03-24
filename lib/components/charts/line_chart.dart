@@ -70,7 +70,7 @@ class LineChartView extends StatelessWidget {
     );
     return SideTitleWidget(
       axisSide: meta.axisSide,
-      child: Text('\$${value + 0.5}', style: style)
+      child: Text('₹${value + 0.5}', style: style)
     );
   }
 

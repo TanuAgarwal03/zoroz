@@ -1,16 +1,12 @@
 // ignore_for_file: deprecated_member_use
-
 import 'package:clickcart/screens/shortcodes/components.dart';
 import 'package:clickcart/utils/constants/colors.dart';
-import 'package:clickcart/utils/constants/images.dart';
 import 'package:clickcart/utils/constants/sizes.dart';
 import 'package:clickcart/utils/constants/svg.dart';
 import 'package:flutter/material.dart';
 import 'package:clickcart/screens/cart/cart.dart';
-import 'package:clickcart/screens/category/category.dart';
 import 'package:clickcart/screens/home/home.dart';
 import 'package:clickcart/screens/profile/profile.dart';
-// import 'package:clickcart/screens/wishlist/wishlist.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class BottomNavigation extends StatefulWidget {
@@ -100,25 +96,12 @@ class _BottomNavigationState extends State<BottomNavigation> {
               ),
               label: 'Cart',
             ),
-            // BottomNavigationBarItem(
-            //   icon: Padding(
-            //     padding: const EdgeInsets.only(bottom: 2,top: 4),
-            //     child: SvgPicture.string(
-            //       IKSvg.wishlist,
-            //       width: 20,
-            //       height: 20,
-            //       color: _selectedIndex == 3 ? IKColors.primary : Theme.of(context).textTheme.titleMedium?.color,
-            //     ),
-            //   ),
-            //   label: 'Wishlist',
-            // ),
             BottomNavigationBarItem(
               icon: Padding(
                 padding: const EdgeInsets.only(bottom: 2,top: 4),
-                // child: Container(),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(20),
-                  child: Image.asset(IKImages.profile,height: 20,width: 20),
+                  child: Icon(Icons.account_circle_outlined, color: _selectedIndex == 3 ? IKColors.primary : Theme.of(context).textTheme.titleMedium?.color,size: 25,),
                 ),
               ),
               label: 'Profile',

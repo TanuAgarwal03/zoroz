@@ -49,7 +49,7 @@ class AppRoutes {
     '/splash': (context) => const Splash(),
     '/choose_language': (context) => const ChooseLanguage(),
     '/signin': (context) => const SignIn(),
-    '/otp': (context) => const Otp(),
+    '/otp': (context) => const Otp(phoneNumber: '',),
     '/signup': (context) => const SignUp(),
     '/main_home': (context) => const BottomNavigation(),
     '/delivery_address': (context) => const DeliveryAddress(),
