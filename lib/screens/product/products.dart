@@ -20,8 +20,9 @@ class Products extends StatefulWidget {
 
 class _ProductsState extends State<Products> {
   List products = [];
-
+  String _productView = "grid";
   bool isLoading = true;
+  bool isProductLoading = true;
   int page = 1;
   bool isFetchingMore = false;
   late ScrollController _scrollController;
@@ -69,27 +70,33 @@ class _ProductsState extends State<Products> {
         final data = json.decode(response.body);
         setState(() {
           products = data['pageProps']['products'];
+          _applySorting(_currentSort);
+          isProductLoading = false;
         });
       } else {
+        setState(() {
+          isProductLoading = false;
+        });
         print('Failed to load products');
       }
     } catch (e) {
+      setState(() {
+        isProductLoading = false;
+      });
       print('Error: $e');
     }
   }
 
   void _applySorting(String sortOption) {
     setState(() {
+       _currentSort = sortOption;
       if (sortOption == "Price - Low to High") {
-        products.sort(
-            (a, b) => a['prices']['price'].compareTo(b['prices']['price']));
+        products.sort((a, b) => (a['prices']['price'] as num)
+            .compareTo(b['prices']['price'] as num));
       } else if (sortOption == "Price - High to Low") {
-        products.sort(
-            (a, b) => b['prices']['price'].compareTo(a['prices']['price']));
+        products.sort((a, b) => (b['prices']['price'] as num)
+            .compareTo(a['prices']['price'] as num));
       }
-      setState(() {});
-      // Debug print
-      print("Sorted products: $products");
     });
   }
 
@@ -125,7 +132,6 @@ class _ProductsState extends State<Products> {
         final List<dynamic> fetchedProducts = responseData['products'];
 
         if (fetchedProducts.isEmpty) {
-          // print('No products found on page $nextPage.');
           setState(() {
             hasMore = false;
             isLoading = false;
@@ -144,20 +150,22 @@ class _ProductsState extends State<Products> {
         print('Server error: ${response.statusCode}');
         setState(() {
           isLoading = false;
+          hasMore = false;
         });
       }
     } catch (e) {
       print('Fetch error: $e');
       setState(() {
         isLoading = false;
+        hasMore = false;
       });
     }
   }
 
-  String _productView = "grid";
-
   @override
   Widget build(BuildContext context) {
+    final args =
+        ModalRoute.of(context)!.settings.arguments as Map<String, String>;
     double containerWidth = MediaQuery.of(context).size.width > 800
         ? 800 / 3
         : MediaQuery.of(context).size.width / 2;
@@ -169,7 +177,7 @@ class _ProductsState extends State<Products> {
             child: Container(
               constraints: const BoxConstraints(maxWidth: IKSizes.container),
               child: AppBar(
-                title: const Text('Product Grid'),
+                title: Text(args['name'] ?? 'Products'),
                 titleSpacing: 5,
                 actions: [
                   IconButton(
@@ -214,277 +222,250 @@ class _ProductsState extends State<Products> {
           )),
       body: Center(
         child: Container(
+          color: Colors.white,
           constraints: const BoxConstraints(maxWidth: IKSizes.container),
-          child: products.isEmpty
+          child: isProductLoading
               ? const Center(
                   child: SizedBox(
                       width: 25,
                       child: LoadingIndicator(
-                          indicatorType: Indicator.lineScalePulseOut)))
-              : Column(children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).cardColor,
-                      boxShadow: const <BoxShadow>[
-                        BoxShadow(
-                          color: Color.fromRGBO(0, 0, 0, 0.1),
-                          blurRadius: 20,
-                        ),
-                      ],
-                    ),
-                    child: Row(
+                          indicatorType: Indicator.lineScalePulseOut)),
+                )
+              : products.isEmpty
+                  ? Center(
+                      child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        /// SORT SECTION - HALF WIDTH
-                        Expanded(
-                          flex: 1, // 50% space
-                          child: GestureDetector(
-                            onTap: () {
-                              showModalBottomSheet<void>(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return ShortBy(
-                                    initialSelectedValue: _currentSort,
-                                    onSortSelected: (selectedSort) {
-                                      setState(() {
-                                        _currentSort = selectedSort;
-                                      });
-                                      _applySorting(_currentSort);
+                        Image.asset(
+                          'assets/images/no_results.png',
+                          height: 200,
+                          width: 250,
+                        ),
+                        const Text('No Products found!!')
+                      ],
+                    ))
+                  : Column(children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).cardColor,
+                          boxShadow: const <BoxShadow>[
+                            BoxShadow(
+                              color: Color.fromRGBO(0, 0, 0, 0.1),
+                              blurRadius: 20,
+                            ),
+                          ],
+                        ),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              flex: 1, // 50% space
+                              child: GestureDetector(
+                                onTap: () {
+                                  showModalBottomSheet<void>(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return ShortBy(
+                                        initialSelectedValue: _currentSort,
+                                        onSortSelected: (selectedSort) {
+                                          setState(() {
+                                            _currentSort = selectedSort;
+                                          });
+                                          _applySorting(_currentSort);
+                                        },
+                                      );
                                     },
                                   );
                                 },
-                              );
-                            },
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 15, vertical: 9),
-                              decoration: BoxDecoration(
-                                border: Border(
-                                  right: BorderSide(
-                                    width: 1,
-                                    color: Theme.of(context).dividerColor,
+                                child: Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 15, vertical: 9),
+                                  decoration: BoxDecoration(
+                                    border: Border(
+                                      right: BorderSide(
+                                        width: 1,
+                                        color: Theme.of(context).dividerColor,
+                                      ),
+                                    ),
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      SvgPicture.string(IKSvg.sort),
+                                      const SizedBox(width: 5),
+                                      Text(
+                                        'SORT',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleMedium
+                                            ?.merge(
+                                              const TextStyle(
+                                                fontSize: 15,
+                                                fontWeight: FontWeight.w400,
+                                              ),
+                                            ),
+                                      ),
+                                    ],
                                   ),
                                 ),
                               ),
+                            ),
+                            Expanded(
+                              flex: 1,
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  SvgPicture.string(IKSvg.sort),
-                                  const SizedBox(width: 5),
-                                  Text(
-                                    'SORT',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .titleMedium
-                                        ?.merge(
-                                          const TextStyle(
-                                            fontSize: 15,
-                                            fontWeight: FontWeight.w400,
+                                  Expanded(
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          _productView = 'list';
+                                        });
+                                      },
+                                      child: Container(
+                                        padding: const EdgeInsets.all(10),
+                                        decoration: BoxDecoration(
+                                          border: Border(
+                                            right: BorderSide(
+                                              width: 1,
+                                              color: Theme.of(context)
+                                                  .dividerColor,
+                                            ),
                                           ),
                                         ),
+                                        child: SvgPicture.string(
+                                          IKSvg.list,
+                                          width: 20,
+                                          height: 20,
+                                          color: _productView == "list"
+                                              ? IKColors.primary
+                                              : Theme.of(context)
+                                                  .textTheme
+                                                  .bodySmall
+                                                  ?.color,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          _productView = 'grid';
+                                        });
+                                      },
+                                      child: Container(
+                                        padding: const EdgeInsets.all(10),
+                                        child: SvgPicture.string(
+                                          IKSvg.grid,
+                                          width: 20,
+                                          height: 20,
+                                          color: _productView == "grid"
+                                              ? IKColors.primary
+                                              : Theme.of(context)
+                                                  .textTheme
+                                                  .bodySmall
+                                                  ?.color,
+                                        ),
+                                      ),
+                                    ),
                                   ),
                                 ],
                               ),
                             ),
-                          ),
+                          ],
                         ),
-
-                        Expanded(
-                          flex: 1,
-                          child: Row(
+                      ),
+                      Expanded(
+                        child: SingleChildScrollView(
+                          controller: _scrollController,
+                          child: Column(
                             children: [
-                              Expanded(
-                                child: GestureDetector(
-                                  onTap: () {
-                                    setState(() {
-                                      _productView = 'list';
-                                    });
-                                  },
-                                  child: Container(
-                                    padding: const EdgeInsets.all(10),
-                                    decoration: BoxDecoration(
-                                      border: Border(
-                                        right: BorderSide(
-                                          width: 1,
-                                          color: Theme.of(context).dividerColor,
-                                        ),
+                              Wrap(
+                                children: [
+                                  ...products.map((product) {
+                                    String imageUrl = product['image']
+                                            .isNotEmpty
+                                        ? product['image'][0]
+                                        : "https://img.myipadbox.com/upload/store/product_l/${product['itemNo']}.jpg";
+
+                                    return SizedBox(
+                                      width: _productView == "list"
+                                          ? null
+                                          : containerWidth,
+                                      child: _productView == "list"
+                                          ? Padding(
+                                              padding: const EdgeInsets.only(
+                                                  bottom: 10.0),
+                                              child: ProductCardList(
+                                                title: product['title']['en'] ??
+                                                    '',
+                                                price: product['prices']
+                                                        ['price']
+                                                    .toString(),
+                                                oldPrice: product['prices']
+                                                        ['originalPrice']
+                                                    .toString(),
+                                                image: imageUrl,
+                                                returnday: "7 Days",
+                                                count: "count",
+                                                offer: product['prices']
+                                                        ['discount']
+                                                    .toString(),
+                                                reviews: "100+ Reviews",
+                                              ),
+                                            )
+                                          : ProductCard(
+                                              slug: product['slug'] ??
+                                                  'polar-m600-charging-cable-black',
+                                              itemNo: product['itemNo'] ??
+                                                  'IP7G8960B',
+                                              title:
+                                                  product['title']['en'] ?? '',
+                                              image: imageUrl,
+                                              price: product['prices']['price']
+                                                  .toString(),
+                                              oldPrice: product['prices']
+                                                      ['originalPrice']
+                                                  .toString(),
+                                              offer: product['prices']
+                                                      ['discount']
+                                                  .toString(),
+                                            ),
+                                    );
+                                  }),
+                                  if (isFetchingMore && hasMore)
+                                    const Center(
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          SizedBox(
+                                            width: 25,
+                                            height: 25,
+                                            child: LoadingIndicator(
+                                              indicatorType:
+                                                  Indicator.lineScalePulseOut,
+                                              colors: [IKColors.primary],
+                                            ),
+                                          ),
+                                          SizedBox(
+                                              height:
+                                                  8), // Space between loader and text
+                                          Text(
+                                            "Loading more...",
+                                            style: TextStyle(
+                                              fontSize: 14,
+                                              color: Colors.grey,
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ),
-                                    child: SvgPicture.string(
-                                      IKSvg.list,
-                                      width: 20,
-                                      height: 20,
-                                      color: _productView == "list"
-                                          ? IKColors.primary
-                                          : Theme.of(context)
-                                              .textTheme
-                                              .bodySmall
-                                              ?.color,
-                                    ),
-                                  ),
-                                ),
-                              ),
-
-                              /// GRID VIEW BUTTON
-                              Expanded(
-                                child: GestureDetector(
-                                  onTap: () {
-                                    setState(() {
-                                      _productView = 'grid';
-                                    });
-                                  },
-                                  child: Container(
-                                    padding: const EdgeInsets.all(10),
-                                    child: SvgPicture.string(
-                                      IKSvg.grid,
-                                      width: 20,
-                                      height: 20,
-                                      color: _productView == "grid"
-                                          ? IKColors.primary
-                                          : Theme.of(context)
-                                              .textTheme
-                                              .bodySmall
-                                              ?.color,
-                                    ),
-                                  ),
-                                ),
+                                ],
                               ),
                             ],
                           ),
                         ),
-                      ],
-                    ),
-                  ),
-                  Expanded(
-                    child: SingleChildScrollView(
-                      controller: _scrollController,
-                      child: Column(
-                        children: [
-                          Wrap(
-                            children: [
-                              // Spread operator to map product list
-                              ...products.map((product) {
-                                String imageUrl = product['image'].isNotEmpty
-                                    ? product['image'][0]
-                                    : "https://img.myipadbox.com/upload/store/product_l/${product['itemNo']}.jpg";
-
-                                return SizedBox(
-                                  width: _productView == "list"
-                                      ? null
-                                      : containerWidth,
-                                  child: _productView == "list"
-                                      ? Padding(
-                                          padding: const EdgeInsets.only(
-                                              bottom: 10.0),
-                                          child: ProductCardList(
-                                            title: product['title']['en'] ?? '',
-                                            price: product['prices']['price']
-                                                .toString(),
-                                            oldPrice: product['prices']
-                                                    ['originalPrice']
-                                                .toString(),
-                                            image: imageUrl,
-                                            returnday: "7 Days",
-                                            count: "count",
-                                            offer: product['prices']['discount']
-                                                .toString(),
-                                            reviews: "100+ Reviews",
-                                          ),
-                                        )
-                                      : ProductCard(
-                                          slug: product['slug'] ??
-                                              'polar-m600-charging-cable-black',
-                                          itemNo:
-                                              product['itemNo'] ?? 'IP7G8960B',
-                                          title: product['title']['en'] ?? '',
-                                          image: imageUrl,
-                                          price: product['prices']['price']
-                                              .toString(),
-                                          oldPrice: product['prices']
-                                                  ['originalPrice']
-                                              .toString(),
-                                          offer: product['prices']['discount']
-                                              .toString(),
-                                        ),
-                                );
-                              }),
-
-                              // Show loading indicator when fetching more products
-                              if (isFetchingMore)
-                                Padding(
-                                  padding: const EdgeInsets.all(16.0),
-                                  child: SizedBox(
-                                    width: 25,
-                                    height: 25,
-                                    child: LoadingIndicator(
-                                      indicatorType:
-                                          Indicator.lineScalePulseOut,
-                                      colors: [Colors.blue],
-                                    ),
-                                  ),
-                                ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  )
-
-                  // Expanded(
-                  //   child: SingleChildScrollView(
-                  //     controller: _scrollController,
-                  //     child: Wrap(
-                  //       children:
-                  //       products.map((product) {
-                  //         String imageUrl = product['image'].isNotEmpty
-                  //             ? product['image'][0]
-                  //             : "https://img.myipadbox.com/upload/store/product_l/${product['itemNo']}.jpg";
-
-                  //         // final bool status =
-                  //         //     product.containsKey('isCustomProduct')
-                  //         //         ? (product['isCustomProduct'] ?? false)
-                  //         //         : false;
-                  //         return SizedBox(
-                  //           width: _productView == "list"
-                  //               ? null
-                  //               : containerWidth,
-                  //           child: _productView == "list"
-                  //               ? Padding(
-                  //                   padding:
-                  //                       const EdgeInsets.only(bottom: 10.0),
-                  //                   child: ProductCardList(
-                  //                     title: product['title']['en'],
-                  //                     price: product['prices']['price']
-                  //                         .toString(),
-                  //                     oldPrice: product['prices']
-                  //                             ['originalPrice']
-                  //                         .toString(),
-                  //                     image: imageUrl,
-                  //                     returnday: "7 Days",
-                  //                     count: "count",
-                  //                     offer: product['prices']['discount']
-                  //                         .toString(),
-                  //                     reviews: "100+ Reviews",
-                  //                   ),
-                  //                 )
-                  //               : ProductCard(
-                  //                   slug: product['slug'] ??
-                  //                       'polar-m600-charging-cable-black',
-                  //                   itemNo: product['itemNo'] ?? 'IP7G8960B',
-                  //                   title: product['title']['en'],
-                  //                   image: imageUrl,
-                  //                   price:
-                  //                       product['prices']['price'].toString(),
-                  //                   oldPrice: product['prices']
-                  //                           ['originalPrice']
-                  //                       .toString(),
-                  //                   offer: product['prices']['discount']
-                  //                       .toString(),
-                  //                 ),
-                  //         );
-                  //       }).toList()
-
-                  //     ),
-                ]),
+                      )
+                    ]),
         ),
       ),
     );

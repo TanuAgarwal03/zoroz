@@ -60,6 +60,17 @@ class _ProductDetailState extends State<ProductDetail> {
     });
   }
 
+  void shareProduct(String title) {
+    final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
+    String productUrl = "'https://store.vansedemo.xyz/product/${args.slug}";
+
+    String shareText = "Check out this product!\n\n"
+        "🛍️ *$title*\n"
+        "🔗 View Product: $productUrl";
+
+    SocialShare.shareOptions(shareText);
+  }
+
   Future<void> _fetchProductDetail() async {
     setState(() {
       isLoading = true;
@@ -160,11 +171,9 @@ class _ProductDetailState extends State<ProductDetail> {
         }
       } else {
         print('HTTP Error: ${response.statusCode}, ${response.body}');
-        // return null;
       }
     } catch (e) {
       print('Exception: $e');
-      // return null;
     }
   }
 
@@ -172,16 +181,10 @@ class _ProductDetailState extends State<ProductDetail> {
     var box = await Hive.openBox('userBox');
     final loginData = box.get('loginData');
 
-    // print('loginData in productDeatil : $loginData');
-
     if (loginData != null) {
       token = loginData['token'] ??
           'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2RhNTk0ZTAxZDgxOGI1OWEyMjlkODQiLCJuYW1lIjoiVGFudSIsInBob25lIjoiODU2MjgwNTIyOCIsImlhdCI6MTc0MjM2NzE0NCwiZXhwIjoxNzQyMzY3MjA0fQ.NGvO6VUx7i8qlZp7SKKhj1_123BvWxDTDAYw0Aunquk';
-      // print('Phone: ${loginData['phone']}');
-      // print('Token (if available): ${loginData['token']}');
-      // print('Name : ${loginData['name']}');
-      // print('Email : ${loginData['email']}');
-      // print('Id : ${loginData['_id']}');
+
       setState(() {});
     }
   }
@@ -213,10 +216,8 @@ class _ProductDetailState extends State<ProductDetail> {
           (items[existingProductIndex]['quantity'] ?? 1) + _quantity;
     } else {
       Map<String, dynamic> newProduct = Map<String, dynamic>.from(productData);
-      print('🆕 Adding new product with ID: ${newProduct['_id']}');
       newProduct['quantity'] = _quantity;
       items.add(newProduct);
-      print('📦 Adding product: ${productData['_id']} - ${productData['name']}');
     }
 
     double newCartTotal =
@@ -229,32 +230,28 @@ class _ProductDetailState extends State<ProductDetail> {
     existingCart['totalItems'] = newTotalItems;
     existingCart['totalUniqueItems'] = newTotalUniqueItems;
     await cartBox.put('cart', existingCart);
-    // print('🗄️ Updated Cart After Adding: $existingCart');
 
     try {
       final response = await http.post(
         url,
         headers: {
           "Content-Type": "application/json",
-          "Authorization": "Bearer $token" // your token
+          "Authorization": "Bearer $token"
         },
         body: jsonEncode(existingCart),
       );
       if (response.statusCode == 200) {
         setState(() {
-          cartItems.add(productData); // Optional, depending on your logic
+          cartItems.add(productData);
           cartCount += _quantity;
           isLoading = false;
         });
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            behavior:
-                SnackBarBehavior.floating, // Makes it float and easier to style
-            margin:
-                const EdgeInsets.all(8), // Optional margin from screen edges
+            behavior: SnackBarBehavior.floating,
+            margin: const EdgeInsets.all(8),
             backgroundColor: Colors.green,
-            padding: const EdgeInsets.symmetric(
-                horizontal: 8, vertical: 8), // Increases height
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
             content: const Text(
               'Item added to cart successfully!',
               style: TextStyle(color: Colors.white, fontSize: 16),
@@ -266,7 +263,7 @@ class _ProductDetailState extends State<ProductDetail> {
                 ScaffoldMessenger.of(context).hideCurrentSnackBar();
               },
             ),
-            duration: const Duration(seconds: 5), // Optional: visible duration
+            duration: const Duration(seconds: 5),
           ),
         );
 
@@ -566,8 +563,9 @@ class _ProductDetailState extends State<ProductDetail> {
                             top: 5,
                             child: IconButton(
                               onPressed: () {
-                                SocialShare.shareOptions(
-                                    'Check out this product! ${args.title}');
+                                shareProduct(args.title);
+                                // SocialShare.shareOptions(
+                                //     'Check out this product! ${args.title}');
                               },
                               iconSize: 20,
                               icon: SvgPicture.string(
@@ -590,13 +588,6 @@ class _ProductDetailState extends State<ProductDetail> {
                         children: [
                           Text(args.title,
                               style: Theme.of(context).textTheme.headlineSmall),
-                          // Text('In Stock',
-                          //     style: Theme.of(context)
-                          //         .textTheme
-                          //         .titleMedium
-                          //         ?.merge(const TextStyle(
-                          //             color: IKColors.success, fontSize: 12))),
-
                           const SizedBox(height: 10),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -1047,7 +1038,7 @@ class _ProductDetailState extends State<ProductDetail> {
                     : 'https://img.myipadbox.com/upload/store/product_l/$itemNo.jpg',
                 fit: BoxFit.cover,
                 errorBuilder: (context, error, stackTrace) =>
-                    const Icon(Icons.image), // Handles broken image URLs
+                    const Icon(Icons.image),
               ),
             ),
           );
@@ -1710,8 +1701,19 @@ class _ProductDetailState extends State<ProductDetail> {
                                                   child: (item['image'] !=
                                                               null &&
                                                           item['image']
-                                                              .isNotEmpty)
-                                                      ? item['image'][0]
+                                                              .isNotEmpty &&
+                                                          item['image'][0]
+                                                              is String)
+                                                      ? Image.network(
+                                                          item['image'][
+                                                              0], // Ensure it's a valid URL string
+                                                          fit: BoxFit.cover,
+                                                          errorBuilder: (context,
+                                                                  error,
+                                                                  stackTrace) =>
+                                                              const Icon(
+                                                                  Icons.image),
+                                                        )
                                                       : Image.network(
                                                           'https://img.myipadbox.com/upload/store/product_l/$itemNo.jpg',
                                                           fit: BoxFit.cover,
@@ -1721,6 +1723,21 @@ class _ProductDetailState extends State<ProductDetail> {
                                                               const Icon(
                                                                   Icons.image),
                                                         ),
+
+                                                  // child: (item['image'] !=
+                                                  //             null &&
+                                                  //         item['image']
+                                                  //             .isNotEmpty)
+                                                  //     ? item['image'][0]
+                                                  //     : Image.network(
+                                                  //         'https://img.myipadbox.com/upload/store/product_l/$itemNo.jpg',
+                                                  //         fit: BoxFit.cover,
+                                                  //         errorBuilder: (context,
+                                                  //                 error,
+                                                  //                 stackTrace) =>
+                                                  //             const Icon(
+                                                  //                 Icons.image),
+                                                  //       ),
                                                 ),
                                               ),
                                               const SizedBox(width: 10),
@@ -1806,43 +1823,6 @@ class _ProductDetailState extends State<ProductDetail> {
               child: SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  // onPressed: () async {
-                  //   if (alloptionList.isEmpty) {
-                  //     debugPrint('❌ alloptionList is empty. Cannot proceed!');
-                  // ScaffoldMessenger.of(context).showSnackBar(
-                  //   const SnackBar(
-                  //     content: Text('❌ No items to add!'),
-                  //     backgroundColor: Colors.red,
-                  //   ),
-                  // );
-                  //     return;
-                  //   }
-
-                  //   bool hasItems = false;
-
-                  //   quantities.forEach((index, qty) {
-                  //     if (qty > 0) {
-                  //       hasItems = true;
-                  //       debugPrint(
-                  //           'Item #$index Quantity: $qty | Total Amount: ₹${qty * alloptionList[index]['prices']['originalPrice']}');
-                  //     }
-                  //   });
-
-                  //   if (!hasItems) {
-                  //     ScaffoldMessenger.of(context).showSnackBar(
-                  //       const SnackBar(
-                  //         content: Text('❗Please select at least one item!'),
-                  //         backgroundColor: Colors.orange,
-                  //       ),
-                  //     );
-                  //     return;
-                  //   }
-
-                  //   await addBulkItemsToCart(quantities);
-                  //   Navigator.of(context).pop();
-                  //   Navigator.pushNamed(context, '/cart');
-                  // },
-
                   onPressed: () async {
                     // Navigator.of(context).pop();
                     quantities.forEach((index, qty) {

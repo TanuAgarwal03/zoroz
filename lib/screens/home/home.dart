@@ -4,6 +4,7 @@ import 'package:clickcart/components/drawer/drawer_menu.dart';
 import 'package:clickcart/components/home/banner_swiper.dart';
 import 'package:clickcart/components/product/product_card.dart';
 import 'package:clickcart/components/home/service_list.dart';
+import 'package:clickcart/utils/constants/colors.dart';
 import 'package:clickcart/utils/constants/sizes.dart';
 // import 'package:clickcart/utils/constants/svg.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +21,8 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  final ScrollController _scrollController = ScrollController();
+  bool _showBackToTopButton = false;
   List categories = [];
   List<Map<String, dynamic>> productItems = [];
   List<Map<String, dynamic>> appleproductItems = [];
@@ -57,6 +60,31 @@ class _HomeState extends State<Home> {
     // loginSheetTime();
     fetchSliders();
     fetchLogindetails();
+    _scrollController.addListener(() {
+      if (_scrollController.offset > 300) {
+        setState(() {
+          _showBackToTopButton = true;
+        });
+      } else {
+        setState(() {
+          _showBackToTopButton = false;
+        });
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  void _scrollToTop() {
+    _scrollController.animateTo(
+      0.0,
+      duration: Duration(milliseconds: 500),
+      curve: Curves.easeInOut,
+    );
   }
 
   Future<void> fetchSliders() async {
@@ -340,9 +368,15 @@ class _HomeState extends State<Home> {
                     );
                   },
                 ),
-                title: Image.asset(
-                  'assets/images/applogo.png',
-                  height: 30,
+                title: ClipRRect(
+                  borderRadius:
+                      BorderRadius.circular(4), // Adjust the radius as needed
+                  child: Image.asset(
+                    'assets/images/logo_cropped.png',
+                    height: 24,
+                    fit: BoxFit
+                        .cover, // Ensures the image fits properly within the rounded container
+                  ),
                 ),
                 titleSpacing: 5,
               ),
@@ -356,6 +390,7 @@ class _HomeState extends State<Home> {
             maxWidth: IKSizes.container,
           ),
           child: SingleChildScrollView(
+            controller: _scrollController,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -438,13 +473,18 @@ class _HomeState extends State<Home> {
                           final category = categories[index];
                           String slug = generateSlug(category['name']['en']);
                           String id = category['_id'];
+                          String categoryName = category['name']['en'];
 
                           return GestureDetector(
                             onTap: () {
                               Navigator.pushNamed(
                                 context,
                                 '/products',
-                                arguments: {'slug': slug, 'id': id},
+                                arguments: {
+                                  'slug': slug,
+                                  'id': id,
+                                  'name': categoryName
+                                },
                               );
                             },
                             child: Container(
@@ -508,14 +548,16 @@ class _HomeState extends State<Home> {
                       if (categories.length > 9)
                         Container(
                           width: double.infinity,
-                          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 12),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 12),
                           color: Theme.of(context).cardColor,
                           child: ElevatedButton(
                             onPressed: () {
                               Navigator.pushNamed(context, '/components');
                             },
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color.fromARGB(255, 236, 97, 97),
+                              backgroundColor:
+                                  const Color.fromARGB(255, 236, 97, 97),
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 24, vertical: 12),
                               shape: RoundedRectangleBorder(
@@ -524,101 +566,15 @@ class _HomeState extends State<Home> {
                             ),
                             child: const Text(
                               'View More',
-                              style: TextStyle(fontSize: 16,),
+                              style: TextStyle(
+                                fontSize: 16,
+                              ),
                             ),
                           ),
                         ),
                     ],
                   ),
                 ),
-
-                // Container(
-                //   color: Theme.of(context).cardColor,
-                //   height: 500,
-                //   padding: const EdgeInsets.all(10),
-                //   child: GridView.builder(
-                //     itemCount: categories.length,
-                //     gridDelegate:
-                //         const SliverGridDelegateWithFixedCrossAxisCount(
-                //       crossAxisCount: 3, // Number of items per row
-                //       mainAxisSpacing: 10,
-                //       crossAxisSpacing: 8,
-                //       childAspectRatio:
-                //           1.1, // Adjusts height of the title below image
-                //     ),
-                //     physics:
-                //         const NeverScrollableScrollPhysics(), // Disable inner scroll
-                //     itemBuilder: (context, index) {
-                //       final category = categories[index];
-                //       String slug = generateSlug(category['name']['en']);
-                //       String id = category['_id'];
-
-                //       return GestureDetector(
-                //         onTap: () {
-                //           Navigator.pushNamed(
-                //             context,
-                //             '/products',
-                //             arguments: {'slug': slug, 'id': id},
-                //           );
-                //         },
-                //         child: Container(
-                //           decoration: BoxDecoration(
-                //             color: Colors.grey[200],
-                //             borderRadius:
-                //                 BorderRadius.circular(8), // Rounded container
-                //             boxShadow: [
-                //               BoxShadow(
-                //                 color: Colors.grey.withOpacity(0.2),
-                //                 blurRadius: 5,
-                //                 offset: const Offset(0, 3),
-                //               ),
-                //             ],
-                //           ),
-                //           child: Column(
-                //             mainAxisAlignment: MainAxisAlignment.center,
-                //             children: [
-                //               ClipRRect(
-                //                 borderRadius:
-                //                     BorderRadius.circular(30), // Circular image
-                //                 child: category['icon'] != null &&
-                //                         category['icon'].isNotEmpty
-                //                     ? Image.network(
-                //                         category['icon'],
-                //                         width: 50,
-                //                         height: 50,
-                //                         fit: BoxFit.cover,
-                //                         errorBuilder:
-                //                             (context, error, stackTrace) =>
-                //                                 const Icon(
-                //                                     Icons.image_not_supported,
-                //                                     size: 60),
-                //                       )
-                //                     : const Icon(Icons.image_not_supported,
-                //                         size: 60),
-                //               ),
-                //               const SizedBox(height: 5),
-                //               Padding(
-                //                 padding:
-                //                     const EdgeInsets.symmetric(horizontal: 4.0),
-                //                 child: Text(
-                //                   category['name']['en'] ?? '',
-                //                   textAlign: TextAlign.center,
-                //                   maxLines: 2,
-                //                   overflow: TextOverflow.ellipsis,
-                //                   style: const TextStyle(
-                //                     fontSize: 14,
-                //                     fontWeight: FontWeight.w500,
-                //                   ),
-                //                 ),
-                //               ),
-                //             ],
-                //           ),
-                //         ),
-                //       );
-                //     },
-                //   ),
-                // ),
-
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 5),
                   child: Row(
@@ -657,7 +613,6 @@ class _HomeState extends State<Home> {
                     ],
                   ),
                 ),
-
                 Container(
                     decoration: BoxDecoration(
                         border: Border(
@@ -698,7 +653,6 @@ class _HomeState extends State<Home> {
                         ),
                       ],
                     )),
-
                 ServiceList(),
                 Container(
                     decoration: BoxDecoration(
@@ -759,15 +713,6 @@ class _HomeState extends State<Home> {
                             child: Image.asset(
                                 'assets/images/banner/smartphone_banner.png')),
                       ),
-                      // const SizedBox(width: 6),
-                      // Expanded(
-                      //   child: GestureDetector(
-                      //       onTap: () {
-                      //         Navigator.pushNamed(context, '/products');
-                      //       },
-                      //       child: Image.asset(IKImages.banner3)),
-                      // ),
-                      // Expanded(),
                     ],
                   ),
                 ),
@@ -811,13 +756,9 @@ class _HomeState extends State<Home> {
                         ),
                       ],
                     )),
-                // const BlockbusterDeals(),
                 const SizedBox(height: 12),
                 Image.asset('assets/images/banner/launch.jpg',
                     width: double.infinity),
-                // const HomeDecor(),
-                // SponserdList(),
-                // CategoryList(),
                 Column(
                   children: [
                     Container(
@@ -862,6 +803,15 @@ class _HomeState extends State<Home> {
           ),
         ),
       ),
+      floatingActionButton: _showBackToTopButton
+          ? FloatingActionButton(
+              onPressed: _scrollToTop,
+              backgroundColor: IKColors.primary,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(50)),
+              child: const Icon(Icons.arrow_upward, color: Colors.white),
+            )
+          : null,
     );
   }
 }

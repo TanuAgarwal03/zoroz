@@ -25,27 +25,27 @@ class ProductCart extends StatelessWidget {
   final VoidCallback? onDecreaseQuantity;
   final int totalValue;
 
-  const ProductCart(
-      {super.key,
-      this.category,
-      required this.title,
-      required this.price,
-      required this.oldPrice,
-      required this.image,
-      required this.returnday,
-      required this.count,
-      required this.offer,
-      required this.reviews,
-      this.bottomOption,
-      this.orderStatus,
-      this.orderRated,
-      this.removePress,
-      required this.itemNo,
-      required this.slug,
-      this.onIncreaseQuantity,
-      this.onDecreaseQuantity,
-      required this.totalValue,
-      });
+  const ProductCart({
+    super.key,
+    this.category,
+    required this.title,
+    required this.price,
+    required this.oldPrice,
+    required this.image,
+    required this.returnday,
+    required this.count,
+    required this.offer,
+    required this.reviews,
+    this.bottomOption,
+    this.orderStatus,
+    this.orderRated,
+    this.removePress,
+    required this.itemNo,
+    required this.slug,
+    this.onIncreaseQuantity,
+    this.onDecreaseQuantity,
+    required this.totalValue,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +76,6 @@ class ProductCart extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 12.0),
                   child: Column(
-                    
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(
@@ -161,7 +160,6 @@ class ProductCart extends StatelessWidget {
                         Text('$returnday Days return available',
                             style: Theme.of(context).textTheme.bodyMedium)
                       ]),
-
                       Text('Total: ₹$total',
                           style: Theme.of(context).textTheme.titleMedium),
                     ],

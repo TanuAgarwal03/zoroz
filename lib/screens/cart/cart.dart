@@ -401,7 +401,7 @@ class _CartState extends State<Cart> {
         children: cartItems.map((item) {
           String itemNo = item['itemNo'] ?? 'default';
           int quantity = int.tryParse(item['quantity'].toString()) ?? 1;
-          print('cartitems : ${ item['title']['en']}');
+          // print('cartitems : ${ item['title']['en']}');
           bool isCustomProduct = item.containsKey('isCustomProduct')
               ? item['isCustomProduct'] == true
               : false;
